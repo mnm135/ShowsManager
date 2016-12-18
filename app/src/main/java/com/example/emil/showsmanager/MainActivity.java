@@ -30,9 +30,6 @@ public class MainActivity extends AppCompatActivity
     protected DrawerLayout drawer;
 
 
-    //public static final int RC_SIGN_IN = 1;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
