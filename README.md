@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Application contains four activities:
 
 MainActivity that contains a navigation drawer:
@@ -44,3 +45,6 @@ Thing I'm changing now or want to change soon:
 - add feature to present more info about upcoming episodes while clicking particular position on Upcoming list,
 
 
+=======
+# ShowsManager
+>>>>>>> d1b1f3515731105209819188bc74cbd5da9cf1ec
