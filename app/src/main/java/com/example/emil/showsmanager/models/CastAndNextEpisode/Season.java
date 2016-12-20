@@ -29,7 +29,7 @@ public class Season {
     private Object premiereDate;
     @SerializedName("endDate")
     @Expose
-    private String endDate;
+    private Object endDate;
     @SerializedName("network")
     @Expose
     private Network_ network;
@@ -38,7 +38,7 @@ public class Season {
     private Object webChannel;
     @SerializedName("image")
     @Expose
-    private Image image;
+    private Object image;
     @SerializedName("summary")
     @Expose
     private String summary;
@@ -94,11 +94,11 @@ public class Season {
         this.premiereDate = premiereDate;
     }
 
-    public String getEndDate() {
+    public Object getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Object endDate) {
         this.endDate = endDate;
     }
 
@@ -118,11 +118,11 @@ public class Season {
         this.webChannel = webChannel;
     }
 
-    public Image getImage() {
+    public Object getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(Object image) {
         this.image = image;
     }
 

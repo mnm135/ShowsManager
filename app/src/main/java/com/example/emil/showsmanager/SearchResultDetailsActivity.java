@@ -46,7 +46,7 @@ public class SearchResultDetailsActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle("");
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
 /*
@@ -60,7 +60,7 @@ public class SearchResultDetailsActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 */
 
-/*
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +69,7 @@ public class SearchResultDetailsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-*/
+
         Intent intent = getIntent();
         showId = intent.getStringExtra("showId");
 
