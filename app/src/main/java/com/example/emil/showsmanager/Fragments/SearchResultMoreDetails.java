@@ -3,7 +3,10 @@ package com.example.emil.showsmanager.Fragments;
 import android.content.Context;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,16 +22,14 @@ import android.widget.TextView;
 
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.SearchResultDetailsActivity;
-import com.example.emil.showsmanager.models.CastAndNextEpisode.Image;
+
 import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNextEpisodeResponse;
 import com.example.emil.showsmanager.rest.ApiClient;
 import com.example.emil.showsmanager.rest.ShowDetailsEndPoints;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,35 +61,53 @@ public class SearchResultMoreDetails extends Fragment {
 
     @BindView(R.id.thetvdb_pic) ImageView thetvdbPicture;
 
+    @BindView(R.id.fab_subscribe)
+    FloatingActionButton fabSubscribe;
+
+    @BindView(R.id.next_episode) LinearLayout nextEpisode;
+
+    @OnClick(R.id.next_episode)
+    public void startNextEpisodeFragment(View view) {
+
+        Fragment newFragment = new NextEpisodeDetailsFragment();
+        Bundle arguments = new Bundle();
+        arguments.putString( "showId" , showId);
+        newFragment.setArguments(arguments);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack
+        transaction.replace(R.id.container, newFragment);
+        transaction.addToBackStack(null);
+
+// Commit the transaction
+        transaction.commit();
+    }
+
+    @OnClick(R.id.fab_subscribe)
+    public void SnackbarNotification(View view) {
+        Snackbar.make(view, "Great, it works with Material Design", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+
+
     HorizontalScrollView scrollView;
 
 
- //   ImageView posterHolder;
-   // TextView nameHolder;
-  //  TextView statusHolder;
-  //  TextView plotHolder;
-//    TextView genresHolder;
- //   ImageView imageView;
    ImageView toolbarImage;
     HorizontalScrollView seasonsScrollView;
-  ///  TextView episodeTimeHolder;
-//    TextView countryHolder;
-  //  TextView nextEpisodeNameHolder;
-//    TextView nextEpisodeAirdateHolder;
-  //  TextView nextEpisodeNumber;
-    //TextView nextEpisodeSummary;
-    //ImageView nextEpisodePicture;
+
 
     LinearLayout topLinearLayout;
     LinearLayout seasonsLinearLayout;
 
-    private String mParam1;
     String showId;
 
 
 
     public SearchResultMoreDetails() {
-        // Required empty public constructor
+
     }
 
 
@@ -105,28 +124,16 @@ public class SearchResultMoreDetails extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // if (getArguments() != null) {
-         //   mParam1 = getArguments().getString(SHOW_ID);
-          //  mParam2 = getArguments().getString(ARG_PARAM2);
-        //}
-        //((SearchResultDetailsActivity) getActivity()).getSupportActionBar().hide();
-        //ButterKnife.bind(this);
-
-
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        // return inflater.inflate(R.layout.fragment_search_result_more_details, container, false);
         SearchResultDetailsActivity activity = (SearchResultDetailsActivity) getActivity();
         showId = activity.getShowId();
         View view = inflater.inflate(R.layout.fragment_search_result_more_details, container, false);
         ButterKnife.bind(this, view);
-
-
 
 
 
@@ -136,8 +143,8 @@ public class SearchResultMoreDetails extends Fragment {
         topLinearLayout = new LinearLayout(getContext());
         seasonsLinearLayout = new LinearLayout(getContext());
 
-        getShowDetails(showId);
 
+        getShowDetails(showId);
 
 
         return view;
@@ -146,8 +153,6 @@ public class SearchResultMoreDetails extends Fragment {
     public void getShowDetails(String showId) {
         ShowDetailsEndPoints apiService = ApiClient.getClient().create(ShowDetailsEndPoints.class);
         Call<ShowDetailsWithNextEpisodeResponse> call = apiService.getResponse(showId, "cast", "nextepisode", "seasons");
-
-
 
         call.enqueue(new Callback<ShowDetailsWithNextEpisodeResponse>() {
             @Override
@@ -160,31 +165,12 @@ public class SearchResultMoreDetails extends Fragment {
                     String picuteUrlMedium = response.body().getImage().getMedium();
                     Picasso.with(getContext())
                             .load(pictureUrl)
-                            //.resize(300,300)
-                            //.placeholder(R.drawable.placeholder_image)
-                            //.error(R.drawable.placeholder_image)
                             .into(toolbarImage);
 
                     Picasso.with(getContext()).load(picuteUrlMedium).into(showPoster);
                 }
 
-                /*
 
-
-
-
-
-
-    @BindView(R.id.show_number_of_episodes) TextView numberOfEpisodes;
-
-
-    @BindView(R.id.imdb_pic) ImageView imdbPicture;
-    @BindView(R.id.tvmaze_pic) ImageView tvmazePicture;
-    @BindView(R.id.tvrage_pic) ImageView tvragePicture;
-    @BindView(R.id.thetvdb_pic) ImageView thetvdbPicture;
-                 */
-
-                String genres = response.body().getGenres().toString();
                 showName.setText(response.body().getName());
 
                 // @TODO zmienić years
@@ -223,8 +209,6 @@ public class SearchResultMoreDetails extends Fragment {
 
 
                 int castSize = response.body().getEmbedded().getCast().size();
-                //int seasonsSize = response.body().getEmbedded().getSeasons().size();
-
 
                 for (int i=0; i<castSize; i++) {
 
@@ -235,27 +219,12 @@ public class SearchResultMoreDetails extends Fragment {
                     TextView character = (TextView) vi.findViewById(R.id.cast_character);
                     ImageView characterImage = (ImageView) vi.findViewById(R.id.cast_image);
 
-
-
-
-                  //  final ImageView imageView = new ImageView(getContext());
-                   // imageView.setTag(i);
                     String imgUrl = response.body().getEmbedded().getCast().get(i).getCharacter().getImage().getMedium();
                     Picasso.with(getContext()).load(imgUrl).into(characterImage);
                     person.setText(response.body().getEmbedded().getCast().get(i).getPerson().getName());
                     character.setText(response.body().getEmbedded().getCast().get(i).getCharacter().getName());
 
                     topLinearLayout.addView(vi);
-
-
-                  //  LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                  //  lp.setMargins(7, 0, 7, 0);
-                  //  imageView.setLayoutParams(lp);
-
-
-                    //topLinearLayout.addView(imageView);
-
-                            //  Picasso.with(getContext()).load(picuteUrlMedium).into(showPoster);
                 }
 
                 for (int i=0; i<seasonsSize; i++) {
@@ -273,8 +242,6 @@ public class SearchResultMoreDetails extends Fragment {
 
                         seasonsLinearLayout.addView(imageView);
                     }
-
-                    //  Picasso.with(getContext()).load(picuteUrlMedium).into(showPoster);
                 }
 
                 scrollView.addView(topLinearLayout);
