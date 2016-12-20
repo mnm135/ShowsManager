@@ -1,24 +1,21 @@
 package com.example.emil.showsmanager.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.emil.showsmanager.R;
-import com.example.emil.showsmanager.models.CastAndNextEpisode.NextEpisodeResponse;
-import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNextEpisodeResponse;
+import com.example.emil.showsmanager.models.CastAndNextEpisode.EpisodeResponse;
 import com.example.emil.showsmanager.rest.ApiClient;
-import com.example.emil.showsmanager.rest.NextEpisodeEndPoints;
-import com.example.emil.showsmanager.rest.ShowDetailsEndPoints;
+import com.example.emil.showsmanager.rest.EpisodeEndPoints;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,12 +23,23 @@ import retrofit2.Response;
 
 public class NextEpisodeDetailsFragment extends Fragment {
 
+
+
+    @BindView(R.id.image_toolbar) ImageView toolbarImage;
+    @BindView(R.id.episode_description) TextView episodeDescription;
+    @BindView(R.id.episode_name) TextView episodeName;
+    @BindView(R.id.episode_season) TextView episodeSeason;
+    @BindView(R.id.episode_number) TextView episodeNumber;
+    @BindView(R.id.episode_runtime) TextView episodeRuntime;
+    @BindView(R.id.episode_airdate) TextView episodeAirdate;
+    @BindView(R.id.episode_airtime) TextView episodeAirtime;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
     private String mParam2;
-    String showId;
+    String episodeId;
     TextView text;
 
     public NextEpisodeDetailsFragment() {
@@ -61,13 +69,14 @@ public class NextEpisodeDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_next_episode_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_episode_details, container, false);
+        ButterKnife.bind(this, view);
 
         Bundle arguments = getArguments();
-        showId = arguments.getString("showId");
-        text = (TextView) view.findViewById(R.id.text);
+        episodeId = arguments.getString("episodeId");
 
-        getNextEpData(showId);
+
+        getNextEpData(episodeId);
 
 
 
@@ -80,16 +89,36 @@ public class NextEpisodeDetailsFragment extends Fragment {
 
 
 
-        NextEpisodeEndPoints apiService = ApiClient.getClient().create(NextEpisodeEndPoints.class);
-        Call<NextEpisodeResponse> call = apiService.getResponse(showId, "nextepisode");
+        EpisodeEndPoints apiService = ApiClient.getClient().create(EpisodeEndPoints.class);
+        Call<EpisodeResponse> call = apiService.getResponse(episodeId);
 
-        call.enqueue(new Callback<NextEpisodeResponse>() {
+        call.enqueue(new Callback<EpisodeResponse>() {
             @Override
-            public void onResponse(Call<NextEpisodeResponse> call,
-                                   Response<NextEpisodeResponse> response) {
+            public void onResponse(Call<EpisodeResponse> call,
+                                   Response<EpisodeResponse> response) {
 
-                text.setText(response.body().getEmbedded().getNextepisode().getAirdate());
+               /*
 
+               @BindView(R.id.image_toolbar) ImageView toolbarImage;
+    @BindView(R.id.episode_description) TextView episodeDescription;
+    @BindView(R.id.episode_name) TextView episodeName;
+    @BindView(R.id.episode_season) TextView episodeSeason;
+    @BindView(R.id.episode_number) TextView episodeNumber;
+    @BindView(R.id.episode_runtime) TextView episodeRuntime;
+    @BindView(R.id.episode_airdate) TextView episodeAirdate;
+    @BindView(R.id.episode_airtime) TextView episodeAirtime;
+                */
+
+                Picasso.with(getContext())
+                        .load(response.body().getImage().getOriginal())
+                        .into(toolbarImage);
+                episodeDescription.setText(response.body().getSummary());
+                episodeName.setText(response.body().getName());
+                episodeSeason.setText(response.body().getSeason().toString());
+                episodeNumber.setText(response.body().getNumber().toString());
+                episodeRuntime.setText(response.body().getRuntime().toString());
+                episodeAirdate.setText(response.body().getRuntime().toString());
+                episodeAirtime.setText(response.body().getAirtime());
 
 
 
@@ -97,7 +126,7 @@ public class NextEpisodeDetailsFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<NextEpisodeResponse> call, Throwable t) {
+            public void onFailure(Call<EpisodeResponse> call, Throwable t) {
 
             }
         });

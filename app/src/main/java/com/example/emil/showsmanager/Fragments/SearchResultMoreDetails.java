@@ -37,8 +37,8 @@ import retrofit2.Response;
 
 public class SearchResultMoreDetails extends Fragment {
 
-    private static final String SHOW_ID = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
+    String nextEpisodeId;
 
     @BindView(R.id.show_name) TextView showName;
     @BindView(R.id.show_years_first_section) TextView showYears;
@@ -71,7 +71,7 @@ public class SearchResultMoreDetails extends Fragment {
 
         Fragment newFragment = new NextEpisodeDetailsFragment();
         Bundle arguments = new Bundle();
-        arguments.putString( "showId" , showId);
+        arguments.putString( "episodeId" , nextEpisodeId);
         newFragment.setArguments(arguments);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
@@ -113,10 +113,8 @@ public class SearchResultMoreDetails extends Fragment {
 
     public static SearchResultMoreDetails newInstance(String param1, String param2) {
         SearchResultMoreDetails fragment = new SearchResultMoreDetails();
-        Bundle args = new Bundle();
-        args.putString(SHOW_ID, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+
+
 
         return fragment;
     }
@@ -158,6 +156,10 @@ public class SearchResultMoreDetails extends Fragment {
             @Override
             public void onResponse(Call<ShowDetailsWithNextEpisodeResponse> call, Response<ShowDetailsWithNextEpisodeResponse> response) {
 
+
+                if(response.body().getEmbedded().getNextepisode() != null) {
+                    nextEpisodeId = response.body().getEmbedded().getNextepisode().getId().toString();
+                }
 
 
                 if (response.body().getImage().getOriginal() != null) {
