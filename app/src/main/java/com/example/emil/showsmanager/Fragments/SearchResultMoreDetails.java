@@ -24,8 +24,16 @@ import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.SearchResultDetailsActivity;
 
 import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNextEpisodeResponse;
+import com.example.emil.showsmanager.models.SubscribedShow;
 import com.example.emil.showsmanager.rest.ApiClient;
 import com.example.emil.showsmanager.rest.ShowDetailsEndPoints;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,8 +45,15 @@ import retrofit2.Response;
 
 public class SearchResultMoreDetails extends Fragment {
 
+    String userId;
+    String mShowId;
+    String mShowName;
+    String mNextEpisodeAirdate;
+    String mImageUrlMedium;
 
     String nextEpisodeId;
+
+    boolean isShowSubscribed = false;
 
     @BindView(R.id.show_name) TextView showName;
     @BindView(R.id.show_years_first_section) TextView showYears;
@@ -75,19 +90,24 @@ public class SearchResultMoreDetails extends Fragment {
         newFragment.setArguments(arguments);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack
         transaction.replace(R.id.container, newFragment);
         transaction.addToBackStack(null);
 
-// Commit the transaction
         transaction.commit();
     }
 
     @OnClick(R.id.fab_subscribe)
     public void SnackbarNotification(View view) {
-        Snackbar.make(view, "Great, it works with Material Design", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        //subscribeShow(userId, mShowId, mShowName, mNextEpisodeAirdate, mImageUrlMedium);
+        if (!isShowSubscribed) {
+            subscribeShow(userId, mShowId, mShowName, mNextEpisodeAirdate, mImageUrlMedium);
+            isShowSubscribed = true;
+        } else {
+            unsubscribeShow(userId, showId);
+            isShowSubscribed = false;
+        }
+        updateFab();
+
     }
 
 
@@ -104,7 +124,8 @@ public class SearchResultMoreDetails extends Fragment {
 
     String showId;
 
-
+    FirebaseUser user;
+    private DatabaseReference mDatabase;
 
     public SearchResultMoreDetails() {
 
@@ -142,10 +163,64 @@ public class SearchResultMoreDetails extends Fragment {
         seasonsLinearLayout = new LinearLayout(getContext());
 
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            userId = user.getUid();
+        } else {
+            // No user is signed in
+        }
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
         getShowDetails(showId);
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.hasChild(showId)) {
+                    isShowSubscribed = true;
+                    System.out.println("subsrybowane");
+
+                } else {
+                    isShowSubscribed = false;
+                    System.out.println("nie subsrybowane");
+
+                }
+                updateFab();
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
         return view;
+    }
+
+    public void updateFab() {
+        if (isShowSubscribed) {
+            fabSubscribe.setImageResource(R.drawable.ic_clear_black_24dp);
+        } else {
+            fabSubscribe.setImageResource(R.drawable.ic_add_black_24dp);
+        }
+
+    }
+
+    private void unsubscribeShow(String userId, String showId) {
+        mDatabase.child("users").child(userId).child("shows").child(showId).removeValue();
+    }
+
+
+    private void subscribeShow(String userId, String id, String name, String nextEpisodeAirdate, String imageUrl) {
+        SubscribedShow show = new SubscribedShow(id, name, nextEpisodeAirdate, imageUrl);
+
+        mDatabase.child("users").child(userId).child("shows").child(showId).setValue(show);
     }
 
     public void getShowDetails(String showId) {
@@ -156,6 +231,13 @@ public class SearchResultMoreDetails extends Fragment {
             @Override
             public void onResponse(Call<ShowDetailsWithNextEpisodeResponse> call, Response<ShowDetailsWithNextEpisodeResponse> response) {
 
+
+
+
+                mShowId = response.body().getId().toString();
+                mShowName = response.body().getName();
+                mNextEpisodeAirdate = response.body().getEmbedded().getNextepisode().getAirdate();
+                mImageUrlMedium = response.body().getImage().getMedium();
 
                 if(response.body().getEmbedded().getNextepisode() != null) {
                     nextEpisodeId = response.body().getEmbedded().getNextepisode().getId().toString();

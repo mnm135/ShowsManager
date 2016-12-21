@@ -68,27 +68,19 @@ public class NextEpisodeDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_episode_details, container, false);
         ButterKnife.bind(this, view);
 
         Bundle arguments = getArguments();
         episodeId = arguments.getString("episodeId");
 
-
         getNextEpData(episodeId);
-
-
 
         return view;
 
     }
 
-    public void getNextEpData(String showId) {
-
-
-
-
+    public void getNextEpData(String episodeId) {
         EpisodeEndPoints apiService = ApiClient.getClient().create(EpisodeEndPoints.class);
         Call<EpisodeResponse> call = apiService.getResponse(episodeId);
 
@@ -96,18 +88,6 @@ public class NextEpisodeDetailsFragment extends Fragment {
             @Override
             public void onResponse(Call<EpisodeResponse> call,
                                    Response<EpisodeResponse> response) {
-
-               /*
-
-               @BindView(R.id.image_toolbar) ImageView toolbarImage;
-    @BindView(R.id.episode_description) TextView episodeDescription;
-    @BindView(R.id.episode_name) TextView episodeName;
-    @BindView(R.id.episode_season) TextView episodeSeason;
-    @BindView(R.id.episode_number) TextView episodeNumber;
-    @BindView(R.id.episode_runtime) TextView episodeRuntime;
-    @BindView(R.id.episode_airdate) TextView episodeAirdate;
-    @BindView(R.id.episode_airtime) TextView episodeAirtime;
-                */
 
                 Picasso.with(getContext())
                         .load(response.body().getImage().getOriginal())
@@ -119,9 +99,6 @@ public class NextEpisodeDetailsFragment extends Fragment {
                 episodeRuntime.setText(response.body().getRuntime().toString());
                 episodeAirdate.setText(response.body().getRuntime().toString());
                 episodeAirtime.setText(response.body().getAirtime());
-
-
-
 
             }
 
