@@ -84,7 +84,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/episode_description"
+                        android:id="@+id/season_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -110,7 +110,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Episode Information:"
+                    android:text="Season Information:"
                     android:textColor="@color/primaryText" />
 
                 <LinearLayout
@@ -122,11 +122,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Name: "
+                        android:text="Season No.: "
                         android:textColor="@color/primaryText" />
 
                     <TextView
-                        android:id="@+id/episode_name"
+                        android:id="@+id/season_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -140,11 +140,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Season: "
+                        android:text="No. of episodes: "
                         android:textColor="@color/primaryText" />
 
                     <TextView
-                        android:id="@+id/episode_season"
+                        android:id="@+id/season_number_of_episodes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -158,11 +158,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Episode: "
+                        android:text="Premiere date: "
                         android:textColor="@color/primaryText" />
 
                     <TextView
-                        android:id="@+id/episode_number"
+                        android:id="@+id/season_premiere_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -176,49 +176,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Runtime: "
+                        android:text="End date: "
                         android:textColor="@color/primaryText" />
 
                     <TextView
-                        android:id="@+id/episode_runtime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/secondaryText" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Airdate: " />
-
-                    <TextView
-                        android:id="@+id/episode_airdate"
+                        android:id="@+id/season_end_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Airtime: " />
-
-                    <TextView
-                        android:id="@+id/episode_airtime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -228,7 +194,14 @@
                 android:layout_margin="8dp"
                 android:background="#1AFFFFFF" />
 
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@android:id/list">
+</ListView>
+
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
+

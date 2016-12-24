@@ -12,6 +12,7 @@ import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.models.CastAndNextEpisode.EpisodeResponse;
 import com.example.emil.showsmanager.rest.ApiClient;
 import com.example.emil.showsmanager.rest.EpisodeEndPoints;
+import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -39,7 +40,9 @@ public class NextEpisodeDetailsFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
-    String episodeId;
+    String mShowId;
+    String mEpisodeNumber;
+    String mSeasonNumber;
     TextView text;
 
     public NextEpisodeDetailsFragment() {
@@ -72,26 +75,37 @@ public class NextEpisodeDetailsFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         Bundle arguments = getArguments();
-        episodeId = arguments.getString("episodeId");
 
-        getNextEpData(episodeId);
+        mShowId = arguments.getString("showId");
+        mEpisodeNumber = arguments.getString("episodeNumber");
+        mSeasonNumber = arguments.getString("seasonNumber");
+
+
+
+        getNextEpData(mShowId, mEpisodeNumber, mSeasonNumber);
 
         return view;
 
     }
 
-    public void getNextEpData(String episodeId) {
+    public void getNextEpData(String mShowId, String mEpisodeNumber, String mSeasonNumber) {
         EpisodeEndPoints apiService = ApiClient.getClient().create(EpisodeEndPoints.class);
-        Call<EpisodeResponse> call = apiService.getResponse(episodeId);
+        Call<EpisodeResponse> call = apiService.getResponse(mShowId, mSeasonNumber, mEpisodeNumber);
+
+        System.out.println("DUPA" + call.request().url());
 
         call.enqueue(new Callback<EpisodeResponse>() {
             @Override
             public void onResponse(Call<EpisodeResponse> call,
                                    Response<EpisodeResponse> response) {
 
-                Picasso.with(getContext())
-                        .load(response.body().getImage().getOriginal())
-                        .into(toolbarImage);
+
+                if (response.body().getImage() != null) {
+                    Picasso.with(getContext())
+                            .load(response.body().getImage().getOriginal())
+                            .into(toolbarImage);
+                }
+
                 episodeDescription.setText(response.body().getSummary());
                 episodeName.setText(response.body().getName());
                 episodeSeason.setText(response.body().getSeason().toString());

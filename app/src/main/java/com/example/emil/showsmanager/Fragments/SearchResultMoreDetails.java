@@ -47,9 +47,12 @@ public class SearchResultMoreDetails extends Fragment {
 
     String userId;
     String mShowId;
+    String mNextEpSeason;
+    String mNextEpNumber;
     String mShowName;
     String mNextEpisodeAirdate;
     String mImageUrlMedium;
+
 
     String nextEpisodeId;
 
@@ -86,7 +89,12 @@ public class SearchResultMoreDetails extends Fragment {
 
         Fragment newFragment = new NextEpisodeDetailsFragment();
         Bundle arguments = new Bundle();
-        arguments.putString( "episodeId" , nextEpisodeId);
+        //arguments.putString( "episodeId" , nextEpisodeId);
+
+        arguments.putString( "showId", mShowId);
+        arguments.putString( "episodeNumber", mNextEpSeason);
+        arguments.putString( "seasonNumber", mNextEpNumber);
+
         newFragment.setArguments(arguments);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
@@ -235,6 +243,8 @@ public class SearchResultMoreDetails extends Fragment {
 
 
                 mShowId = response.body().getId().toString();
+                mNextEpSeason = response.body().getEmbedded().getNextepisode().getSeason().toString();
+                mNextEpNumber = response.body().getEmbedded().getNextepisode().getNumber().toString();
                 mShowName = response.body().getName();
                 mNextEpisodeAirdate = response.body().getEmbedded().getNextepisode().getAirdate();
                 mImageUrlMedium = response.body().getImage().getMedium();
@@ -312,19 +322,44 @@ public class SearchResultMoreDetails extends Fragment {
                 }
 
                 for (int i=0; i<seasonsSize; i++) {
-                    final ImageView imageView = new ImageView(getContext());
-                    imageView.setTag(i);
+                    //final ImageView imageView = new ImageView(getContext());
+                   // imageView.setTag(i);
 
                     if (response.body().getEmbedded().getSeasons().get(i).getImage()!= null ) {
-                        String imgUrl = response.body().getEmbedded().getSeasons().get(i).getImage().getMedium();
+                       /* String imgUrl = response.body().getEmbedded().getSeasons().get(i).getImage().getMedium();
                         Picasso.with(getContext()).load(imgUrl).into(imageView);
 
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         lp.setMargins(7, 0, 7, 0);
                         imageView.setLayoutParams(lp);
 
+                       */
 
-                        seasonsLinearLayout.addView(imageView);
+                        View vi = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+                                .inflate(R.layout.season_list_item, null);
+
+                        ImageView seasonImage = (ImageView) vi.findViewById(R.id.season_image);
+                        final int position = i+1;
+
+                        final String seasonId = response.body().getEmbedded().getSeasons().get(i).getId().toString();
+
+                        //seasonImage.setId(i);
+
+                        seasonImage.setOnClickListener(
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                        startSeasonFragment(seasonId);
+                                    }
+
+                                });
+
+                        String imgUrl = response.body().getEmbedded().getSeasons().get(i).getImage().getMedium();
+                        Picasso.with(getContext()).load(imgUrl).into(seasonImage);
+
+
+                        seasonsLinearLayout.addView(vi);
                     }
                 }
 
@@ -339,6 +374,27 @@ public class SearchResultMoreDetails extends Fragment {
 
             }
         });
+
+    }
+
+    public void startSeasonFragment(String seasonId) {
+
+        Fragment newFragment = new SeasonsFragment();
+        Bundle arguments = new Bundle();
+        //arguments.putString( "episodeId" , nextEpisodeId);
+
+        arguments.putString( "seasonId", seasonId);
+        arguments.putString("showId", showId);
+
+
+        newFragment.setArguments(arguments);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.container, newFragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
+
 
     }
 
