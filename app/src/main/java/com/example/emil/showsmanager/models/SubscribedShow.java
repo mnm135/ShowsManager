@@ -83,6 +83,61 @@ public class SubscribedShow {
         return imageUrl;
     }
 
+
+
+    /*
+
+    public String timeToNextEpisode;
+    public String status;
+    public String airtime;
+    public String channel;
+    public String nextEpNumber;
+    public String nextEpSeason;
+     */
+
+    public void setTimeToNextEpisode(String timeToNextEpisode) {
+        this.timeToNextEpisode = timeToNextEpisode;
+    }
+    public String getTimeToNextEpisode() {
+        return timeToNextEpisode;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public String getStatus() {
+        return status;
+    }
+    public void setAirtime(String airtime) {
+        this.airtime = airtime;
+    }
+    public String getAirtime() {
+        return airtime;
+    }
+
+    public void setChannel(String channel) {
+        this.channel = channel;
+    }
+    public String getChannel() {
+        return channel;
+    }
+
+    public void setNextEpNumber(String nextEpNumber) {
+        this.nextEpNumber = nextEpNumber;
+    }
+    public String getNextEpNumber() {
+        return nextEpNumber;
+    }
+
+
+    public void setNextEpSeason(String nextEpSeason) {
+        this.nextEpSeason = nextEpSeason;
+    }
+    public String getNextEpSeason() {
+        return nextEpSeason;
+    }
+
+
     public void setTimeToNextEpisode() {
         this.timeToNextEpisode = calculateTimeToNextEpisode(this.nextEpisodeAirdate);
     }
