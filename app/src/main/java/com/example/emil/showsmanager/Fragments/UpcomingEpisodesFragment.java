@@ -87,6 +87,7 @@ public class UpcomingEpisodesFragment extends Fragment {
         if (userId != null) {
             showList = getShowList(userId);
         }
+        updateTimesToNextEpisodes();
 
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.upcoming_episodes_recycler);
@@ -95,6 +96,14 @@ public class UpcomingEpisodesFragment extends Fragment {
         mRecyclerView.setAdapter(adapter);
         return view;
 
+    }
+
+    private void updateTimesToNextEpisodes() {
+        for (SubscribedShow show : showList) {
+            
+            show.setTimeToNextEpisode();
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void updateShow(final String showId, final int position) {
