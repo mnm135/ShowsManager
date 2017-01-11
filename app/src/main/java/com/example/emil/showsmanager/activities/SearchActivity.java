@@ -1,7 +1,6 @@
-package com.example.emil.showsmanager;
+package com.example.emil.showsmanager.activities;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.example.emil.showsmanager.R;
+import com.example.emil.showsmanager.activities.MainActivity;
 import com.example.emil.showsmanager.adapters.SearchResultsAdapter;
 import com.example.emil.showsmanager.models.ShowsListResponse;
 import com.example.emil.showsmanager.rest.ApiClient;

@@ -1,4 +1,4 @@
-package com.example.emil.showsmanager;
+package com.example.emil.showsmanager.activities;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.emil.showsmanager.Fragments.SearchResultMoreDetails;
+import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNextEpisodeResponse;
 import com.example.emil.showsmanager.rest.ApiClient;
 import com.example.emil.showsmanager.rest.ShowDetailsEndPoints;

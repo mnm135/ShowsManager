@@ -1,27 +1,21 @@
 package com.example.emil.showsmanager.Fragments;
 
 import android.content.Context;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
 import com.example.emil.showsmanager.R;
-import com.example.emil.showsmanager.SearchResultDetailsActivity;
+import com.example.emil.showsmanager.activities.SearchResultDetailsActivity;
 
 import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNextEpisodeResponse;
 import com.example.emil.showsmanager.models.SubscribedShow;
@@ -243,14 +237,16 @@ public class SearchResultMoreDetails extends Fragment {
 
 
                 mShowId = response.body().getId().toString();
-                mNextEpSeason = response.body().getEmbedded().getNextepisode().getSeason().toString();
-                mNextEpNumber = response.body().getEmbedded().getNextepisode().getNumber().toString();
                 mShowName = response.body().getName();
+
+
+
+
                 mNextEpisodeAirdate = response.body().getEmbedded().getNextepisode().getAirdate();
                 mImageUrlMedium = response.body().getImage().getMedium();
 
                 if(response.body().getEmbedded().getNextepisode() != null) {
-                    nextEpisodeId = response.body().getEmbedded().getNextepisode().getId().toString();
+
                 }
 
 
@@ -288,6 +284,9 @@ public class SearchResultMoreDetails extends Fragment {
                     String number = response.body().getEmbedded().getNextepisode().getSeason().toString() + "x" +
                             response.body().getEmbedded().getNextepisode().getNumber().toString();
                     nextEpisodeNumber.setText(number);
+                    nextEpisodeId = response.body().getEmbedded().getNextepisode().getId().toString();
+                    mNextEpSeason = response.body().getEmbedded().getNextepisode().getSeason().toString();
+                    mNextEpNumber = response.body().getEmbedded().getNextepisode().getNumber().toString();
                 } else {
                     nextEpisodeNumber.setText("No info about next episode");
                 }
@@ -306,19 +305,22 @@ public class SearchResultMoreDetails extends Fragment {
 
                 for (int i=0; i<castSize; i++) {
 
-                    View vi = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-                            .inflate(R.layout.cast_item, null);
+                    if (response.body().getEmbedded().getCast().get(i).getCharacter().getImage() != null ) {
 
-                    TextView person = (TextView) vi.findViewById(R.id.cast_person);
-                    TextView character = (TextView) vi.findViewById(R.id.cast_character);
-                    ImageView characterImage = (ImageView) vi.findViewById(R.id.cast_image);
+                        View vi = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+                                .inflate(R.layout.cast_item, null);
 
-                    String imgUrl = response.body().getEmbedded().getCast().get(i).getCharacter().getImage().getMedium();
-                    Picasso.with(getContext()).load(imgUrl).into(characterImage);
-                    person.setText(response.body().getEmbedded().getCast().get(i).getPerson().getName());
-                    character.setText(response.body().getEmbedded().getCast().get(i).getCharacter().getName());
+                        TextView person = (TextView) vi.findViewById(R.id.cast_person);
+                        TextView character = (TextView) vi.findViewById(R.id.cast_character);
+                        ImageView characterImage = (ImageView) vi.findViewById(R.id.cast_image);
 
-                    topLinearLayout.addView(vi);
+                        String imgUrl = response.body().getEmbedded().getCast().get(i).getCharacter().getImage().getMedium();
+                        Picasso.with(getContext()).load(imgUrl).into(characterImage);
+                        person.setText(response.body().getEmbedded().getCast().get(i).getPerson().getName());
+                        character.setText(response.body().getEmbedded().getCast().get(i).getCharacter().getName());
+
+                        topLinearLayout.addView(vi);
+                    }
                 }
 
                 for (int i=0; i<seasonsSize; i++) {

@@ -1,4 +1,4 @@
-package com.example.emil.showsmanager;
+package com.example.emil.showsmanager.activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -6,11 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.emil.showsmanager.R;
+import com.example.emil.showsmanager.User;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ui.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    startActivity(new Intent(getApplicationContext(), Upcoming.class));
+                    startActivity(new Intent(getApplicationContext(), SubscribedShowsActivity.class));
 
                 } else {
                     startActivityForResult(
@@ -87,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                 writeNewUser(userId, username, email);
 
 
-                startActivity(new Intent(this, Upcoming.class));
+                startActivity(new Intent(this, SubscribedShowsActivity.class));
                 return;
             }
             if (resultCode == RESULT_CANCELED) {

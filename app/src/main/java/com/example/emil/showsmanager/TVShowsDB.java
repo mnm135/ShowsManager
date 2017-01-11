@@ -65,7 +65,7 @@ public class TVShowsDB extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 TVShow show = new TVShow();
-                show.setId(Integer.parseInt(cursor.getString(0)));
+                show.setId(cursor.getString(0));
                 show.setName(cursor.getString(1));
                 show.setPremiereYear(cursor.getString(2));
                 show.setStatus(cursor.getString(3));

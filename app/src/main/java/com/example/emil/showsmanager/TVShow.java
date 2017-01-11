@@ -7,12 +7,12 @@ public class TVShow {
     String status;
     String premiereYear;
     String countryCode;
-    int id;
+    String id;
     String airdate;
 
     public TVShow() {}
 
-    public TVShow(int id, String name, String premiereYear, String status, String countryCode, String airdate) {
+    public TVShow(String id, String name, String premiereYear, String status, String countryCode, String airdate) {
         this.id = id;
         this.name = name;
         this.premiereYear = premiereYear;
@@ -21,7 +21,7 @@ public class TVShow {
         this.airdate = airdate;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -45,7 +45,7 @@ public class TVShow {
         this.airdate = airdate;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

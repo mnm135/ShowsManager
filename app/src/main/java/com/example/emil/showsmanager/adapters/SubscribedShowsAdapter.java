@@ -2,6 +2,7 @@ package com.example.emil.showsmanager.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,31 +14,32 @@ import android.widget.TextView;
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.activities.SearchResultDetailsActivity;
 import com.example.emil.showsmanager.models.ShowsListResponse;
-
+import com.example.emil.showsmanager.models.SubscribedShow;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 /**
- * Created by Emil on 26.11.2016.
+ * Created by Emil on 02.01.2017.
  */
 
-public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.SearchResultsViewHolder> {
-
-    private List<ShowsListResponse> showsListResponse;
+public class SubscribedShowsAdapter extends
+        RecyclerView.Adapter<SubscribedShowsAdapter.SubscribedShowsViewHolder> {
+    private List<SubscribedShow> showsList;
     private int rowLayout;
     private Context context;
 
-    public SearchResultsAdapter(List<ShowsListResponse> showsListResponse, int rowLayout, Context context) {
-        this.showsListResponse = showsListResponse;
+    public SubscribedShowsAdapter(List<SubscribedShow> showsList, int rowLayout, Context context) {
+        this.showsList = showsList;
         this.rowLayout = rowLayout;
         this.context = context;
     }
-    public List<ShowsListResponse> getShowsListResponse() {
-        return showsListResponse;
+
+    public List<SubscribedShow> getShowsList() {
+        return showsList;
     }
-    public void setShowsListResponse(List<ShowsListResponse> showsListResponse) {
-        this.showsListResponse = showsListResponse;
+    public void setShowsListResponse(List<SubscribedShow> showsList) {
+        this.showsList = showsList;
     }
     public int getRowLayout() {
         return rowLayout;
@@ -56,28 +58,25 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     }
 
     @Override
-    public SearchResultsAdapter.SearchResultsViewHolder onCreateViewHolder(ViewGroup parent,
-                                                           int viewType) {
+    public SubscribedShowsAdapter.SubscribedShowsViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                           int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(rowLayout, parent, false);
-        return new SearchResultsViewHolder(view);
+        return new SubscribedShowsAdapter.SubscribedShowsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(SearchResultsViewHolder holder, final int position) {
-        String name = showsListResponse.get(position).getShow().getName();
-
-        final String id = showsListResponse.get(position).getShow().getId().toString();
-
+    public void onBindViewHolder(SubscribedShowsAdapter.SubscribedShowsViewHolder holder, final int position) {
+        String name = showsList.get(position).getName();
+        final String id = showsList.get(position).getId();
+        String imgUrl = showsList.get(position).getImageUrl();
 
         holder.tvShowName.setText(name);
+        Picasso.with(getContext()).load(imgUrl).into(holder.tvShowPoster);
 
-        if (showsListResponse.get(position).getShow().getImage() != null) {
-            String pictureUrl = showsListResponse.get(position).getShow().getImage().getMedium();
-            Picasso.with(getContext()).load(pictureUrl).into(holder.tvShowPoster);
-        }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("CLICK");
@@ -95,22 +94,21 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
     @Override
     public int getItemCount() {
-        return showsListResponse.size();
+        return showsList.size();
     }
 
-    public static class SearchResultsViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout searchResultsLayout;
+
+    public static class SubscribedShowsViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout subscribedShowsCardView;
         ImageView tvShowPoster;
         TextView tvShowName;
 
-        public SearchResultsViewHolder(View view) {
+        public SubscribedShowsViewHolder(View view) {
             super(view);
-            searchResultsLayout = (LinearLayout) view.findViewById(R.id.search_result_item_layout);
+            //@TODO change this below
+            subscribedShowsCardView = (LinearLayout) view.findViewById(R.id.subscribed_shows_item_layout);
             tvShowPoster = (ImageView) view.findViewById(R.id.show_poster);
             tvShowName = (TextView) view.findViewById(R.id.show_name);
         }
-
     }
-
-
 }
