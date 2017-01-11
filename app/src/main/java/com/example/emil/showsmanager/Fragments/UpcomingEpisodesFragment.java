@@ -1,6 +1,6 @@
 package com.example.emil.showsmanager.Fragments;
 
-import android.content.Context;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,11 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 
 import com.example.emil.showsmanager.R;
-import com.example.emil.showsmanager.adapters.SubscribedShowsAdapter;
 import com.example.emil.showsmanager.adapters.UpcomingEpisodesAdapter;
 import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNextEpisodeResponse;
 import com.example.emil.showsmanager.models.SubscribedShow;
@@ -25,7 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -39,12 +36,10 @@ import retrofit2.Response;
 
 
 public class UpcomingEpisodesFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -98,19 +93,11 @@ public class UpcomingEpisodesFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new UpcomingEpisodesAdapter(showList, R.layout.upcoming_episodes_item, getContext());
         mRecyclerView.setAdapter(adapter);
-
-
-
-
-
-
-
-
         return view;
 
     }
 
-    private void updateShow(final String showId) {
+    private void updateShow(final String showId, final int position) {
         ShowDetailsEndPoints apiService = ApiClient.getClient().create(ShowDetailsEndPoints.class);
         Call<ShowDetailsWithNextEpisodeResponse> call = apiService.getResponse(showId, "cast", "nextepisode", "seasons");
 
@@ -123,8 +110,15 @@ public class UpcomingEpisodesFragment extends Fragment {
                 String name = response.body().getName();
                 String imageUrl = response.body().getImage().getMedium();
 
+                showList.get(position).setNextEpisodeAirdate(newDate);
+                showList.get(position).setTimeToNextEpisode();
+
+                System.out.println("hheheheheh");
+                System.out.println("DUPA" + showList.get(position).getDaysToNextEpisode());
+
 
                 updateShowInFirebase(showId, name, newDate, imageUrl);
+                adapter.notifyDataSetChanged();
 
 
 
@@ -145,7 +139,7 @@ public class UpcomingEpisodesFragment extends Fragment {
         mDatabase.child("users").child(userId).child("shows").child(showId).setValue(show);
 
         //@TODO cos nie działa xD + ogarnac zeby za kazdym razem sprawdzalo liczbe dni
-        adapter.notifyDataSetChanged();
+       // adapter.notifyDataSetChanged();
 
     }
 
@@ -171,12 +165,10 @@ public class UpcomingEpisodesFragment extends Fragment {
 
                 for (DataSnapshot show : snapshot.getChildren()) {
                     SubscribedShow singleShow = show.getValue(SubscribedShow.class);
-
-
                     showList.add(singleShow);
-
                 }
-                getShowsToUpdate();
+                checkShowsForUpdates();
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -188,11 +180,11 @@ public class UpcomingEpisodesFragment extends Fragment {
         return showList;
     }
 
-    private List<SubscribedShow> getShowsToUpdate() {
+    private List<SubscribedShow> checkShowsForUpdates() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String today = dateFormat.format(date);
-        List<SubscribedShow> showsToUpdate = new ArrayList<SubscribedShow>();
+//        List<SubscribedShow> showsToUpdate = new ArrayList<SubscribedShow>();
         System.out.println("getshowslist");
 
         for (SubscribedShow show : showList) {
@@ -200,23 +192,16 @@ public class UpcomingEpisodesFragment extends Fragment {
             System.out.println("getshowslist for");
             System.out.println(show.getName());
             System.out.println(show.getNextEpisodeAirdate().compareTo(today));
+
             if (show.getNextEpisodeAirdate().compareTo(today) < 0) {
                 //@TODO  add item to list "shows to update", and then call only for those.
-                showsToUpdate.add(show);
+                int position = showList.indexOf(show);
+                updateShow(show.getId(), position);
                 System.out.println("get shows to update");
                 System.out.println(show.getName());
             }
         }
-
-        if (showsToUpdate.size() > 0) {
-            System.out.println("shows to up > 0");
-            for (SubscribedShow show : showsToUpdate) {
-                System.out.println("for");
-                updateShow(show.getId());
-            }
-            showList = getShowList(userId);
-        }
-        return showsToUpdate;
+        return showList;
     }
 
 }
