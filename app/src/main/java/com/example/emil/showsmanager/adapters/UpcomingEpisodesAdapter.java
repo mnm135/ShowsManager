@@ -1,7 +1,14 @@
 package com.example.emil.showsmanager.adapters;
 
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.emil.showsmanager.Fragments.NextEpisodeDetailsFragment;
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.activities.SearchResultDetailsActivity;
 import com.example.emil.showsmanager.models.SubscribedShow;
@@ -69,6 +77,16 @@ public class UpcomingEpisodesAdapter extends
         String daysToNextEp = showsList.get(position).getDaysToNextEpisode();
         holder.tvShowName.setText(name);
         holder.daysToNextEp.setText(daysToNextEp);
+        holder.nextEpNetwork.setText(showsList.get(position).getChannel());
+        holder.nextEpDate.setText(showsList.get(position).getNextEpisodeAirdate());
+        holder.nextEpAirtime.setText(showsList.get(position).getAirtime());
+
+        final String nextEpNumber = showsList.get(position).getNextEpNumber();
+        final String nextEpSeason = showsList.get(position).getNextEpSeason();
+
+
+
+
 
 
 
@@ -77,11 +95,25 @@ public class UpcomingEpisodesAdapter extends
             public void onClick(View v) {
                 System.out.println("CLICK");
 
+                Fragment newFragment = new NextEpisodeDetailsFragment();
+                Bundle arguments = new Bundle();
+              
+                arguments.putString( "showId", id);
+                arguments.putString( "episodeNumber", nextEpSeason);
+                arguments.putString( "seasonNumber", nextEpNumber);
 
-                Intent intent = new Intent(context, SearchResultDetailsActivity.class);
-                intent.putExtra("showId", id);
+                newFragment.setArguments(arguments);
 
-                v.getContext().startActivity(intent);
+                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+
+                transaction.replace(R.id.container, newFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
+
+
             }
         });
 
@@ -98,6 +130,11 @@ public class UpcomingEpisodesAdapter extends
         LinearLayout upcomingEpisodesLinearView;
         TextView daysToNextEp;
         TextView tvShowName;
+        TextView nextEpNetwork;
+        TextView nextEpDate;
+        TextView nextEpAirtime;
+
+
 
         public UpcomingEpisodesViewHolder(View view) {
             super(view);
@@ -105,6 +142,10 @@ public class UpcomingEpisodesAdapter extends
             upcomingEpisodesLinearView = (LinearLayout) view.findViewById(R.id.upcoming_episodes_item_layout);
             daysToNextEp = (TextView) view.findViewById(R.id.time_to_next_ep);
             tvShowName = (TextView) view.findViewById(R.id.show_name);
+            nextEpAirtime = (TextView) view.findViewById(R.id.next_ep_airtime);
+            nextEpDate = (TextView) view.findViewById(R.id.next_ep_date);
+            nextEpNetwork = (TextView) view.findViewById(R.id.next_ep_network);
+
         }
     }
 }
