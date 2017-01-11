@@ -100,7 +100,7 @@ public class UpcomingEpisodesFragment extends Fragment {
 
     private void updateTimesToNextEpisodes() {
         for (SubscribedShow show : showList) {
-            
+
             show.setTimeToNextEpisode();
             adapter.notifyDataSetChanged();
         }
@@ -126,7 +126,7 @@ public class UpcomingEpisodesFragment extends Fragment {
                 System.out.println("DUPA" + showList.get(position).getDaysToNextEpisode());
 
 
-                updateShowInFirebase(showId, name, newDate, imageUrl);
+                updateShowInFirebase(showList.get(position), newDate);
                 adapter.notifyDataSetChanged();
 
 
@@ -141,10 +141,11 @@ public class UpcomingEpisodesFragment extends Fragment {
         });
     }
 
-    private void updateShowInFirebase(String showId, String name, String newDate, String imageUrl) {
+    private void updateShowInFirebase(SubscribedShow show, String newDate) {
+        // @TODO change to update just two fields
 
-        SubscribedShow show = new SubscribedShow(showId, name, newDate, imageUrl);
 
+        String showId = show.getId();
         mDatabase.child("users").child(userId).child("shows").child(showId).setValue(show);
 
         //@TODO cos nie działa xD + ogarnac zeby za kazdym razem sprawdzalo liczbe dni

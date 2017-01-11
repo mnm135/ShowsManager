@@ -48,6 +48,12 @@ public class SearchResultMoreDetails extends Fragment {
     String mImageUrlMedium;
 
 
+    String mStatus;
+    String mAirtime;
+    String mChannel;
+
+
+
     String nextEpisodeId;
 
     boolean isShowSubscribed = false;
@@ -220,7 +226,10 @@ public class SearchResultMoreDetails extends Fragment {
 
 
     private void subscribeShow(String userId, String id, String name, String nextEpisodeAirdate, String imageUrl) {
-        SubscribedShow show = new SubscribedShow(id, name, nextEpisodeAirdate, imageUrl);
+
+
+        SubscribedShow show = new SubscribedShow(id, name, nextEpisodeAirdate, imageUrl, mStatus, mAirtime,
+                mChannel, mNextEpNumber, mNextEpSeason);
 
         mDatabase.child("users").child(userId).child("shows").child(showId).setValue(show);
     }
@@ -238,6 +247,10 @@ public class SearchResultMoreDetails extends Fragment {
 
                 mShowId = response.body().getId().toString();
                 mShowName = response.body().getName();
+
+                mStatus = response.body().getStatus();
+                mAirtime = response.body().getSchedule().getTime();
+                mChannel = response.body().getNetwork().getName();
 
 
 
