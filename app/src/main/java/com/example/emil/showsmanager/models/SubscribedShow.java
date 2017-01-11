@@ -21,18 +21,41 @@ public class SubscribedShow {
     public String imageUrl;
 
     public String timeToNextEpisode;
+    public String status;
+    public String airtime;
+    public String channel;
+    public String nextEpNumber;
+    public String nextEpSeason;
 
     public SubscribedShow() {
 
     }
 
-    public SubscribedShow(String id, String name, String nextEpisodeAirdate, String imageUrl) {
+    public SubscribedShow(String id, String name, String nextEpisodeAirdate, String imageUrl, String status) {
         this.id = id;
         this.name = name;
         this.nextEpisodeAirdate = nextEpisodeAirdate;
         this.imageUrl = imageUrl;
-        this.timeToNextEpisode = calculateTimeToNextEpisode(nextEpisodeAirdate);
+        this.status = status;
+        //this.timeToNextEpisode = calculateTimeToNextEpisode(nextEpisodeAirdate);
     }
+
+    public SubscribedShow(String id, String name, String nextEpisodeAirdate, String imageUrl,
+                          String status, String airtime, String channel, String nextEpNumber,
+                          String nextEpSeason) {
+        this.id = id;
+        this.name = name;
+        this.nextEpisodeAirdate = nextEpisodeAirdate;
+        this.imageUrl = imageUrl;
+        this.status = status;
+        this.airtime = airtime;
+        this.channel = channel;
+        this.nextEpNumber = nextEpNumber;
+        this.nextEpSeason = nextEpSeason;
+        this.timeToNextEpisode = calculateTimeToNextEpisode(nextEpisodeAirdate);
+
+    }
+
     public void setId(String id) {
         this.id = id;
     }
