@@ -30,7 +30,7 @@ public class SubscribedShow {
     public SubscribedShow() {
 
     }
-
+//@TODO
     public SubscribedShow(String id, String name, String nextEpisodeAirdate, String imageUrl, String status) {
         this.id = id;
         this.name = name;
@@ -146,6 +146,8 @@ public class SubscribedShow {
         return timeToNextEpisode;
     }
 
+
+    //@TODO resources
     public String calculateTimeToNextEpisode(String airdate) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();

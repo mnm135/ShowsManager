@@ -82,6 +82,7 @@ public class UpcomingEpisodesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upcoming_episodes, container, false);
 
+
         userId = retrieveUserId();
 
         if (userId != null) {
@@ -90,10 +91,14 @@ public class UpcomingEpisodesFragment extends Fragment {
         updateTimesToNextEpisodes();
 
 
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.upcoming_episodes_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new UpcomingEpisodesAdapter(showList, R.layout.upcoming_episodes_item, getContext());
         mRecyclerView.setAdapter(adapter);
+
+
+
         return view;
 
     }
@@ -165,6 +170,9 @@ public class UpcomingEpisodesFragment extends Fragment {
 
     private List<SubscribedShow> getShowList(String userId) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
+        //@toDO asyc + loader
 
         // @TODO check out this approach
         final List<SubscribedShow> showList = new ArrayList<>();

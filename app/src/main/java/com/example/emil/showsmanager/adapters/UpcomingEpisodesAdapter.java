@@ -97,7 +97,7 @@ public class UpcomingEpisodesAdapter extends
 
                 Fragment newFragment = new NextEpisodeDetailsFragment();
                 Bundle arguments = new Bundle();
-              
+
                 arguments.putString( "showId", id);
                 arguments.putString( "episodeNumber", nextEpSeason);
                 arguments.putString( "seasonNumber", nextEpNumber);
