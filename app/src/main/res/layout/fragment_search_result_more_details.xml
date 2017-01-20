@@ -105,7 +105,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Next episode:"
+                        android:text="@string/next_episode"
                         android:textColor="@color/primaryText" />
 
                     <LinearLayout
@@ -156,7 +156,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Description" />
+                    android:text="@string/description" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -205,7 +205,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Show Information:"
+                    android:text="@string/show_information"
                     android:textColor="@color/primaryText" />
 
                 <LinearLayout
@@ -217,7 +217,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Status: "
+                        android:text="@string/status"
                         android:textColor="@color/primaryText" />
 
                     <TextView
@@ -235,7 +235,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="No. of seasons: "
+                        android:text="@string/no_of_seasons"
                         android:textColor="@color/primaryText" />
 
                     <TextView
@@ -253,7 +253,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="No. of episodes: "
+                        android:text="@string/no_of_episodes"
                         android:textColor="@color/primaryText" />
 
                     <TextView
@@ -271,7 +271,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Runtime: "
+                        android:text="@string/runtime"
                         android:textColor="@color/primaryText" />
 
                     <TextView
@@ -290,7 +290,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Airdate: " />
+                        android:text="@string/airdate" />
 
                     <TextView
                         android:id="@+id/show_airdate"
@@ -307,7 +307,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Language: " />
+                        android:text="@string/language" />
 
                     <TextView
                         android:id="@+id/show_language"
@@ -324,7 +324,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Network: " />
+                        android:text="@string/network" />
 
                     <TextView
                         android:id="@+id/show_network"
@@ -343,7 +343,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Country: " />
+                        android:text="@string/country" />
 
                     <TextView
                         android:id="@+id/show_country"
@@ -360,7 +360,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Genres: " />
+                        android:text="@string/genres" />
 
                     <TextView
                         android:id="@+id/genres"
@@ -400,7 +400,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Read more at:" />
+                    android:text="@string/read_more_at" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
