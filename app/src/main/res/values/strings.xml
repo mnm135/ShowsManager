@@ -42,5 +42,10 @@
     <string name="premiere_date">Premiere date: </string>
     <string name="end_date">End date: </string>
 
-    <string name="show_section_next_episode_link">Next episode %1$sx%2$s running %3$s at %4$s. Watch it on %5$s</string>
+    <string name="show_section_next_episode_link">Next episode: %1$sx%2$s / %3$s / %4$s / %5$s</string>
+    <string name="next_ep_no_info">No information about next episode</string>
+
+    <string name="show_air_years">%1$s - %2$s</string>
+
+    <string name="loading_dialog_msg">Just a second</string>
 </resources>
