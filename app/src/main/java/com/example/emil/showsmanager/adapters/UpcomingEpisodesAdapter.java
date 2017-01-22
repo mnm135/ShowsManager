@@ -1,9 +1,6 @@
 package com.example.emil.showsmanager.adapters;
 
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.emil.showsmanager.Fragments.NextEpisodeDetailsFragment;
 import com.example.emil.showsmanager.R;
-import com.example.emil.showsmanager.activities.SearchResultDetailsActivity;
 import com.example.emil.showsmanager.models.SubscribedShow;
 
 
@@ -93,8 +89,6 @@ public class UpcomingEpisodesAdapter extends
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("CLICK");
-
                 Fragment newFragment = new NextEpisodeDetailsFragment();
                 Bundle arguments = new Bundle();
 
@@ -111,13 +105,8 @@ public class UpcomingEpisodesAdapter extends
                 transaction.addToBackStack(null);
 
                 transaction.commit();
-
-
-
             }
         });
-
-
     }
 
     @Override
@@ -134,8 +123,6 @@ public class UpcomingEpisodesAdapter extends
         TextView nextEpDate;
         TextView nextEpAirtime;
 
-
-
         public UpcomingEpisodesViewHolder(View view) {
             super(view);
             //@TODO change this below
@@ -145,7 +132,6 @@ public class UpcomingEpisodesAdapter extends
             nextEpAirtime = (TextView) view.findViewById(R.id.next_ep_airtime);
             nextEpDate = (TextView) view.findViewById(R.id.next_ep_date);
             nextEpNetwork = (TextView) view.findViewById(R.id.next_ep_network);
-
         }
     }
 }

@@ -18,9 +18,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * Created by Emil on 26.11.2016.
- */
 
 public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.SearchResultsViewHolder> {
 
@@ -66,26 +63,25 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     @Override
     public void onBindViewHolder(SearchResultsViewHolder holder, final int position) {
         String name = showsListResponse.get(position).getShow().getName();
+        holder.tvShowName.setText(name);
 
         final String id = showsListResponse.get(position).getShow().getId().toString();
-
-
-        holder.tvShowName.setText(name);
 
         if (showsListResponse.get(position).getShow().getImage() != null) {
             String pictureUrl = showsListResponse.get(position).getShow().getImage().getMedium();
             Picasso.with(getContext()).load(pictureUrl).into(holder.tvShowPoster);
+        } else {
+            Picasso.with(getContext())
+                    .load(R.mipmap.ic_no_image)
+                    .resize(200, 300)
+                    .into(holder.tvShowPoster);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                System.out.println("CLICK");
-
-
                 Intent intent = new Intent(context, SearchResultDetailsActivity.class);
                 intent.putExtra("showId", id);
-
                 v.getContext().startActivity(intent);
             }
         });
@@ -109,8 +105,5 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             tvShowPoster = (ImageView) view.findViewById(R.id.show_poster);
             tvShowName = (TextView) view.findViewById(R.id.show_name);
         }
-
     }
-
-
 }

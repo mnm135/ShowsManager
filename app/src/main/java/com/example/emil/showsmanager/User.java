@@ -2,10 +2,6 @@ package com.example.emil.showsmanager;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-/**
- * Created by Emil on 26.11.2016.
- */
-
 @IgnoreExtraProperties
 public class User {
     public String username;

@@ -12,7 +12,6 @@ import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.models.CastAndNextEpisode.EpisodeResponse;
 import com.example.emil.showsmanager.rest.ApiClient;
 import com.example.emil.showsmanager.rest.EpisodeEndPoints;
-import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -35,37 +34,13 @@ public class NextEpisodeDetailsFragment extends Fragment {
     @BindView(R.id.episode_airdate) TextView episodeAirdate;
     @BindView(R.id.episode_airtime) TextView episodeAirtime;
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-    String mShowId;
-    String mEpisodeNumber;
-    String mSeasonNumber;
-    TextView text;
 
     public NextEpisodeDetailsFragment() {
-        // Required empty public constructor
-    }
-
-
-    public static NextEpisodeDetailsFragment newInstance(String param1, String param2) {
-        NextEpisodeDetailsFragment fragment = new NextEpisodeDetailsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -76,49 +51,53 @@ public class NextEpisodeDetailsFragment extends Fragment {
 
         Bundle arguments = getArguments();
 
-        mShowId = arguments.getString("showId");
-        mEpisodeNumber = arguments.getString("episodeNumber");
-        mSeasonNumber = arguments.getString("seasonNumber");
+        String showId = arguments.getString("showId");
+        String epNumber = arguments.getString("episodeNumber");
+        String seasonNumber = arguments.getString("seasonNumber");
 
-
-
-        getNextEpData(mShowId, mEpisodeNumber, mSeasonNumber);
+        getNextEpData(showId, epNumber, seasonNumber);
 
         return view;
-
     }
 
-    public void getNextEpData(String mShowId, String mEpisodeNumber, String mSeasonNumber) {
+    public void getNextEpData(String showId, String epNumber, String seasonNumber) {
         EpisodeEndPoints apiService = ApiClient.getClient().create(EpisodeEndPoints.class);
-        Call<EpisodeResponse> call = apiService.getResponse(mShowId, mSeasonNumber, mEpisodeNumber);
-
-        System.out.println("DUPA" + call.request().url());
-
+        Call<EpisodeResponse> call = apiService.getResponse(showId, seasonNumber, epNumber);
         call.enqueue(new Callback<EpisodeResponse>() {
             @Override
             public void onResponse(Call<EpisodeResponse> call,
                                    Response<EpisodeResponse> response) {
 
-
                 if (response.body().getImage() != null) {
                     Picasso.with(getContext())
                             .load(response.body().getImage().getOriginal())
                             .into(toolbarImage);
+                } else {
+                    Picasso.with(getContext())
+                            .load(R.mipmap.ic_no_image)
+                            .into(toolbarImage);
+
                 }
 
-                episodeDescription.setText(response.body().getSummary());
-                episodeName.setText(response.body().getName());
-                episodeSeason.setText(response.body().getSeason().toString());
-                episodeNumber.setText(response.body().getNumber().toString());
-                episodeRuntime.setText(response.body().getRuntime().toString());
-                episodeAirdate.setText(response.body().getRuntime().toString());
-                episodeAirtime.setText(response.body().getAirtime());
+                String episodeDescriptionString = response.body().getSummary();
+                String episodeNameString = response.body().getName();
+                String episodeSeasonString = response.body().getSeason().toString();
+                String episodeNumberString = response.body().getNumber().toString();
+                String episodeRuntimeString = response.body().getRuntime().toString();
+                String episodeAirdateString = response.body().getAirdate();
+                String episodeAirtimeString = response.body().getAirtime();
+
+                episodeDescription.setText(episodeDescriptionString);
+                episodeName.setText(episodeNameString);
+                episodeSeason.setText(episodeSeasonString);
+                episodeNumber.setText(episodeNumberString);
+                episodeRuntime.setText(episodeRuntimeString);
+                episodeAirdate.setText(episodeAirdateString);
+                episodeAirtime.setText(episodeAirtimeString);
 
             }
-
             @Override
             public void onFailure(Call<EpisodeResponse> call, Throwable t) {
-
             }
         });
     }
