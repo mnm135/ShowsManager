@@ -15,21 +15,20 @@ import com.example.emil.showsmanager.R;
 public class SearchResultDetailsActivity extends BaseActivity {
     String showId;
 
-    @Override
+   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LayoutInflater inflater = (LayoutInflater) this
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_search_result_details, null, false);
-        frameLayout.addView(contentView, 0);
+       LayoutInflater inflater = (LayoutInflater) this
+               .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+       View contentView = inflater.inflate(R.layout.activity_search_result_details, null, false);
+       frameLayout.addView(contentView, 0);
 
-
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new SearchResultMoreDetails())
-                    .commit();
-        }
+       if (savedInstanceState == null) {
+           getSupportFragmentManager().beginTransaction()
+                   .add(R.id.container, new SearchResultMoreDetails())
+                   .commit();
+       }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -38,5 +37,7 @@ public class SearchResultDetailsActivity extends BaseActivity {
 
     }
 
-
+    public String getShowId() {
+        return showId;
+    }
 }
