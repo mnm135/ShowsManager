@@ -9,8 +9,4 @@
     android:paddingTop="?android:attr/actionBarSize"
     android:id="@+id/container"
     tools:context="com.example.emil.showsmanager.activities.SubscribedShowsActivity">
-
-
-
-
 </RelativeLayout>
