@@ -28,19 +28,19 @@
 
     <string name="read_more_at">Read more at: </string>
 
-    <string name="name">Name: </string>
-    <string name="season">Season: </string>
-    <string name="episode">Episode: </string>
-    <string name="runtime">Runtime: </string>
-    <string name="airdate">Airdate: </string>
-    <string name="airtime">Airtime: </string>
-    <string name="status">Status: </string>
-    <string name="language">Language: </string>
-    <string name="network">Network: </string>
-    <string name="country">Country: </string>
-    <string name="genres">Genres: </string>
-    <string name="premiere_date">Premiere date: </string>
-    <string name="end_date">End date: </string>
+    <string name="name">Name: \u0020</string>
+    <string name="season">Season: \u0020</string>
+    <string name="episode">Episode: \u0020</string>
+    <string name="runtime">Runtime: \u0020</string>
+    <string name="airdate">Airdate: \u0020</string>
+    <string name="airtime">Airtime: \u0020</string>
+    <string name="status">Status: \u0020</string>
+    <string name="language">Language: \u0020</string>
+    <string name="network">Network: \u0020</string>
+    <string name="country">Country: \u0020</string>
+    <string name="genres">Genres: \u0020</string>
+    <string name="premiere_date">Premiere date: \u0020</string>
+    <string name="end_date">End date: \u0020</string>
 
     <string name="show_section_next_episode_link">Next episode: %1$sx%2$s / %3$s / %4$s / %5$s</string>
     <string name="next_ep_no_info">No information about next episode</string>
