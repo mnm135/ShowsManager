@@ -23,8 +23,8 @@
     <string name="season_information">Season Information: </string>
 
     <string name="next_episode">Next Episode: </string>
-    <string name="no_of_seasons">No. of seasons: </string>
-    <string name="no_of_episodes">No. of episodes: </string>
+    <string name="no_of_seasons">No. of seasons: \u0020</string>
+    <string name="no_of_episodes">No. of episodes: \u0020</string>
 
     <string name="read_more_at">Read more at: </string>
 
