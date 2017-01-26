@@ -72,23 +72,25 @@ public class SearchResultMoreDetails extends Fragment {
     @BindView(R.id.imdb_pic) ImageView imdbPicture;
     @BindView(R.id.tvmaze_pic) ImageView tvmazePicture;
     @BindView(R.id.thetvdb_pic) ImageView thetvdbPicture;
-    @BindView(R.id.fab_subscribe)
-    FloatingActionButton fabSubscribe;
     @BindView(R.id.next_episode_bar) TextView nextEpisodeBar;
+    @BindView(R.id.fab_subscribe)
+
+
+    FloatingActionButton fabSubscribe;
 
     @BindView(R.id.next_episode) LinearLayout nextEpisode;
     @OnClick(R.id.next_episode)
     public void startNextEpisodeFragment(View view) {
 
-        Fragment newFragment = new NextEpisodeDetailsFragment();
-        Bundle arguments = new Bundle();
+        Fragment fragment = new NextEpisodeDetailsFragment();
+        Bundle bundle = new Bundle();
 
-        arguments.putString( "showId", mShowId);
-        arguments.putString( "seasonNumber", mNextEpSeason);
-        arguments.putString( "episodeNumber", mNextEpNumber);
-        newFragment.setArguments(arguments);
+        bundle.putString( "showId", mShowId);
+        bundle.putString( "seasonNumber", mNextEpSeason);
+        bundle.putString( "episodeNumber", mNextEpNumber);
+        fragment.setArguments(bundle);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, newFragment);
+        transaction.replace(R.id.container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -104,6 +106,7 @@ public class SearchResultMoreDetails extends Fragment {
         }
         updateFab();
     }
+
     HorizontalScrollView scrollView;
     ImageView toolbarImage;
     HorizontalScrollView seasonsScrollView;
@@ -145,12 +148,11 @@ public class SearchResultMoreDetails extends Fragment {
 
         }
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        getShowDetails(showId);
 
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.hasChild(showId)) {
+                if (snapshot.child("users").child(userId).child("shows").hasChild(showId)) {
                     isShowSubscribed = true;
                     System.out.println("subsrybowane");
 
@@ -167,6 +169,11 @@ public class SearchResultMoreDetails extends Fragment {
 
             }
         });
+
+
+
+        getShowDetails(showId);
+
         return view;
     }
 
