@@ -53,4 +53,7 @@
     <string name="bottom_action_search">Search</string>
     <string name="bottom_action_upcoming">Upcoming</string>
     <string name="bottom_action_subscribed">Subscribed</string>
+
+    <string name="snackbar_subscribe">Show is subscribed</string>
+    <string name="snackbar_unsubscribe">Show is unsubscribed</string>
 </resources>

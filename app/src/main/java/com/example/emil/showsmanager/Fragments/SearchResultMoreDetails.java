@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -100,9 +101,11 @@ public class SearchResultMoreDetails extends Fragment {
         if (!isShowSubscribed) {
             subscribeShow(userId, mShowId, mShowName, mNextEpisodeAirdate, mImageUrlMedium);
             isShowSubscribed = true;
+            showSnackBar(true);
         } else {
             unsubscribeShow(userId, showId);
             isShowSubscribed = false;
+            showSnackBar(false);
         }
         updateFab();
     }
@@ -116,6 +119,8 @@ public class SearchResultMoreDetails extends Fragment {
     FirebaseUser user;
 
     private DatabaseReference mDatabase;
+
+    View view;
 
     public SearchResultMoreDetails() {
 
@@ -132,7 +137,7 @@ public class SearchResultMoreDetails extends Fragment {
                              Bundle savedInstanceState) {
         SearchResultDetailsActivity activity = (SearchResultDetailsActivity) getActivity();
         showId = activity.getShowId();
-        View view = inflater.inflate(R.layout.fragment_search_result_more_details, container, false);
+        view = inflater.inflate(R.layout.fragment_search_result_more_details, container, false);
         ButterKnife.bind(this, view);
 
         toolbarImage = (ImageView) view.findViewById(R.id.image_toolbar);
@@ -148,22 +153,12 @@ public class SearchResultMoreDetails extends Fragment {
 
         }
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.child("users").child(userId).child("shows").hasChild(showId)) {
-                    isShowSubscribed = true;
-                    System.out.println("subsrybowane");
-
-                } else {
-                    isShowSubscribed = false;
-                    System.out.println("nie subsrybowane");
-
-                }
+                isShowSubscribed = snapshot.child("users").child(userId).child("shows").hasChild(showId);
                 updateFab();
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -177,13 +172,36 @@ public class SearchResultMoreDetails extends Fragment {
         return view;
     }
 
+    public void showSnackBar(boolean subscribe) {
+        String message;
+        final String undoMessage;
+
+        if(subscribe) {
+            message = getResources().getString(R.string.snackbar_subscribe);
+            undoMessage = getResources().getString(R.string.snackbar_unsubscribe);
+        } else {
+            message = getResources().getString(R.string.snackbar_unsubscribe);
+            undoMessage = getResources().getString(R.string.snackbar_subscribe);
+        }
+        Snackbar snackbar = Snackbar
+                .make(view, message, Snackbar.LENGTH_LONG)
+                .setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SnackbarNotification(view);
+                        Snackbar snackbar = Snackbar.make(view, undoMessage, Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    }
+                });
+        snackbar.show();
+    }
+
     public void updateFab() {
         if (isShowSubscribed) {
             fabSubscribe.setImageResource(R.drawable.ic_clear_black_24dp);
         } else {
             fabSubscribe.setImageResource(R.drawable.ic_add_black_24dp);
         }
-
     }
 
     private void unsubscribeShow(String userId, String showId) {
@@ -330,13 +348,13 @@ public class SearchResultMoreDetails extends Fragment {
     }
 
     public void startSeasonFragment(String seasonId) {
-        Fragment newFragment = new SeasonsFragment();
-        Bundle arguments = new Bundle();
-        arguments.putString( "seasonId", seasonId);
-        arguments.putString("showId", showId);
-        newFragment.setArguments(arguments);
+        Fragment fragment = new SeasonsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString( "seasonId", seasonId);
+        bundle.putString("showId", showId);
+        fragment.setArguments(bundle);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, newFragment);
+        transaction.replace(R.id.container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
