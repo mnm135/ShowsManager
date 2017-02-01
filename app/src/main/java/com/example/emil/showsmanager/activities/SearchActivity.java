@@ -36,7 +36,6 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         LayoutInflater inflater = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_search, null, false);
@@ -48,9 +47,9 @@ public class SearchActivity extends BaseActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    String query = searchEditText.getText().toString();
+                    String searchQuery = searchEditText.getText().toString();
+                    loadSearchResults(searchQuery);
                     handled = true;
-                    clearQuery(query);
                 }
                 return handled;
             }
@@ -63,19 +62,24 @@ public class SearchActivity extends BaseActivity {
 
     }
 
-    public void clearQuery(String query) {
+    public String clearQuery(String query) {
+        query = query.replaceAll("[^\\w\\s]", "").replaceAll("\\s+", "-");
+        return query;
+
+    }
+
+    public void hideKeyboard() {
         searchEditText.clearFocus();
         InputMethodManager in = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         in.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
-        
-        query = query.replaceAll("[^\\w\\s]", "").replaceAll("\\s+", "-");
-        loadSearchResults(query);
     }
 
-    public void loadSearchResults(String query) {
+    public void loadSearchResults(String searchQuery) {
+        hideKeyboard();
+        searchQuery = clearQuery(searchQuery);
 
         ApiEndPoints apiService = ApiClient.getClient().create(ApiEndPoints.class);
-        Call<List<ShowsListResponse>> call = apiService.getResponse(query);
+        Call<List<ShowsListResponse>> call = apiService.getResponse(searchQuery);
         call.enqueue(new Callback<List<ShowsListResponse>>() {
             @Override
             public void onResponse(Call<List<ShowsListResponse>> call, retrofit2.Response<List<ShowsListResponse>> response) {
@@ -86,7 +90,6 @@ public class SearchActivity extends BaseActivity {
             @Override
             public void onFailure(Call<List<ShowsListResponse>> call, Throwable t) {
                 t.printStackTrace();
-
             }
         });
     }
