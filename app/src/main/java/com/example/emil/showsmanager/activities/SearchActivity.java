@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.example.emil.showsmanager.R;
@@ -30,6 +31,8 @@ public class SearchActivity extends BaseActivity {
     List<ShowsListResponse> dataSource = new ArrayList<>();
     RecyclerView.Adapter adapter;
 
+    EditText searchEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,13 +42,13 @@ public class SearchActivity extends BaseActivity {
         View contentView = inflater.inflate(R.layout.activity_search, null, false);
         frameLayout.addView(contentView, 0);
 
-        final EditText editText = (EditText) findViewById(R.id.searchView);
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        searchEditText = (EditText) findViewById(R.id.searchView);
+        searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    String query = editText.getText().toString();
+                    String query = searchEditText.getText().toString();
                     handled = true;
                     clearQuery(query);
                 }
@@ -61,6 +64,10 @@ public class SearchActivity extends BaseActivity {
     }
 
     public void clearQuery(String query) {
+        searchEditText.clearFocus();
+        InputMethodManager in = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        in.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
+        
         query = query.replaceAll("[^\\w\\s]", "").replaceAll("\\s+", "-");
         loadSearchResults(query);
     }
