@@ -6,7 +6,7 @@ import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNe
  * Created by Emil on 11.02.2017.
  */
 
-public interface SearchResultDetailsMvpView extends MvpView {
+public interface ShowDetailsMvpView extends MvpView {
 
     void bindShowData(final ShowDetailsWithNextEpisodeResponse show);
 }

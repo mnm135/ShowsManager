@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ShowDetailsActivity extends AppCompatActivity implements SearchResultDetailsMvpView {
+public class ShowDetailsActivity extends AppCompatActivity implements ShowDetailsMvpView {
 
     private SearchResultDetailsPresenter presenter;
 
