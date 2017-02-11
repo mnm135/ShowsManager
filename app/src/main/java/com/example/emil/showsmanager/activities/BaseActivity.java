@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import com.example.emil.showsmanager.R;
+import com.example.emil.showsmanager.view.ShowDetailsActivity;
 
 
 public class BaseActivity extends AppCompatActivity {
@@ -68,6 +69,8 @@ public class BaseActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
+                Intent intent = new Intent(this, ShowDetailsActivity.class);
+                startActivity(intent);
                 return true;
 
             default:
