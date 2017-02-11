@@ -1,6 +1,7 @@
 package com.example.emil.showsmanager.rest;
 
 import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNextEpisodeResponse;
+import com.example.emil.showsmanager.models.ShowsListResponse;
 
 import java.util.List;
 import retrofit2.Call;
@@ -21,6 +22,9 @@ public interface TVMazeService {
                                                                @Query("embed[]") String cast,
                                                                @Query("embed[]") String nextepisode,
                                                                @Query("embed[]") String seasons);
+
+    @GET("/search/shows")
+    Observable<List<ShowsListResponse>> getSearchResult(@Query("q") String tvShowTitle);
 
 
 

@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import com.example.emil.showsmanager.R;
-import com.example.emil.showsmanager.view.ShowDetailsActivity;
+import com.example.emil.showsmanager.view.*;
 
 
 public class BaseActivity extends AppCompatActivity {
@@ -45,7 +45,7 @@ public class BaseActivity extends AppCompatActivity {
                                 startActivity(new Intent(getApplicationContext(), SubscribedShowsActivity.class));
                                 break;
                             case R.id.action_search:
-                                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                                startActivity(new Intent(getApplicationContext(), com.example.emil.showsmanager.view.SearchActivity.class));
                                 break;
                             case R.id.action_upcoming:
                                 startActivity(new Intent(getApplicationContext(), UpcomingEpisodesActivity.class));;

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".ShowsManagerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,9 +14,7 @@
         <activity
             android:name=".activities.BaseActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activities.SearchActivity"
             android:launchMode="singleTop"
@@ -29,6 +28,7 @@
                 android:resource="@layout/activity_search" />
         </activity>
         <activity android:name=".activities.UpcomingEpisodesActivity" />
+        <activity android:name=".view.ShowDetailsActivity" />
         <activity android:name=".activities.SubscribedShowsActivity" />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
@@ -39,12 +39,9 @@
         </activity>
         <activity
             android:name=".activities.SearchResultDetailsActivity"
-            android:theme="@style/AppTheme">
-
-        </activity>
-        <activity android:name=".activities.LoadingDialog">
-
-        </activity>
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".activities.LoadingDialog"></activity>
+        <activity android:name=".view.SearchActivity"></activity>
     </application>
 
 </manifest>

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNextEpisodeResponse;
-import com.example.emil.showsmanager.presenter.SearchResultDetailsPresenter;
+import com.example.emil.showsmanager.presenter.ShowDetailsPresenter;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 
 public class ShowDetailsActivity extends AppCompatActivity implements ShowDetailsMvpView {
 
-    private SearchResultDetailsPresenter presenter;
+    private ShowDetailsPresenter presenter;
 
     @BindView(R.id.show_name) TextView showName;
     @BindView(R.id.show_years_first_section) TextView showYears;
@@ -45,7 +45,7 @@ public class ShowDetailsActivity extends AppCompatActivity implements ShowDetail
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter = new SearchResultDetailsPresenter();
+        presenter = new ShowDetailsPresenter();
         presenter.attachView(this);
 
         setContentView(R.layout.fragment_search_result_more_details);
