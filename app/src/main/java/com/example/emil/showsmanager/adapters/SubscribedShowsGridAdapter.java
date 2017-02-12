@@ -39,7 +39,7 @@ public class SubscribedShowsGridAdapter extends BaseAdapter {
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
         } else {
-            imageView =(ImageView) convertView;
+            imageView = (ImageView) convertView;
         }
 
         Picasso.with(context).load(showList.get(position).getImageUrl()).into(imageView);
