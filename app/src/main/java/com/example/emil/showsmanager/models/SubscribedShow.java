@@ -3,10 +3,14 @@ package com.example.emil.showsmanager.models;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 
+import org.joda.time.Days;
+import org.joda.time.DurationFieldType;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 
+
 import java.util.Date;
+
 
 @IgnoreExtraProperties
 public class SubscribedShow {
@@ -133,8 +137,8 @@ public class SubscribedShow {
     private String calculateTimeToNextEpisode(String airdate) {
         Date date = new Date();
         LocalDate today = new LocalDate(date);
-        Period period = new Period(today, new LocalDate(airdate));
+        int days = Days.daysBetween(today, new LocalDate(airdate)).getDays();
 
-        return String.valueOf(period.getDays());
+        return String.valueOf(days);
     }
 }
