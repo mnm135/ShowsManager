@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.User;
+import com.example.emil.showsmanager.view.SubscribedShowsActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ui.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     startActivity(new Intent(getApplicationContext(), BaseActivity.class));
-                    //startActivity(new Intent(getApplicationContext(), SubscribedShowsActivity.class));
 
                 } else {
                     startActivityForResult(
