@@ -2,7 +2,7 @@ package com.example.emil.showsmanager.presenter;
 
 import com.example.emil.showsmanager.ShowsManagerApplication;
 import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNextEpisodeResponse;
-import com.example.emil.showsmanager.models.SubscribedShow;
+import com.example.emil.showsmanager.models.firebase.SubscribedShow;
 import com.example.emil.showsmanager.rest.TVMazeService;
 import com.example.emil.showsmanager.view.UpcomingEpisodesMvpView;
 import com.google.firebase.auth.FirebaseAuth;

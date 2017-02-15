@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.example.emil.showsmanager.models.SubscribedShow;
+import com.example.emil.showsmanager.models.firebase.SubscribedShow;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

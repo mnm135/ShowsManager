@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.example.emil.showsmanager.R;
-import com.example.emil.showsmanager.User;
+import com.example.emil.showsmanager.models.firebase.User;
 import com.example.emil.showsmanager.view.SubscribedShowsActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ui.ResultCodes;

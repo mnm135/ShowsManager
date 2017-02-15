@@ -1,8 +1,6 @@
 package com.example.emil.showsmanager.view;
 
-import com.example.emil.showsmanager.models.SubscribedShow;
-
-import java.util.List;
+import com.example.emil.showsmanager.models.firebase.SubscribedShow;
 
 /**
  * Created by Emil on 12.02.2017.

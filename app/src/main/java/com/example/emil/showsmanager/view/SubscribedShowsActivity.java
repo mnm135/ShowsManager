@@ -11,7 +11,7 @@ import android.widget.GridView;
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.activities.SearchResultDetailsActivity;
 import com.example.emil.showsmanager.adapters.SubscribedShowsGridAdapter;
-import com.example.emil.showsmanager.models.SubscribedShow;
+import com.example.emil.showsmanager.models.firebase.SubscribedShow;
 import com.example.emil.showsmanager.presenter.SubscribedShowsPresenter;
 
 import java.util.List;

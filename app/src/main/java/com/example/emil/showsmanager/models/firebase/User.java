@@ -1,4 +1,4 @@
-package com.example.emil.showsmanager;
+package com.example.emil.showsmanager.models.firebase;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
@@ -8,8 +8,8 @@ public class User {
     public String email;
 
     public User() {
-
     }
+    
     public User(String username, String email) {
         this.username = username;
         this.email = email;

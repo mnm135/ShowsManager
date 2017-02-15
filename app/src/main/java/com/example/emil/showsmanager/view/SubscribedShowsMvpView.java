@@ -1,6 +1,6 @@
 package com.example.emil.showsmanager.view;
 
-import com.example.emil.showsmanager.models.SubscribedShow;
+import com.example.emil.showsmanager.models.firebase.SubscribedShow;
 
 import java.util.List;
 

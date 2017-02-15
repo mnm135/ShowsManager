@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.emil.showsmanager.Fragments.NextEpisodeDetailsFragment;
 import com.example.emil.showsmanager.R;
-import com.example.emil.showsmanager.models.SubscribedShow;
+import com.example.emil.showsmanager.models.firebase.SubscribedShow;
 
 
 import java.util.List;

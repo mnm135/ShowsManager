@@ -1,13 +1,9 @@
-package com.example.emil.showsmanager.models;
+package com.example.emil.showsmanager.models.firebase;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-
 import org.joda.time.Days;
-import org.joda.time.DurationFieldType;
 import org.joda.time.LocalDate;
-import org.joda.time.Period;
-
 
 import java.util.Date;
 

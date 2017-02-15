@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.adapters.UpcomingEpisodesAdapter;
-import com.example.emil.showsmanager.models.SubscribedShow;
+import com.example.emil.showsmanager.models.firebase.SubscribedShow;
 import com.example.emil.showsmanager.presenter.UpcomingEpisodesPresenter;
 
 import java.util.ArrayList;

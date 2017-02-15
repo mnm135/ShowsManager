@@ -1,8 +1,7 @@
 package com.example.emil.showsmanager.presenter;
 
 
-import com.example.emil.showsmanager.User;
-import com.example.emil.showsmanager.models.SubscribedShow;
+import com.example.emil.showsmanager.models.firebase.SubscribedShow;
 import com.example.emil.showsmanager.view.SubscribedShowsMvpView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -11,7 +10,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.kelvinapps.rxfirebase.DataSnapshotMapper;
 import com.kelvinapps.rxfirebase.RxFirebaseDatabase;
 
-import rx.Observable;
 import rx.Subscription;
 
 public class SubscribedShowsPresenter implements Presenter<SubscribedShowsMvpView> {
