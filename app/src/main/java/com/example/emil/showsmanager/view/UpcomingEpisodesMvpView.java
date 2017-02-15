@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface UpcomingEpisodesMvpView extends MvpView {
 
-    void showUpcomingEpisodes(final List<SubscribedShow> shows);
+    void showUpcomingEpisodes(final SubscribedShow show);
 }

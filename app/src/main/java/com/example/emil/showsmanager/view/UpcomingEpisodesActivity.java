@@ -33,6 +33,7 @@ public class UpcomingEpisodesActivity extends AppCompatActivity implements Upcom
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        showList.clear();
         presenter = new UpcomingEpisodesPresenter();
         presenter.attachView(this);
 
@@ -45,10 +46,9 @@ public class UpcomingEpisodesActivity extends AppCompatActivity implements Upcom
         presenter.loadData();
     }
 
-    public void showUpcomingEpisodes(final List<SubscribedShow> shows) {
-        System.out.println(shows.get(1).getName());
-        showList.clear();
-        showList.addAll(shows);
+    public void showUpcomingEpisodes(final SubscribedShow show) {
+        //showList.clear();
+        showList.add(show);
         adapter.notifyDataSetChanged();
     }
 
