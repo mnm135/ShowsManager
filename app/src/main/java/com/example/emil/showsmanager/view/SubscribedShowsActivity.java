@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.emil.showsmanager.R;
-import com.example.emil.showsmanager.activities.SearchResultDetailsActivity;
 import com.example.emil.showsmanager.adapters.SubscribedShowsGridAdapter;
 import com.example.emil.showsmanager.models.firebase.SubscribedShow;
 import com.example.emil.showsmanager.presenter.SubscribedShowsPresenter;
@@ -36,39 +35,28 @@ public class SubscribedShowsActivity extends AppCompatActivity implements Subscr
         setContentView(R.layout.fragment_subscribed_shows);
         ButterKnife.bind(this);
 
-
-
         presenter.loadSubscribedShows();
-
-
     }
-
-
+    
     public void showGridOfSubscribedShows(List<SubscribedShow> subscribedShows) {
         gridView.setAdapter(new SubscribedShowsGridAdapter(this, subscribedShows));
 
-        setOnClickListeners(subscribedShows);
+        setOnClickListener(subscribedShows);
     }
 
-    private void setOnClickListeners(List<SubscribedShow> subscribedShows) {
+    private void setOnClickListener(List<SubscribedShow> subscribedShows) {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
                 String showId = subscribedShows.get(position).getId();
 
-                Intent intent = new Intent(v.getContext(), SearchResultDetailsActivity.class);
+                Intent intent = new Intent(v.getContext(), ShowDetailsActivity.class);
                 intent.putExtra("showId", showId);
                 v.getContext().startActivity(intent);
             }
         });
     }
-
-
-
-
-
-
 
     @Override
     protected void onDestroy() {
