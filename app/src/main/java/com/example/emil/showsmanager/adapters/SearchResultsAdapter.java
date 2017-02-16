@@ -14,6 +14,7 @@ import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.activities.SearchResultDetailsActivity;
 import com.example.emil.showsmanager.models.ShowsListResponse;
 
+import com.example.emil.showsmanager.view.ShowDetailsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -80,7 +81,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, SearchResultDetailsActivity.class);
+                Intent intent = new Intent(context, ShowDetailsActivity.class);
                 intent.putExtra("showId", id);
                 v.getContext().startActivity(intent);
             }

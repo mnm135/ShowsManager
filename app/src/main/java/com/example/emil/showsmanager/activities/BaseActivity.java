@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.view.*;
+import com.example.emil.showsmanager.view.UpcomingEpisodesActivity;
 
 
 public class BaseActivity extends AppCompatActivity {
@@ -48,7 +49,7 @@ public class BaseActivity extends AppCompatActivity {
                                 startActivity(new Intent(getApplicationContext(), com.example.emil.showsmanager.view.SearchActivity.class));
                                 break;
                             case R.id.action_upcoming:
-                                startActivity(new Intent(getApplicationContext(), UpcomingEpisodesActivity.class));;
+                                startActivity(new Intent(getApplicationContext(), UpcomingEpisodesActivity.class));
                                 break;
                         }
                         return true;
@@ -69,7 +70,7 @@ public class BaseActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
-                Intent intent = new Intent(this, ShowDetailsActivity.class);
+                Intent intent = new Intent(this, com.example.emil.showsmanager.view.ShowDetailsActivity.class);
                 startActivity(intent);
                 return true;
 
