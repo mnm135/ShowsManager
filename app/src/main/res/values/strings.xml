@@ -32,7 +32,7 @@
     <string name="season">Season: \u0020</string>
     <string name="episode">Episode: \u0020</string>
     <string name="runtime">Runtime: \u0020</string>
-    <string name="airdate">Airdate: \u0020</string>
+    <string name="airdate">Premiered: \u0020</string>
     <string name="airtime">Airtime: \u0020</string>
     <string name="status">Status: \u0020</string>
     <string name="language">Language: \u0020</string>
