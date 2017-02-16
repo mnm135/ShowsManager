@@ -77,8 +77,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/next_episode"
+                >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:id="@+id/next_episode">
+                >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -104,12 +112,12 @@
                     android:src="@drawable/ic_chevron_right_black_24dp"
                     android:layout_gravity="end"/>
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_margin="8dp"
-                android:background="#424242" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_margin="8dp"
+                    android:background="#424242" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -140,6 +148,13 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/seasons_gallery_section">
+
+
 
             <View
                 android:layout_width="match_parent"
@@ -153,6 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left">
             </HorizontalScrollView>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -327,6 +343,13 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/cast_gallery_section">
+
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -339,6 +362,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left">
             </HorizontalScrollView>
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
