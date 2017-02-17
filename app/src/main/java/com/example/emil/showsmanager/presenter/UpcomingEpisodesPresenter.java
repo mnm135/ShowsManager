@@ -44,15 +44,7 @@ public class UpcomingEpisodesPresenter implements Presenter<UpcomingEpisodesMvpV
 
         RxFirebaseDatabase.observeSingleValueEvent(databaseReference.child("users").child(userId).child("shows"),
                 DataSnapshotMapper.listOf(SubscribedShow.class))
-                .subscribe((shows) -> {
-                    for (SubscribedShow show : shows) {
-                        if (show.getStatus().equals("Ended")) {
-                            shows.remove(show);
-                        }
-                    }
-                    updateShows(shows);
-                });
-
+                .subscribe(this::updateShows);
     }
 
 
@@ -72,6 +64,10 @@ public class UpcomingEpisodesPresenter implements Presenter<UpcomingEpisodesMvpV
                     public void call(List<SubscribedShow> subscribedShows) {
 
                             for (SubscribedShow show : subscribedShows) {
+
+                                if (show.getStatus().equals("Ended")) {
+                                    continue;
+                                }
 
                                 show.setTimeToNextEpisode();
                                 updateInFirebase(show);
