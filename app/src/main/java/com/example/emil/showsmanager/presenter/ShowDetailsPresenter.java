@@ -67,22 +67,29 @@ public class ShowDetailsPresenter implements Presenter<ShowDetailsMvpView> {
         String userId = getUserId();
         String showId = showResponse.getId().toString();
         String showName = showResponse.getName();
-        String nextEpisodeAirdate = showResponse.getEmbedded().getNextepisode().getAirdate();
         String imageurl = showResponse.getImage().getMedium();
         String showStatus = showResponse.getStatus();
         String showAirdate = showResponse.getPremiered();
         String showChannel = showResponse.getNetwork().getName();
 
-        String nextEpisodeSeasonNumber = showResponse.getEmbedded().getNextepisode().getNumber().toString();
-        String nextEpisodeNumber = showResponse.getEmbedded().getNextepisode().getSeason().toString();
+        SubscribedShow show;
 
-        SubscribedShow show = new SubscribedShow.ShowBuilder(showId, showName, showStatus, imageurl)
-                .showAirdate(showAirdate)
-                .channel(showChannel)
-                .nextEpisodeAitdate(nextEpisodeAirdate)
-                .nextEpisodeNumber(nextEpisodeNumber)
-                .nextEpisodeSeason(nextEpisodeSeasonNumber)
-                .build();
+        if (showResponse.getEmbedded().getNextepisode() != null) {
+            String nextEpisodeAirdate = showResponse.getEmbedded().getNextepisode().getAirdate();
+            String nextEpisodeSeasonNumber = showResponse.getEmbedded().getNextepisode().getNumber().toString();
+            String nextEpisodeNumber = showResponse.getEmbedded().getNextepisode().getSeason().toString();
+
+            show = new SubscribedShow.ShowBuilder(showId, showName, showStatus, imageurl)
+                    .showAirdate(showAirdate)
+                    .channel(showChannel)
+                    .nextEpisodeAitdate(nextEpisodeAirdate)
+                    .nextEpisodeNumber(nextEpisodeNumber)
+                    .nextEpisodeSeason(nextEpisodeSeasonNumber)
+                    .build();
+        } else {
+            show = new SubscribedShow.ShowBuilder(showId, showName, showStatus, imageurl).build();
+        }
+
 
         mDatabase.child("users").child(userId).child("shows").child(showId).setValue(show);
     }
