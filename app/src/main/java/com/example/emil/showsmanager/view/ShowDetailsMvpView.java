@@ -6,4 +6,5 @@ public interface ShowDetailsMvpView extends MvpView {
 
     void bindShowData(final ShowDetailsWithNextEpisodeResponse show);
     void changeIcon(boolean subscribed);
+    void showSnackbar(boolean subscribed);
 }

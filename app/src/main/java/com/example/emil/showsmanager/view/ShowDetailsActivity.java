@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -206,6 +207,28 @@ public class ShowDetailsActivity extends AppCompatActivity implements ShowDetail
         } else {
             fabSubscribe.setImageResource(R.drawable.ic_add_black_24dp);
         }
+    }
+
+    public void showSnackbar(boolean subscribed) {
+        final String message;
+        final String undoMessage;
+        View parentLayout = findViewById(R.id.parent_layout);
+
+        if(subscribed) {
+            message = getResources().getString(R.string.snackbar_unsubscribe);
+            undoMessage = getResources().getString(R.string.snackbar_subscribe);
+        } else {
+            message = getResources().getString(R.string.snackbar_subscribe);
+            undoMessage = getResources().getString(R.string.snackbar_unsubscribe);
+        }
+        Snackbar snackbar = Snackbar
+                .make(parentLayout, message, Snackbar.LENGTH_LONG)
+                .setAction("UNDO", view -> {
+                    presenter.onSubscribeClick();
+                    Snackbar undoSnackbar = Snackbar.make(view, undoMessage, Snackbar.LENGTH_SHORT);
+                    undoSnackbar.show();
+                });
+        snackbar.show();
     }
 
     @Override

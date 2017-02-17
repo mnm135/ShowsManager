@@ -61,6 +61,7 @@ public class ShowDetailsPresenter implements Presenter<ShowDetailsMvpView> {
         } else {
             unsubscribeShow();
         }
+        showDetailsMvpView.showSnackbar(showSubscribed);
     }
 
     private void subscribeShow() {
