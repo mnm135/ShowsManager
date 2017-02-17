@@ -10,17 +10,17 @@ import java.util.Date;
 
 @IgnoreExtraProperties
 public class SubscribedShow {
-    public String id;
-    public String name;
-    public String nextEpisodeAirdate;
-    public String imageUrl;
+    private String id;
+    private String name;
+    private String nextEpisodeAirdate;
+    private String imageUrl;
 
-    public String timeToNextEpisode;
-    public String status;
-    public String airtime;
-    public String channel;
-    public String nextEpNumber;
-    public String nextEpSeason;
+    private String timeToNextEpisode;
+    private String status;
+    private String airtime;
+    private String channel;
+    private String nextEpNumber;
+    private String nextEpSeason;
 
     public SubscribedShow() {
     }
@@ -136,5 +136,70 @@ public class SubscribedShow {
         int days = Days.daysBetween(today, new LocalDate(airdate)).getDays();
 
         return String.valueOf(days);
+    }
+
+    private SubscribedShow(ShowBuilder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.nextEpisodeAirdate = builder.nextEpisodeAirdate;
+        this.imageUrl = builder.imageUrl;
+        this.status = builder.status;
+        this.airtime = builder.airtime;
+        this.channel = builder.channel;
+        this.nextEpNumber = builder.nextEpNumber;
+        this.nextEpSeason = builder.nextEpSeason;
+        if (builder.nextEpisodeAirdate != null) {
+            System.out.println("not null");
+            this.timeToNextEpisode = calculateTimeToNextEpisode(builder.nextEpisodeAirdate);
+        }
+
+    }
+
+    public static class ShowBuilder {
+        private String id;
+        private String name;
+        private String nextEpisodeAirdate;
+        private String imageUrl;
+        private String status;
+        private String airtime;
+        private String channel;
+        private String nextEpNumber;
+        private String nextEpSeason;
+
+        public ShowBuilder(String id, String name, String status, String imageUrl) {
+            this.id = id;
+            this.name = name;
+            this.status = status;
+            this.imageUrl = imageUrl;
+        }
+
+        public ShowBuilder nextEpisodeAitdate(String nextEpisodeAirdate) {
+            this.nextEpisodeAirdate = nextEpisodeAirdate;
+            return this;
+        }
+
+        public ShowBuilder showAirdate(String airtime) {
+            this.airtime = airtime;
+            return this;
+        }
+
+        public ShowBuilder channel(String channel) {
+            this.channel = channel;
+            return this;
+        }
+
+        public ShowBuilder nextEpisodeNumber(String nextEpNumber) {
+            this.nextEpNumber = nextEpNumber;
+            return this;
+        }
+
+        public ShowBuilder nextEpisodeSeason(String nextEpSeason) {
+            this.nextEpSeason = nextEpSeason;
+            return this;
+        }
+
+        public SubscribedShow build() {
+            return new SubscribedShow(this);
+        }
     }
 }
