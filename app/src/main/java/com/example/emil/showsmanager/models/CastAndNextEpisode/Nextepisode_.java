@@ -23,7 +23,7 @@ public class Nextepisode_ {
     @SerializedName("airdate")
     @Expose
     private String airdate;
-    @SerializedName("airtime")
+    @SerializedName("showAirdate")
     @Expose
     private String airtime;
     @SerializedName("airstamp")
