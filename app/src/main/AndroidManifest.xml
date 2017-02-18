@@ -14,22 +14,8 @@
         <activity
             android:name=".activities.BaseActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".activities.SearchActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@layout/activity_search" />
-        </activity>
-        <activity android:name=".activities.UpcomingEpisodesActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.ShowDetailsActivity" />
-        <activity android:name=".activities.SubscribedShowsActivity" />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,9 +25,12 @@
         </activity>
         <activity
             android:name=".activities.SearchResultDetailsActivity"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name=".activities.LoadingDialog"></activity>
-        <activity android:name=".view.SearchActivity"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activities.LoadingDialog" />
+        <activity android:name=".view.SearchActivity" />
+        <activity android:name=".view.SeasonActivity" />
+        <activity android:name=".view.SubscribedShowsActivity" />
+        <activity android:name=".view.UpcomingEpisodesActivity"></activity>
     </application>
 
 </manifest>

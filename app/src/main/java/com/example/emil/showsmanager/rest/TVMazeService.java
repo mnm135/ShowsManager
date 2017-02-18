@@ -1,10 +1,12 @@
 package com.example.emil.showsmanager.rest;
 
 import com.example.emil.showsmanager.models.FullShowInfoResponse.FullShowInfo;
+import com.example.emil.showsmanager.models.FullShowInfoResponse.SingleSeason;
 import com.example.emil.showsmanager.models.SearchShowsResponse.ShowsListResponse;
 
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -24,6 +26,9 @@ public interface TVMazeService {
 
     @GET("/search/shows")
     Observable<List<ShowsListResponse>> getSearchResult(@Query("q") String tvShowTitle);
+
+    @GET("/seasons/{id}")
+    Observable<SingleSeason> getSeasonResponse(@Path("id") String id);
 
 
 
