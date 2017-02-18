@@ -1,6 +1,7 @@
 package com.example.emil.showsmanager.rest;
 
 import com.example.emil.showsmanager.models.FullShowInfoResponse.FullShowInfo;
+import com.example.emil.showsmanager.models.FullShowInfoResponse.SingleEpisode;
 import com.example.emil.showsmanager.models.FullShowInfoResponse.SingleSeason;
 import com.example.emil.showsmanager.models.SearchShowsResponse.ShowsListResponse;
 
@@ -29,6 +30,11 @@ public interface TVMazeService {
 
     @GET("/seasons/{id}")
     Observable<SingleSeason> getSeasonResponse(@Path("id") String id);
+
+    @GET("/shows/{id}/episodebynumber")
+    Observable<SingleEpisode> getEpisodeResponse(@Path("id") String id,
+                                    @Query("season") String season,
+                                    @Query("number") String episode);
 
 
 
