@@ -1,8 +1,7 @@
 package com.example.emil.showsmanager.presenter;
 
 import com.example.emil.showsmanager.ShowsManagerApplication;
-import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNextEpisodeResponse;
-import com.example.emil.showsmanager.models.ShowsListResponse;
+import com.example.emil.showsmanager.models.SearchShowsResponse.ShowsListResponse;
 import com.example.emil.showsmanager.rest.TVMazeService;
 import com.example.emil.showsmanager.view.SearchMvpView;
 

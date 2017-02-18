@@ -1,4 +1,4 @@
-package com.example.emil.showsmanager.models.CastAndNextEpisode;
+package com.example.emil.showsmanager.models.FullShowInfoResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

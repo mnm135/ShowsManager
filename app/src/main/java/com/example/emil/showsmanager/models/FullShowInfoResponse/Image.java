@@ -1,13 +1,9 @@
-package com.example.emil.showsmanager.models.CastAndNextEpisode;
+package com.example.emil.showsmanager.models.FullShowInfoResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Emil on 16.12.2016.
- */
-
-public class Image___ {
+public class Image {
 
     @SerializedName("medium")
     @Expose
@@ -15,6 +11,15 @@ public class Image___ {
     @SerializedName("original")
     @Expose
     private String original;
+
+    public Image() {
+    }
+
+
+    public Image(String medium, String original) {
+        this.medium = medium;
+        this.original = original;
+    }
 
     public String getMedium() {
         return medium;
@@ -27,6 +32,7 @@ public class Image___ {
     public String getOriginal() {
         return original;
     }
+
 
     public void setOriginal(String original) {
         this.original = original;

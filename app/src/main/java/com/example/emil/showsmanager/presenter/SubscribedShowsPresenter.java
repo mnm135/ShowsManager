@@ -1,7 +1,7 @@
 package com.example.emil.showsmanager.presenter;
 
 
-import com.example.emil.showsmanager.models.firebase.SubscribedShow;
+import com.example.emil.showsmanager.models.firebase.FirebaseShow;
 import com.example.emil.showsmanager.view.SubscribedShowsMvpView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,7 +36,7 @@ public class SubscribedShowsPresenter implements Presenter<SubscribedShowsMvpVie
         String userId = getUserId();
 
         RxFirebaseDatabase.observeSingleValueEvent(databaseReference.child("users").child(userId).child("shows"),
-                DataSnapshotMapper.listOf(SubscribedShow.class))
+                DataSnapshotMapper.listOf(FirebaseShow.class))
                 .subscribe(showList -> {
                     subscribedShowsMvpView.showGridOfSubscribedShows(showList);
 

@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.activities.BaseActivity;
 import com.example.emil.showsmanager.adapters.SearchResultsAdapter;
-import com.example.emil.showsmanager.models.ShowsListResponse;
+import com.example.emil.showsmanager.models.SearchShowsResponse.ShowsListResponse;
 import com.example.emil.showsmanager.presenter.SearchPresenter;
 
 import java.util.ArrayList;

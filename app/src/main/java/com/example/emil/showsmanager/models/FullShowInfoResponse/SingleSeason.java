@@ -1,13 +1,9 @@
-package com.example.emil.showsmanager.models.CastAndNextEpisode;
+package com.example.emil.showsmanager.models.FullShowInfoResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Emil on 23.12.2016.
- */
-
-public class SeasonResponse {
+public class SingleSeason {
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -30,11 +26,10 @@ public class SeasonResponse {
     @Expose
     private String summary;
 
+    SingleSeason() {}
 
-    SeasonResponse() {}
-
-    SeasonResponse(Integer id, Integer number, Integer episodeOrder, String premiereDate, String endDate,
-                   Image image, String summary) {
+    SingleSeason(Integer id, Integer number, Integer episodeOrder, String premiereDate, String endDate,
+                 Image image, String summary) {
         this.id = id;
         this.number = number;
         this.episodeOrder = episodeOrder;
@@ -47,6 +42,7 @@ public class SeasonResponse {
     public Integer getId() {
         return id;
     }
+
     public Integer getNumber() {
         return number;
     }

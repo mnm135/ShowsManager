@@ -10,7 +10,7 @@ import android.widget.GridView;
 
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.adapters.SubscribedShowsGridAdapter;
-import com.example.emil.showsmanager.models.firebase.SubscribedShow;
+import com.example.emil.showsmanager.models.firebase.FirebaseShow;
 import com.example.emil.showsmanager.presenter.SubscribedShowsPresenter;
 
 import java.util.List;
@@ -37,19 +37,19 @@ public class SubscribedShowsActivity extends AppCompatActivity implements Subscr
 
         presenter.loadSubscribedShows();
     }
-    
-    public void showGridOfSubscribedShows(List<SubscribedShow> subscribedShows) {
-        gridView.setAdapter(new SubscribedShowsGridAdapter(this, subscribedShows));
 
-        setOnClickListener(subscribedShows);
+    public void showGridOfSubscribedShows(List<FirebaseShow> firebaseShows) {
+        gridView.setAdapter(new SubscribedShowsGridAdapter(this, firebaseShows));
+
+        setOnClickListener(firebaseShows);
     }
 
-    private void setOnClickListener(List<SubscribedShow> subscribedShows) {
+    private void setOnClickListener(List<FirebaseShow> firebaseShows) {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                String showId = subscribedShows.get(position).getId();
+                String showId = firebaseShows.get(position).getId();
 
                 Intent intent = new Intent(v.getContext(), ShowDetailsActivity.class);
                 intent.putExtra("showId", showId);

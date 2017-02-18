@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.emil.showsmanager.Fragments.NextEpisodeDetailsFragment;
 import com.example.emil.showsmanager.R;
-import com.example.emil.showsmanager.models.firebase.SubscribedShow;
+import com.example.emil.showsmanager.models.firebase.FirebaseShow;
 
 
 import java.util.List;
@@ -24,20 +24,20 @@ import java.util.List;
 
 public class UpcomingEpisodesAdapter extends
         RecyclerView.Adapter<UpcomingEpisodesAdapter.UpcomingEpisodesViewHolder>{
-    private List<SubscribedShow> showsList;
+    private List<FirebaseShow> showsList;
     private int rowLayout;
     private Context context;
 
-    public UpcomingEpisodesAdapter(List<SubscribedShow> showsList, int rowLayout, Context context) {
+    public UpcomingEpisodesAdapter(List<FirebaseShow> showsList, int rowLayout, Context context) {
         this.showsList = showsList;
         this.rowLayout = rowLayout;
         this.context = context;
     }
 
-    public List<SubscribedShow> getShowsList() {
+    public List<FirebaseShow> getShowsList() {
         return showsList;
     }
-    public void setShowsListResponse(List<SubscribedShow> showsList) {
+    public void setShowsListResponse(List<FirebaseShow> showsList) {
         this.showsList = showsList;
     }
     public int getRowLayout() {

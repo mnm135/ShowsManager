@@ -1,4 +1,4 @@
-package com.example.emil.showsmanager.models;
+package com.example.emil.showsmanager.models.FullShowInfoResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Show {
+public class FullShowInfo {
 
     @SerializedName("id")
     @Expose
@@ -63,13 +63,14 @@ public class Show {
     @SerializedName("updated")
     @Expose
     private Integer updated;
+    @SerializedName("_embedded")
+    @Expose
+    private Embedded embedded;
 
-
-    public Show() {
+    public FullShowInfo() {
     }
 
-
-    public Show(Integer id, String url, String name, String type, String language, List<String> genres, String status, Integer runtime, String premiered, Schedule schedule, Rating rating, Integer weight, Network network, Object webChannel, Externals externals, Image image, String summary, Integer updated) {
+    public FullShowInfo(Integer id, String url, String name, String type, String language, List<String> genres, String status, Integer runtime, String premiered, Schedule schedule, Rating rating, Integer weight, Network network, Object webChannel, Externals externals, Image image, String summary, Integer updated, Embedded embedded) {
         this.id = id;
         this.url = url;
         this.name = name;
@@ -88,9 +89,8 @@ public class Show {
         this.image = image;
         this.summary = summary;
         this.updated = updated;
-
+        this.embedded = embedded;
     }
-
 
     public Integer getId() {
         return id;
@@ -100,11 +100,9 @@ public class Show {
         this.id = id;
     }
 
-
     public String getUrl() {
         return url;
     }
-
 
     public void setUrl(String url) {
         this.url = url;
@@ -122,151 +120,128 @@ public class Show {
         return type;
     }
 
-
     public void setType(String type) {
         this.type = type;
     }
-
 
     public String getLanguage() {
         return language;
     }
 
-
     public void setLanguage(String language) {
         this.language = language;
     }
-
 
     public List<String> getGenres() {
         return genres;
     }
 
-
     public void setGenres(List<String> genres) {
         this.genres = genres;
     }
-
 
     public String getStatus() {
         return status;
     }
 
-
     public void setStatus(String status) {
         this.status = status;
     }
-
 
     public Integer getRuntime() {
         return runtime;
     }
 
-
     public void setRuntime(Integer runtime) {
         this.runtime = runtime;
     }
-
 
     public String getPremiered() {
         return premiered;
     }
 
-
     public void setPremiered(String premiered) {
         this.premiered = premiered;
     }
-
 
     public Schedule getSchedule() {
         return schedule;
     }
 
-
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
-
 
     public Rating getRating() {
         return rating;
     }
 
-
     public void setRating(Rating rating) {
         this.rating = rating;
     }
-
 
     public Integer getWeight() {
         return weight;
     }
 
-
     public void setWeight(Integer weight) {
         this.weight = weight;
     }
-
 
     public Network getNetwork() {
         return network;
     }
 
-
     public void setNetwork(Network network) {
         this.network = network;
     }
-
 
     public Object getWebChannel() {
         return webChannel;
     }
 
-
     public void setWebChannel(Object webChannel) {
         this.webChannel = webChannel;
     }
-
 
     public Externals getExternals() {
         return externals;
     }
 
-
     public void setExternals(Externals externals) {
         this.externals = externals;
     }
-
 
     public Image getImage() {
         return image;
     }
 
-
     public void setImage(Image image) {
         this.image = image;
     }
-
 
     public String getSummary() {
         return summary;
     }
 
-
     public void setSummary(String summary) {
         this.summary = summary;
     }
-
 
     public Integer getUpdated() {
         return updated;
     }
 
-
     public void setUpdated(Integer updated) {
         this.updated = updated;
     }
 
+    public Embedded getEmbedded() {
+        return embedded;
+    }
 
+    public void setEmbedded(Embedded embedded) {
+        this.embedded = embedded;
+    }
 
 }

@@ -9,7 +9,7 @@ import java.util.Date;
 
 
 @IgnoreExtraProperties
-public class SubscribedShow {
+public class FirebaseShow {
     private String id;
     private String name;
     private String nextEpisodeAirdate;
@@ -22,10 +22,10 @@ public class SubscribedShow {
     private String nextEpNumber;
     private String nextEpSeason;
 
-    public SubscribedShow() {
+    public FirebaseShow() {
     }
 
-    public SubscribedShow(String id, String name, String nextEpisodeAirdate, String imageUrl, String status) {
+    public FirebaseShow(String id, String name, String nextEpisodeAirdate, String imageUrl, String status) {
         this.id = id;
         this.name = name;
         this.nextEpisodeAirdate = nextEpisodeAirdate;
@@ -33,9 +33,9 @@ public class SubscribedShow {
         this.status = status;
     }
 
-    public SubscribedShow(String id, String name, String nextEpisodeAirdate, String imageUrl,
-                          String status, String airtime, String channel, String nextEpNumber,
-                          String nextEpSeason) {
+    public FirebaseShow(String id, String name, String nextEpisodeAirdate, String imageUrl,
+                        String status, String airtime, String channel, String nextEpNumber,
+                        String nextEpSeason) {
         this(id, name, nextEpisodeAirdate, imageUrl, status);
         this.airtime = airtime;
         this.channel = channel;
@@ -138,7 +138,7 @@ public class SubscribedShow {
         return String.valueOf(days);
     }
 
-    private SubscribedShow(ShowBuilder builder) {
+    private FirebaseShow(ShowBuilder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.nextEpisodeAirdate = builder.nextEpisodeAirdate;
@@ -198,8 +198,8 @@ public class SubscribedShow {
             return this;
         }
 
-        public SubscribedShow build() {
-            return new SubscribedShow(this);
+        public FirebaseShow build() {
+            return new FirebaseShow(this);
         }
     }
 }

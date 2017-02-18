@@ -11,8 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.emil.showsmanager.R;
-import com.example.emil.showsmanager.activities.SearchResultDetailsActivity;
-import com.example.emil.showsmanager.models.ShowsListResponse;
+import com.example.emil.showsmanager.models.SearchShowsResponse.ShowsListResponse;
 
 import com.example.emil.showsmanager.view.ShowDetailsActivity;
 import com.squareup.picasso.Picasso;

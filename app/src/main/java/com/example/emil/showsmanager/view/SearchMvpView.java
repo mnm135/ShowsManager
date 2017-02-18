@@ -1,6 +1,6 @@
 package com.example.emil.showsmanager.view;
 
-import com.example.emil.showsmanager.models.ShowsListResponse;
+import com.example.emil.showsmanager.models.SearchShowsResponse.ShowsListResponse;
 
 import java.util.List;
 

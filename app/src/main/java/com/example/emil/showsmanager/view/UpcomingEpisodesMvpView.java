@@ -1,6 +1,6 @@
 package com.example.emil.showsmanager.view;
 
-import com.example.emil.showsmanager.models.firebase.SubscribedShow;
+import com.example.emil.showsmanager.models.firebase.FirebaseShow;
 
 /**
  * Created by Emil on 12.02.2017.
@@ -8,5 +8,5 @@ import com.example.emil.showsmanager.models.firebase.SubscribedShow;
 
 public interface UpcomingEpisodesMvpView extends MvpView {
 
-    void showUpcomingEpisodes(final SubscribedShow show);
+    void showUpcomingEpisodes(final FirebaseShow show);
 }

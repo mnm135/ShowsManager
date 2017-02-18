@@ -1,13 +1,11 @@
-package com.example.emil.showsmanager.models.CastAndNextEpisode;
+package com.example.emil.showsmanager.models.FullShowInfoResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Network {
 
-    @SerializedName("id")
-    @Expose
-    private Integer id;
+
     @SerializedName("name")
     @Expose
     private String name;
@@ -18,18 +16,9 @@ public class Network {
     public Network() {
     }
 
-    public Network(Integer id, String name, Country country) {
-        this.id = id;
+    public Network(String name, Country country) {
         this.name = name;
         this.country = country;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

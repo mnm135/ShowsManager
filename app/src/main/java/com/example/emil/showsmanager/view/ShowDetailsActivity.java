@@ -14,9 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.emil.showsmanager.R;
-import com.example.emil.showsmanager.models.CastAndNextEpisode.Cast;
-import com.example.emil.showsmanager.models.CastAndNextEpisode.Season;
-import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNextEpisodeResponse;
+import com.example.emil.showsmanager.models.FullShowInfoResponse.Cast;
+import com.example.emil.showsmanager.models.FullShowInfoResponse.Season;
+import com.example.emil.showsmanager.models.FullShowInfoResponse.FullShowInfo;
 import com.example.emil.showsmanager.presenter.ShowDetailsPresenter;
 import com.squareup.picasso.Picasso;
 
@@ -83,7 +83,7 @@ public class ShowDetailsActivity extends AppCompatActivity implements ShowDetail
         presenter.startFabIconListener(showId);
     }
 
-    public void bindShowData(final ShowDetailsWithNextEpisodeResponse show) {
+    public void bindShowData(final FullShowInfo show) {
         showDescription.setText(show.getSummary());
         showGenres.setText(show.getGenres().toString());
         showCountry.setText(show.getNetwork().getCountry().getName());

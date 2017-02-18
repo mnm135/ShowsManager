@@ -1,8 +1,8 @@
 package com.example.emil.showsmanager.presenter;
 
 import com.example.emil.showsmanager.ShowsManagerApplication;
-import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNextEpisodeResponse;
-import com.example.emil.showsmanager.models.firebase.SubscribedShow;
+import com.example.emil.showsmanager.models.FullShowInfoResponse.FullShowInfo;
+import com.example.emil.showsmanager.models.firebase.FirebaseShow;
 import com.example.emil.showsmanager.rest.TVMazeService;
 import com.example.emil.showsmanager.view.UpcomingEpisodesMvpView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,32 +38,28 @@ public class UpcomingEpisodesPresenter implements Presenter<UpcomingEpisodesMvpV
     }
 
     public void loadData() {
-
-
         String userId = getUserId();
 
         RxFirebaseDatabase.observeSingleValueEvent(databaseReference.child("users").child(userId).child("shows"),
-                DataSnapshotMapper.listOf(SubscribedShow.class))
+                DataSnapshotMapper.listOf(FirebaseShow.class))
                 .subscribe(this::updateShows);
     }
 
 
-
-
-    private void updateShows(List<SubscribedShow> shows) {
+    private void updateShows(List<FirebaseShow> shows) {
         ShowsManagerApplication application = ShowsManagerApplication.get(upcomingEpisodesMvpView.getContext());
         TVMazeService tvMazeService = application.getTvMazeService();
 
-        Observable<SubscribedShow> ob = Observable.from(shows);
+        Observable<FirebaseShow> ob = Observable.from(shows);
 
 
         //@TODO change it / temporary solution / need to learn more about rx to implement it nicely
         ob.toList()
-                .doOnNext(new Action1<List<SubscribedShow>>() {
+                .doOnNext(new Action1<List<FirebaseShow>>() {
                     @Override
-                    public void call(List<SubscribedShow> subscribedShows) {
+                    public void call(List<FirebaseShow> firebaseShows) {
 
-                            for (SubscribedShow show : subscribedShows) {
+                            for (FirebaseShow show : firebaseShows) {
 
                                 if (show.getStatus().equals("Ended")) {
                                     continue;
@@ -80,10 +76,10 @@ public class UpcomingEpisodesPresenter implements Presenter<UpcomingEpisodesMvpV
                                     subscription = tvMazeService.getResponse(show.getId(), "cast", "nextepisode", "seasons")
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribeOn(application.defaultSubscribeScheduler())
-                                            .subscribe(new Action1<ShowDetailsWithNextEpisodeResponse>() {
+                                            .subscribe(new Action1<FullShowInfo>() {
                                                 @Override
-                                                public void call(ShowDetailsWithNextEpisodeResponse showDetailsWithNextEpisodeResponse) {
-                                                    updateModel(show, showDetailsWithNextEpisodeResponse);
+                                                public void call(FullShowInfo fullShowInfo) {
+                                                    updateModel(show, fullShowInfo);
                                                     updateInFirebase(show);
 
                                                     if (!show.getStatus().equals("Ended")) {
@@ -96,11 +92,9 @@ public class UpcomingEpisodesPresenter implements Presenter<UpcomingEpisodesMvpV
                         }
 
                 }).subscribe();
-
     }
 
-
-    private void updateModel(SubscribedShow show, ShowDetailsWithNextEpisodeResponse showResponse) {
+    private void updateModel(FirebaseShow show, FullShowInfo showResponse) {
         show.setStatus(showResponse.getStatus());
         if (!showResponse.getStatus().equals("Ended")) {
             show.setNextEpisodeAirdate(showResponse.getEmbedded().getNextepisode().getAirdate());
@@ -110,7 +104,7 @@ public class UpcomingEpisodesPresenter implements Presenter<UpcomingEpisodesMvpV
         }
     }
 
-    private void updateInFirebase(SubscribedShow show) {
+    private void updateInFirebase(FirebaseShow show) {
         String userId = getUserId();
         String showId = show.getId();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();

@@ -1,10 +1,10 @@
-package com.example.emil.showsmanager.models.CastAndNextEpisode;
-
+package com.example.emil.showsmanager.models.FullShowInfoResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Character {
+
+public class Person {
 
     @SerializedName("id")
     @Expose
@@ -17,10 +17,7 @@ public class Character {
     private String name;
     @SerializedName("image")
     @Expose
-    private Image__ image;
-    @SerializedName("_links")
-    @Expose
-    private Links__ links;
+    private Image image;
 
     public Integer getId() {
         return id;
@@ -46,20 +43,12 @@ public class Character {
         this.name = name;
     }
 
-    public Image__ getImage() {
+    public Image getImage() {
         return image;
     }
 
-    public void setImage(Image__ image) {
+    public void setImage(Image image) {
         this.image = image;
-    }
-
-    public Links__ getLinks() {
-        return links;
-    }
-
-    public void setLinks(Links__ links) {
-        this.links = links;
     }
 
 }

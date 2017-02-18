@@ -1,4 +1,4 @@
-package com.example.emil.showsmanager.models.CastAndNextEpisode;
+package com.example.emil.showsmanager.models.SearchShowsResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,17 +8,12 @@ public class Image {
     @SerializedName("medium")
     @Expose
     private String medium;
-    @SerializedName("original")
-    @Expose
-    private String original;
 
     public Image() {
     }
 
-
-    public Image(String medium, String original) {
+    public Image(String medium) {
         this.medium = medium;
-        this.original = original;
     }
 
     public String getMedium() {
@@ -29,13 +24,5 @@ public class Image {
         this.medium = medium;
     }
 
-    public String getOriginal() {
-        return original;
-    }
-
-
-    public void setOriginal(String original) {
-        this.original = original;
-    }
 
 }

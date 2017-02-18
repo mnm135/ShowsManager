@@ -6,16 +6,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.example.emil.showsmanager.models.firebase.SubscribedShow;
+import com.example.emil.showsmanager.models.firebase.FirebaseShow;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class SubscribedShowsGridAdapter extends BaseAdapter {
     private Context context;
-    private List<SubscribedShow> showList;
+    private List<FirebaseShow> showList;
 
-    public SubscribedShowsGridAdapter(Context context, List<SubscribedShow> showList) {
+    public SubscribedShowsGridAdapter(Context context, List<FirebaseShow> showList) {
         this.context = context;
         this.showList = showList;
     }
@@ -24,7 +24,7 @@ public class SubscribedShowsGridAdapter extends BaseAdapter {
         return showList.size();
     }
 
-    public SubscribedShow getItem(int position) {
+    public FirebaseShow getItem(int position) {
         return showList.get(position);
     }
 

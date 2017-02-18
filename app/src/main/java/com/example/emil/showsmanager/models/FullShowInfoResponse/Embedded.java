@@ -1,4 +1,4 @@
-package com.example.emil.showsmanager.models.CastAndNextEpisode;
+package com.example.emil.showsmanager.models.FullShowInfoResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -12,7 +12,7 @@ public class Embedded {
     private List<Cast> cast = null;
     @SerializedName("nextepisode")
     @Expose
-    private Nextepisode_ nextepisode;
+    private Nextepisode nextepisode;
     @SerializedName("seasons")
     @Expose
     private List<Season> seasons = null;
@@ -25,11 +25,11 @@ public class Embedded {
         this.cast = cast;
     }
 
-    public Nextepisode_ getNextepisode() {
+    public Nextepisode getNextepisode() {
         return nextepisode;
     }
 
-    public void setNextepisode(Nextepisode_ nextepisode) {
+    public void setNextepisode(Nextepisode nextepisode) {
         this.nextepisode = nextepisode;
     }
 

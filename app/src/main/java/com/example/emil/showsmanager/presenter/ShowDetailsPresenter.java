@@ -1,8 +1,8 @@
 package com.example.emil.showsmanager.presenter;
 
 import com.example.emil.showsmanager.ShowsManagerApplication;
-import com.example.emil.showsmanager.models.CastAndNextEpisode.ShowDetailsWithNextEpisodeResponse;
-import com.example.emil.showsmanager.models.firebase.SubscribedShow;
+import com.example.emil.showsmanager.models.FullShowInfoResponse.FullShowInfo;
+import com.example.emil.showsmanager.models.firebase.FirebaseShow;
 import com.example.emil.showsmanager.rest.TVMazeService;
 import com.example.emil.showsmanager.view.ShowDetailsMvpView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +22,7 @@ public class ShowDetailsPresenter implements Presenter<ShowDetailsMvpView> {
 
     private ShowDetailsMvpView showDetailsMvpView;
     private Subscription subscription;
-    private ShowDetailsWithNextEpisodeResponse showResponse;
+    private FullShowInfo showResponse;
     private boolean showSubscribed;
     private ValueEventListener firebaseListener;
     private DatabaseReference mDatabase;
@@ -46,11 +46,11 @@ public class ShowDetailsPresenter implements Presenter<ShowDetailsMvpView> {
         subscription = tvMazeService.getResponse(showId, "cast", "nextepisode", "seasons")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(application.defaultSubscribeScheduler())
-                .subscribe(new Action1<ShowDetailsWithNextEpisodeResponse>() {
+                .subscribe(new Action1<FullShowInfo>() {
             @Override
-            public void call(ShowDetailsWithNextEpisodeResponse showDetailsWithNextEpisodeResponse) {
-                showResponse = showDetailsWithNextEpisodeResponse;
-                showDetailsMvpView.bindShowData(showDetailsWithNextEpisodeResponse);
+            public void call(FullShowInfo fullShowInfo) {
+                showResponse = fullShowInfo;
+                showDetailsMvpView.bindShowData(fullShowInfo);
             }
         });
     }
@@ -73,14 +73,14 @@ public class ShowDetailsPresenter implements Presenter<ShowDetailsMvpView> {
         String showAirdate = showResponse.getPremiered();
         String showChannel = showResponse.getNetwork().getName();
 
-        SubscribedShow show;
+        FirebaseShow show;
 
         if (showResponse.getEmbedded().getNextepisode() != null) {
             String nextEpisodeAirdate = showResponse.getEmbedded().getNextepisode().getAirdate();
             String nextEpisodeSeasonNumber = showResponse.getEmbedded().getNextepisode().getNumber().toString();
             String nextEpisodeNumber = showResponse.getEmbedded().getNextepisode().getSeason().toString();
 
-            show = new SubscribedShow.ShowBuilder(showId, showName, showStatus, imageurl)
+            show = new FirebaseShow.ShowBuilder(showId, showName, showStatus, imageurl)
                     .showAirdate(showAirdate)
                     .channel(showChannel)
                     .nextEpisodeAitdate(nextEpisodeAirdate)
@@ -88,7 +88,7 @@ public class ShowDetailsPresenter implements Presenter<ShowDetailsMvpView> {
                     .nextEpisodeSeason(nextEpisodeSeasonNumber)
                     .build();
         } else {
-            show = new SubscribedShow.ShowBuilder(showId, showName, showStatus, imageurl).build();
+            show = new FirebaseShow.ShowBuilder(showId, showName, showStatus, imageurl).build();
         }
 
 

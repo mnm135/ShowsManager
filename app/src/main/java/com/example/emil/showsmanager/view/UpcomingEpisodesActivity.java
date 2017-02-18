@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.adapters.UpcomingEpisodesAdapter;
-import com.example.emil.showsmanager.models.firebase.SubscribedShow;
+import com.example.emil.showsmanager.models.firebase.FirebaseShow;
 import com.example.emil.showsmanager.presenter.UpcomingEpisodesPresenter;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class UpcomingEpisodesActivity extends AppCompatActivity implements Upcom
 
     private RecyclerView.Adapter adapter;
 
-    private List<SubscribedShow> showList = new ArrayList<SubscribedShow>();
+    private List<FirebaseShow> showList = new ArrayList<FirebaseShow>();
 
 
     @Override
@@ -46,7 +46,7 @@ public class UpcomingEpisodesActivity extends AppCompatActivity implements Upcom
         presenter.loadData();
     }
 
-    public void showUpcomingEpisodes(final SubscribedShow show) {
+    public void showUpcomingEpisodes(final FirebaseShow show) {
         //showList.clear();
         showList.add(show);
         adapter.notifyDataSetChanged();

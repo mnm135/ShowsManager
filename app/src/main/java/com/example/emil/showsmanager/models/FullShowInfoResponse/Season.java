@@ -1,4 +1,4 @@
-package com.example.emil.showsmanager.models.CastAndNextEpisode;
+package com.example.emil.showsmanager.models.FullShowInfoResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -32,7 +32,7 @@ public class Season {
     private String endDate;
     @SerializedName("network")
     @Expose
-    private Network_ network;
+    private Network network;
     @SerializedName("webChannel")
     @Expose
     private Object webChannel;
@@ -42,9 +42,6 @@ public class Season {
     @SerializedName("summary")
     @Expose
     private String summary;
-    @SerializedName("_links")
-    @Expose
-    private Links____ links;
 
     public Integer getId() {
         return id;
@@ -102,11 +99,11 @@ public class Season {
         this.endDate = endDate;
     }
 
-    public Network_ getNetwork() {
+    public Network getNetwork() {
         return network;
     }
 
-    public void setNetwork(Network_ network) {
+    public void setNetwork(Network network) {
         this.network = network;
     }
 
@@ -132,14 +129,6 @@ public class Season {
 
     public void setSummary(String summary) {
         this.summary = summary;
-    }
-
-    public Links____ getLinks() {
-        return links;
-    }
-
-    public void setLinks(Links____ links) {
-        this.links = links;
     }
 
 }
