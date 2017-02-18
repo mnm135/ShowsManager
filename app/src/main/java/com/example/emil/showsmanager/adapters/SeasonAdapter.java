@@ -2,12 +2,8 @@ package com.example.emil.showsmanager.adapters;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +11,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.emil.showsmanager.Fragments.NextEpisodeDetailsFragment;
 import com.example.emil.showsmanager.R;
-import com.example.emil.showsmanager.models.firebase.FirebaseShow;
+import com.example.emil.showsmanager.view.EpisodeActivity;
 
 import java.util.List;
 
@@ -28,12 +23,14 @@ public class SeasonAdapter extends
     private int rowLayout;
     private Context context;
     private int seasonNumber;
+    private String showId;
 
-    public SeasonAdapter(List<Integer> episodes, int seasonNumber, int rowLayout, Context context) {
+    public SeasonAdapter(List<Integer> episodes, int seasonNumber, String showId, int rowLayout, Context context) {
         this.episodes = episodes;
         this.rowLayout = rowLayout;
         this.context = context;
         this.seasonNumber = seasonNumber;
+        this.showId = showId;
     }
 
     public List<Integer> getEpisodes() {
@@ -78,31 +75,16 @@ public class SeasonAdapter extends
         holder.episodeNumber.setText(text);
 
 
-     /*   final String nextEpNumber = episodes.get(position).getNextEpNumber();
-        final String nextEpSeason = episodes.get(position).getNextEpSeason();
-
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment newFragment = new NextEpisodeDetailsFragment();
-                Bundle arguments = new Bundle();
-
-                arguments.putString( "showId", id);
-                arguments.putString( "episodeNumber", nextEpSeason);
-                arguments.putString( "seasonNumber", nextEpNumber);
-
-                newFragment.setArguments(arguments);
-
-                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-
-                transaction.replace(R.id.container, newFragment);
-                transaction.addToBackStack(null);
-
-                transaction.commit();
+                Intent intent = new Intent(getContext(), EpisodeActivity.class);
+                intent.putExtra( "showId", showId);
+                intent.putExtra( "episodeNumber", season);
+                intent.putExtra( "seasonNumber", episode);
+                getContext().startActivity(intent);
             }
-        });*/
+        });
     }
 
     @Override

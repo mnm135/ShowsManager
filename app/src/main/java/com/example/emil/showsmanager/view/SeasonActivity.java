@@ -1,32 +1,20 @@
 package com.example.emil.showsmanager.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.emil.showsmanager.Fragments.NextEpisodeDetailsFragment;
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.activities.BaseActivity;
 import com.example.emil.showsmanager.adapters.SeasonAdapter;
-import com.example.emil.showsmanager.adapters.UpcomingEpisodesAdapter;
 import com.example.emil.showsmanager.models.FullShowInfoResponse.SingleSeason;
 import com.example.emil.showsmanager.presenter.SeasonPresenter;
-import com.example.emil.showsmanager.rest.ApiClient;
-import com.example.emil.showsmanager.rest.SeasonEndPoints;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -34,9 +22,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SeasonActivity extends BaseActivity implements SeasonMvpView {
 
@@ -84,6 +69,7 @@ public class SeasonActivity extends BaseActivity implements SeasonMvpView {
 
         Intent intent = getIntent();
         mSeasonId = intent.getStringExtra("seasonId");
+        mShowId = intent.getStringExtra("showId");
 
         presenter.loadSeasonInfo(mSeasonId);
 
@@ -115,7 +101,7 @@ public class SeasonActivity extends BaseActivity implements SeasonMvpView {
             episodes.add(i);
         }
         episodesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SeasonAdapter(episodes, seasonNum, R.layout.episodes_single_item, this);
+        adapter = new SeasonAdapter(episodes, seasonNum, mShowId, R.layout.episodes_single_item, this);
 
         episodesRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

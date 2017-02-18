@@ -6,7 +6,8 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.HorizontalScrollView;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.emil.showsmanager.R;
+import com.example.emil.showsmanager.activities.BaseActivity;
 import com.example.emil.showsmanager.models.FullShowInfoResponse.Cast;
 import com.example.emil.showsmanager.models.FullShowInfoResponse.Season;
 import com.example.emil.showsmanager.models.FullShowInfoResponse.FullShowInfo;
@@ -26,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShowDetailsActivity extends AppCompatActivity implements ShowDetailsMvpView {
+public class ShowDetailsActivity extends BaseActivity implements ShowDetailsMvpView {
 
     private ShowDetailsPresenter presenter;
 
@@ -73,7 +75,12 @@ public class ShowDetailsActivity extends AppCompatActivity implements ShowDetail
         presenter = new ShowDetailsPresenter();
         presenter.attachView(this);
 
-        setContentView(R.layout.fragment_search_result_more_details);
+        //setContentView(R.layout.fragment_search_result_more_details);
+
+        LayoutInflater inflater = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.fragment_search_result_more_details, null, false);
+        frameLayout.addView(contentView, 0);
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
@@ -115,11 +122,11 @@ public class ShowDetailsActivity extends AppCompatActivity implements ShowDetail
                     .into(toolbarImage);
         }
 
-        showSeasonsGallery(show.getEmbedded().getSeasons());
+        showSeasonsGallery(show.getEmbedded().getSeasons(), String.valueOf(show.getId()));
         showCastGallery(show.getEmbedded().getCast());
     }
 
-    private void showSeasonsGallery(List<Season> seasons) {
+    private void showSeasonsGallery(List<Season> seasons, String showId) {
         seasonsScrollView = (HorizontalScrollView) findViewById(R.id.srollview_seasons_gallery);
         seasonsLinearLayout = new LinearLayout(this);
 
@@ -137,7 +144,7 @@ public class ShowDetailsActivity extends AppCompatActivity implements ShowDetail
                     final String seasonId = seasons.get(i).getId().toString();
 
                     seasonImage.setOnClickListener(
-                            view -> startSeasonFragment(seasonId));
+                            view -> startSeasonFragment(showId, seasonId));
 
                     String imgUrl = seasons.get(i).getImage().getMedium();
                     Picasso.with(getContext()).load(imgUrl).into(seasonImage);
@@ -189,11 +196,29 @@ public class ShowDetailsActivity extends AppCompatActivity implements ShowDetail
         }
     }
 
-    private void startSeasonFragment(String seasonId) {
-        /*Fragment fragment = new SeasonsFragment();
+    private void startSeasonFragment(String showId, String seasonId) {
+
+
+        Intent intent = new Intent(this, SeasonActivity.class);
+        intent.putExtra("showId", showId);
+        intent.putExtra("seasonId", seasonId);
+        startActivity(intent);
+
+        /*//getSupportFragmentManager().beginTransaction().add(R.id.container,new SeasonActivity()).commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+        String myMessage = "Stackoverflow is cool!";
+        bundle.putString("seasonId", seasonId );
+        SeasonActivity fragInfo = new SeasonActivity();
+        fragInfo.setArguments(bundle);
+        transaction.add(R.id.container, fragInfo);
+        transaction.commit();*/
+
+
+       /* Fragment fragment = new SeasonActivity();
         Bundle bundle = new Bundle();
         bundle.putString( "seasonId", seasonId);
-        bundle.putString("showId", showId);
+       // bundle.putString("showId", showId);
         fragment.setArguments(bundle);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment);
