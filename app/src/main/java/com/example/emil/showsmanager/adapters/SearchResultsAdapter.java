@@ -18,6 +18,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.SearchResultsViewHolder> {
 
@@ -28,27 +31,6 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     public SearchResultsAdapter(List<ShowsListResponse> showsListResponse, int rowLayout, Context context) {
         this.showsListResponse = showsListResponse;
         this.rowLayout = rowLayout;
-        this.context = context;
-    }
-    public List<ShowsListResponse> getShowsListResponse() {
-        return showsListResponse;
-    }
-    public void setShowsListResponse(List<ShowsListResponse> showsListResponse) {
-        this.showsListResponse = showsListResponse;
-    }
-    public int getRowLayout() {
-        return rowLayout;
-    }
-
-    public void setRowLayout(int rowLayout) {
-        this.rowLayout = rowLayout;
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
         this.context = context;
     }
 
@@ -65,28 +47,23 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         String name = showsListResponse.get(position).getShow().getName();
         holder.tvShowName.setText(name);
 
-        final String id = showsListResponse.get(position).getShow().getId().toString();
+        final String id = String.valueOf(showsListResponse.get(position).getShow().getId());
 
         if (showsListResponse.get(position).getShow().getImage() != null) {
             String pictureUrl = showsListResponse.get(position).getShow().getImage().getMedium();
-            Picasso.with(getContext()).load(pictureUrl).into(holder.tvShowPoster);
+            Picasso.with(context).load(pictureUrl).into(holder.tvShowPoster);
         } else {
-            Picasso.with(getContext())
+            Picasso.with(context)
                     .load(R.mipmap.ic_no_image)
                     .resize(200, 300)
                     .into(holder.tvShowPoster);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ShowDetailsActivity.class);
-                intent.putExtra("showId", id);
-                v.getContext().startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, ShowDetailsActivity.class);
+            intent.putExtra("showId", id);
+            view.getContext().startActivity(intent);
         });
-
-
     }
 
     @Override
@@ -95,15 +72,19 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     }
 
     public static class SearchResultsViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.search_result_item_layout)
         LinearLayout searchResultsLayout;
+
+        @BindView(R.id.show_poster)
         ImageView tvShowPoster;
+
+        @BindView(R.id.show_name)
         TextView tvShowName;
 
         public SearchResultsViewHolder(View view) {
             super(view);
-            searchResultsLayout = (LinearLayout) view.findViewById(R.id.search_result_item_layout);
-            tvShowPoster = (ImageView) view.findViewById(R.id.show_poster);
-            tvShowName = (TextView) view.findViewById(R.id.show_name);
+            ButterKnife.bind(this, view);
         }
     }
 }

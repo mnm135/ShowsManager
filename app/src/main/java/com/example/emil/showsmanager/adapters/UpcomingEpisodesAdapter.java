@@ -1,11 +1,7 @@
 package com.example.emil.showsmanager.adapters;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +10,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.emil.showsmanager.Fragments.NextEpisodeDetailsFragment;
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.models.firebase.FirebaseShow;
+import com.example.emil.showsmanager.view.EpisodeActivity;
 
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class UpcomingEpisodesAdapter extends
@@ -34,31 +33,9 @@ public class UpcomingEpisodesAdapter extends
         this.context = context;
     }
 
-    public List<FirebaseShow> getShowsList() {
-        return showsList;
-    }
-    public void setShowsListResponse(List<FirebaseShow> showsList) {
-        this.showsList = showsList;
-    }
-    public int getRowLayout() {
-        return rowLayout;
-    }
-
-    public void setRowLayout(int rowLayout) {
-        this.rowLayout = rowLayout;
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
     @Override
     public UpcomingEpisodesAdapter.UpcomingEpisodesViewHolder onCreateViewHolder(ViewGroup parent,
-                                                                               int viewType) {
+                                                                                 int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(rowLayout, parent, false);
         return new UpcomingEpisodesAdapter.UpcomingEpisodesViewHolder(view);
@@ -66,46 +43,22 @@ public class UpcomingEpisodesAdapter extends
 
     @Override
     public void onBindViewHolder(UpcomingEpisodesAdapter.UpcomingEpisodesViewHolder holder, final int position) {
-        String name = showsList.get(position).getName();
-        final String id = showsList.get(position).getId();
-        String imgUrl = showsList.get(position).getImageUrl();
+        final String showId = showsList.get(position).getId();
+        final String episodeNumber = showsList.get(position).getNextEpNumber();
+        final String episodeSeason = showsList.get(position).getNextEpSeason();
 
-        String daysToNextEp = showsList.get(position).getDaysToNextEpisode();
-        holder.tvShowName.setText(name);
-        holder.daysToNextEp.setText(daysToNextEp);
+        holder.tvShowName.setText(showsList.get(position).getName());
+        holder.daysToNextEp.setText(showsList.get(position).getDaysToNextEpisode());
         holder.nextEpNetwork.setText(showsList.get(position).getChannel());
         holder.nextEpDate.setText(showsList.get(position).getNextEpisodeAirdate());
         holder.nextEpAirtime.setText(showsList.get(position).getAirtime());
 
-        final String nextEpNumber = showsList.get(position).getNextEpNumber();
-        final String nextEpSeason = showsList.get(position).getNextEpSeason();
-
-
-
-
-
-
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment newFragment = new NextEpisodeDetailsFragment();
-                Bundle arguments = new Bundle();
-
-                arguments.putString( "showId", id);
-                arguments.putString( "episodeNumber", nextEpSeason);
-                arguments.putString( "seasonNumber", nextEpNumber);
-
-                newFragment.setArguments(arguments);
-
-                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-
-                transaction.replace(R.id.container, newFragment);
-                transaction.addToBackStack(null);
-
-                transaction.commit();
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, EpisodeActivity.class);
+            intent.putExtra( "showId", showId);
+            intent.putExtra( "episodeNumber", episodeNumber);
+            intent.putExtra( "seasonNumber", episodeSeason);
+            context.startActivity(intent);
         });
     }
 
@@ -114,24 +67,29 @@ public class UpcomingEpisodesAdapter extends
         return showsList.size();
     }
 
-
     public static class UpcomingEpisodesViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.upcoming_episodes_item_layout)
         LinearLayout upcomingEpisodesLinearView;
+
+        @BindView(R.id.time_to_next_ep)
         TextView daysToNextEp;
+
+        @BindView(R.id.show_name)
         TextView tvShowName;
-        TextView nextEpNetwork;
-        TextView nextEpDate;
+
+        @BindView(R.id.next_ep_airtime)
         TextView nextEpAirtime;
+
+        @BindView(R.id.next_ep_date)
+        TextView nextEpDate;
+
+        @BindView(R.id.next_ep_network)
+        TextView nextEpNetwork;
 
         public UpcomingEpisodesViewHolder(View view) {
             super(view);
-            //@TODO change this below
-            upcomingEpisodesLinearView = (LinearLayout) view.findViewById(R.id.upcoming_episodes_item_layout);
-            daysToNextEp = (TextView) view.findViewById(R.id.time_to_next_ep);
-            tvShowName = (TextView) view.findViewById(R.id.show_name);
-            nextEpAirtime = (TextView) view.findViewById(R.id.next_ep_airtime);
-            nextEpDate = (TextView) view.findViewById(R.id.next_ep_date);
-            nextEpNetwork = (TextView) view.findViewById(R.id.next_ep_network);
+            ButterKnife.bind(this, view);
         }
     }
 }

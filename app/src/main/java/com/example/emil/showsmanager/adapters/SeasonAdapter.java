@@ -16,6 +16,9 @@ import com.example.emil.showsmanager.view.EpisodeActivity;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SeasonAdapter extends
         RecyclerView.Adapter<SeasonAdapter.SeasonViewHolder> {
 
@@ -33,28 +36,6 @@ public class SeasonAdapter extends
         this.showId = showId;
     }
 
-    public List<Integer> getEpisodes() {
-        return episodes;
-    }
-    public void setShowsListResponse(List<Integer> showsList) {
-        this.episodes = showsList;
-    }
-    public int getRowLayout() {
-        return rowLayout;
-    }
-
-    public void setRowLayout(int rowLayout) {
-        this.rowLayout = rowLayout;
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
     @Override
     public SeasonAdapter.SeasonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -69,21 +50,16 @@ public class SeasonAdapter extends
         String episode = String.valueOf(episodes.get(position));
 
         Resources resources = context.getResources();
-        String text = String.format(resources.getString(R.string.episode_number_text), season, episode);
+        String episodeAndSeason = String.format(resources.getString(R.string.episode_number_text), season, episode);
 
+        holder.episodeNumber.setText(episodeAndSeason);
 
-        holder.episodeNumber.setText(text);
-
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), EpisodeActivity.class);
-                intent.putExtra( "showId", showId);
-                intent.putExtra( "episodeNumber", season);
-                intent.putExtra( "seasonNumber", episode);
-                getContext().startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, EpisodeActivity.class);
+            intent.putExtra( "showId", showId);
+            intent.putExtra( "episodeNumber", season);
+            intent.putExtra( "seasonNumber", episode);
+            context.startActivity(intent);
         });
     }
 
@@ -92,16 +68,17 @@ public class SeasonAdapter extends
         return episodes.size();
     }
 
-
     public static class SeasonViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.episodes_item_layout)
         LinearLayout episodesLinearView;
+
+        @BindView(R.id.episode_number)
         TextView episodeNumber;
 
         public SeasonViewHolder(View view) {
             super(view);
-            //@TODO change this below
-            episodesLinearView = (LinearLayout) view.findViewById(R.id.episodes_item_layout);
-            episodeNumber = (TextView) view.findViewById(R.id.episode_number);
+            ButterKnife.bind(this, view);
         }
     }
 }

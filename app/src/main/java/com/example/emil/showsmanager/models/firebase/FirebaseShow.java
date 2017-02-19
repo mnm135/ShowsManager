@@ -149,7 +149,6 @@ public class FirebaseShow {
         this.nextEpNumber = builder.nextEpNumber;
         this.nextEpSeason = builder.nextEpSeason;
         if (builder.nextEpisodeAirdate != null) {
-            System.out.println("not null");
             this.timeToNextEpisode = calculateTimeToNextEpisode(builder.nextEpisodeAirdate);
         }
 
