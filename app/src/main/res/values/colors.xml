@@ -4,8 +4,6 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#2196F3</color>
 
-    <color name="windowBackground">#303030</color>
-
     <color name="primaryText">#FFFFFF</color>
     <color name="secondaryText">#B3FFFFFF</color>
     <color name="distabledHintText">#80FFFFFF</color>
