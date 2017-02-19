@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.HorizontalScrollView;
@@ -75,11 +74,11 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsMvpV
         presenter = new ShowDetailsPresenter();
         presenter.attachView(this);
 
-        //setContentView(R.layout.fragment_search_result_more_details);
+        //setContentView(R.layout.activity_show);
 
         LayoutInflater inflater = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.fragment_search_result_more_details, null, false);
+        View contentView = inflater.inflate(R.layout.activity_show, null, false);
         frameLayout.addView(contentView, 0);
         ButterKnife.bind(this);
 
@@ -138,7 +137,7 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsMvpV
             for (int i=0; i<size; i++) {
                 if (seasons.get(i) != null && seasons.get(i).getImage() != null) {
                     View vi = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-                            .inflate(R.layout.season_list_item, null);
+                            .inflate(R.layout.single_list_item_seasons_gallery, null);
 
                     ImageView seasonImage = (ImageView) vi.findViewById(R.id.season_image);
                     final String seasonId = seasons.get(i).getId().toString();
@@ -173,7 +172,7 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsMvpV
             for (int i=0; i<size; i++) {
                 if (cast.get(i) != null && cast.get(i).getCharacter().getImage() != null) {
                     View view = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-                            .inflate(R.layout.cast_item, null);
+                            .inflate(R.layout.single_list_item_cast_gallery, null);
 
                     TextView person = (TextView) view.findViewById(R.id.cast_person);
                     TextView character = (TextView) view.findViewById(R.id.cast_character);

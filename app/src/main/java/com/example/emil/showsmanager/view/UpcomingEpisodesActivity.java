@@ -32,7 +32,7 @@ public class UpcomingEpisodesActivity extends BaseActivity implements UpcomingEp
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getLayoutInflater().inflate(R.layout.fragment_upcoming_episodes, frameLayout);
+        getLayoutInflater().inflate(R.layout.activity_upcoming, frameLayout);
 
         showList.clear();
         presenter = new UpcomingEpisodesPresenter();
@@ -70,7 +70,7 @@ public class UpcomingEpisodesActivity extends BaseActivity implements UpcomingEp
 
     private void initRecyclerView() {
         upcomingEpisodesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new UpcomingEpisodesAdapter(showList, R.layout.upcoming_episodes_item, this);
+        adapter = new UpcomingEpisodesAdapter(showList, R.layout.single_list_item_upcoming_episodes, this);
 
         upcomingEpisodesRecyclerView.setAdapter(adapter);
     }

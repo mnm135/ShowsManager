@@ -52,7 +52,7 @@ public class SeasonActivity extends BaseActivity implements SeasonMvpView {
 
         LayoutInflater inflater = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.fragment_seasons, null, false);
+        View contentView = inflater.inflate(R.layout.activity_season, null, false);
         frameLayout.addView(contentView, 0);
 
         ButterKnife.bind(this);
@@ -93,7 +93,7 @@ public class SeasonActivity extends BaseActivity implements SeasonMvpView {
             episodes.add(i);
         }
         episodesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SeasonAdapter(episodes, seasonNum, mShowId, R.layout.episodes_single_item, this);
+        adapter = new SeasonAdapter(episodes, seasonNum, mShowId, R.layout.single_list_item_episodes_in_season, this);
 
         episodesRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

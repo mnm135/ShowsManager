@@ -93,7 +93,7 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
     private void initSearchRecyclerView() {
         searchResultRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SearchResultsAdapter(searchResultList, R.layout.search_results_item, this);
+        adapter = new SearchResultsAdapter(searchResultList, R.layout.single_list_item_search_results, this);
 
         searchResultRecyclerView.setAdapter(adapter);
     }

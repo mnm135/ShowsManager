@@ -28,7 +28,7 @@ public class SubscribedShowsActivity extends BaseActivity implements SubscribedS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getLayoutInflater().inflate(R.layout.fragment_subscribed_shows, frameLayout);
+        getLayoutInflater().inflate(R.layout.activity_subscribed_shows, frameLayout);
 
         presenter = new SubscribedShowsPresenter();
         presenter.attachView(this);

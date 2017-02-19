@@ -36,7 +36,7 @@ public class EpisodeActivity extends BaseActivity implements EpisodeMvpView {
 
         LayoutInflater inflater = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.fragment_episode_details, null, false);
+        View contentView = inflater.inflate(R.layout.activity_episode, null, false);
         frameLayout.addView(contentView, 0);
 
         presenter = new EpisodePresenter();

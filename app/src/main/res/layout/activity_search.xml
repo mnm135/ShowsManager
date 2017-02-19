@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="?android:attr/actionBarSize"
     android:orientation="vertical"
-    tools:context="com.example.emil.showsmanager.activities.SearchActivity">
+    tools:context="com.example.emil.showsmanager.view.SearchActivity">
 
     <EditText
         android:paddingTop="@dimen/activity_horizontal_margin"
