@@ -41,16 +41,16 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        LayoutInflater inflater = (LayoutInflater) this
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_search, null, false);
-        frameLayout.addView(contentView, 0);
+        getLayoutInflater().inflate(R.layout.activity_search, frameLayout);
 
         presenter = new SearchPresenter();
         presenter.attachView(this);
 
         ButterKnife.bind(this);
+
+
+        bottomNavigationView.getMenu().getItem(1).setChecked(true);
+
 
         initSearchRecyclerView();
 
@@ -98,5 +98,11 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
         adapter = new SearchResultsAdapter(searchResultList, R.layout.search_results_item, this);
 
         searchResultRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottomNavigationView.getMenu().getItem(1).setChecked(true);
     }
 }

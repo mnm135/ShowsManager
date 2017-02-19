@@ -9,15 +9,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.view.*;
 import com.example.emil.showsmanager.view.UpcomingEpisodesActivity;
+
+import butterknife.BindView;
 
 
 public class BaseActivity extends AppCompatActivity {
     protected BottomNavigationView bottomNavigationView;
     protected FrameLayout frameLayout;
+
+    @BindView(R.id.action_subscribed)
+    View subscribeNavItem;
+
+    @BindView(R.id.action_search)
+    View searchNavItem;
+
+    @BindView(R.id.action_upcoming)
+    View upcomingNavItem;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +41,7 @@ public class BaseActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -38,22 +53,19 @@ public class BaseActivity extends AppCompatActivity {
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_subscribed:
-                                startActivity(new Intent(getApplicationContext(), SubscribedShowsActivity.class));
-                                break;
-                            case R.id.action_search:
-                                startActivity(new Intent(getApplicationContext(), com.example.emil.showsmanager.view.SearchActivity.class));
-                                break;
-                            case R.id.action_upcoming:
-                                startActivity(new Intent(getApplicationContext(), UpcomingEpisodesActivity.class));
-                                break;
-                        }
-                        return true;
+                item -> {
+                    switch (item.getItemId()) {
+                        case R.id.action_subscribed:
+                            startActivity(new Intent(getApplicationContext(), SubscribedShowsActivity.class));
+                            break;
+                        case R.id.action_search:
+                            startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                            break;
+                        case R.id.action_upcoming:
+                            startActivity(new Intent(getApplicationContext(), UpcomingEpisodesActivity.class));
+                            break;
                     }
+                    return true;
                 });
 
 
@@ -69,7 +81,6 @@ public class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
                 Intent intent = new Intent(this, com.example.emil.showsmanager.view.ShowDetailsActivity.class);
                 startActivity(intent);
                 return true;

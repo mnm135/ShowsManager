@@ -59,11 +59,6 @@ public class SeasonActivity extends BaseActivity implements SeasonMvpView {
 
         ButterKnife.bind(this);
 
-        //Bundle arguments = getArguments();
-        //mSeasonId = this.getArguments().getString("seasonId");
-        //mSeasonId = arguments.getString("seasonId");
-        //mShowId = arguments.getString("showId");
-
         presenter = new SeasonPresenter();
         presenter.attachView(this);
 
