@@ -1,6 +1,10 @@
 package com.example.emil.showsmanager.presenter;
 
 
+import android.app.ProgressDialog;
+
+import com.example.emil.showsmanager.R;
+import com.example.emil.showsmanager.activities.LoadingDialog;
 import com.example.emil.showsmanager.models.firebase.FirebaseShow;
 import com.example.emil.showsmanager.view.SubscribedShowsMvpView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +37,9 @@ public class SubscribedShowsPresenter implements Presenter<SubscribedShowsMvpVie
 
     public void loadSubscribedShows() {
 
+        ProgressDialog loadingDialog = LoadingDialog.showProgressDialog(subscribedShowsMvpView.getContext(),
+                subscribedShowsMvpView.getContext().getResources().getString(R.string.loading_dialog_msg));
+
         String userId = getUserId();
 
         RxFirebaseDatabase.observeSingleValueEvent(databaseReference.child("users").child(userId).child("shows"),
@@ -40,7 +47,9 @@ public class SubscribedShowsPresenter implements Presenter<SubscribedShowsMvpVie
                 .subscribe(showList -> {
                     subscribedShowsMvpView.showGridOfSubscribedShows(showList);
 
-                    // process blogPost list item
+                    if (loadingDialog.isShowing()) {
+                        loadingDialog.dismiss();
+                    }
                 });
     }
 

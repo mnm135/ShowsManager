@@ -1,6 +1,10 @@
 package com.example.emil.showsmanager.presenter;
 
+import android.app.ProgressDialog;
+
+import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.ShowsManagerApplication;
+import com.example.emil.showsmanager.activities.LoadingDialog;
 import com.example.emil.showsmanager.models.FullShowInfoResponse.FullShowInfo;
 import com.example.emil.showsmanager.models.firebase.FirebaseShow;
 import com.example.emil.showsmanager.rest.TVMazeService;
@@ -52,6 +56,9 @@ public class UpcomingEpisodesPresenter implements Presenter<UpcomingEpisodesMvpV
 
         Observable<FirebaseShow> ob = Observable.from(shows);
 
+        ProgressDialog loadingDialog = LoadingDialog.showProgressDialog(upcomingEpisodesMvpView.getContext(),
+                upcomingEpisodesMvpView.getContext().getResources().getString(R.string.loading_dialog_msg));
+
 
         //@TODO change it / temporary solution / need to learn more about rx to implement it nicely
         ob.toList()
@@ -87,6 +94,9 @@ public class UpcomingEpisodesPresenter implements Presenter<UpcomingEpisodesMvpV
                                                     }
                                                 }
                                             });
+                                }
+                                if (loadingDialog.isShowing()) {
+                                    loadingDialog.dismiss();
                                 }
                             }
                         }

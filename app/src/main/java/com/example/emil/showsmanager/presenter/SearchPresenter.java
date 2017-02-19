@@ -1,6 +1,10 @@
 package com.example.emil.showsmanager.presenter;
 
+import android.app.ProgressDialog;
+
+import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.ShowsManagerApplication;
+import com.example.emil.showsmanager.activities.LoadingDialog;
 import com.example.emil.showsmanager.models.SearchShowsResponse.ShowsListResponse;
 import com.example.emil.showsmanager.rest.TVMazeService;
 import com.example.emil.showsmanager.view.SearchMvpView;
@@ -10,10 +14,6 @@ import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-
-/**
- * Created by Emil on 11.02.2017.
- */
 
 public class SearchPresenter implements Presenter<SearchMvpView> {
 
@@ -32,6 +32,10 @@ public class SearchPresenter implements Presenter<SearchMvpView> {
     }
 
     public void loadSearchResult(String searchQuery) {
+
+        ProgressDialog loadingDialog = LoadingDialog.showProgressDialog(searchMvpView.getContext(),
+                searchMvpView.getContext().getResources().getString(R.string.loading_dialog_msg));
+
         searchQuery = clearQuery(searchQuery);
         ShowsManagerApplication application = ShowsManagerApplication.get(searchMvpView.getContext());
         TVMazeService tvMazeService = application.getTvMazeService();
@@ -42,6 +46,10 @@ public class SearchPresenter implements Presenter<SearchMvpView> {
                     @Override
                     public void call(List<ShowsListResponse> showsListResponses) {
                         searchMvpView.showSearchResults(showsListResponses);
+
+                        if (loadingDialog.isShowing()) {
+                            loadingDialog.dismiss();
+                        }
                     }
                 });
     }

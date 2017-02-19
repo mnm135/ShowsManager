@@ -1,6 +1,10 @@
 package com.example.emil.showsmanager.presenter;
 
+import android.app.ProgressDialog;
+
+import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.ShowsManagerApplication;
+import com.example.emil.showsmanager.activities.LoadingDialog;
 import com.example.emil.showsmanager.models.FullShowInfoResponse.FullShowInfo;
 import com.example.emil.showsmanager.models.firebase.FirebaseShow;
 import com.example.emil.showsmanager.rest.TVMazeService;
@@ -41,6 +45,10 @@ public class ShowDetailsPresenter implements Presenter<ShowDetailsMvpView> {
     }
 
     public void loadShow(String showId) {
+
+        ProgressDialog loadingDialog = LoadingDialog.showProgressDialog(showDetailsMvpView.getContext(),
+                showDetailsMvpView.getContext().getResources().getString(R.string.loading_dialog_msg));
+
         ShowsManagerApplication application = ShowsManagerApplication.get(showDetailsMvpView.getContext());
         TVMazeService tvMazeService = application.getTvMazeService();
         subscription = tvMazeService.getResponse(showId, "cast", "nextepisode", "seasons")
@@ -51,6 +59,10 @@ public class ShowDetailsPresenter implements Presenter<ShowDetailsMvpView> {
             public void call(FullShowInfo fullShowInfo) {
                 showResponse = fullShowInfo;
                 showDetailsMvpView.bindShowData(fullShowInfo);
+
+                if (loadingDialog.isShowing()) {
+                    loadingDialog.dismiss();
+                }
             }
         });
     }

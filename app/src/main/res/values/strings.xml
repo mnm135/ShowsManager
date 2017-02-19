@@ -43,4 +43,6 @@
 
     <string name="episode_text">Episode \u0020</string>
     <string name="episode_number_text">%1$s x %2$s</string>
+
+    <string name="loading_dialog_msg">Just a sec</string>
 </resources>
