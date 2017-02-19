@@ -77,8 +77,8 @@ public class ShowDetailsPresenter implements Presenter<ShowDetailsMvpView> {
 
         if (showResponse.getEmbedded().getNextepisode() != null) {
             String nextEpisodeAirdate = showResponse.getEmbedded().getNextepisode().getAirdate();
-            String nextEpisodeSeasonNumber = showResponse.getEmbedded().getNextepisode().getNumber().toString();
-            String nextEpisodeNumber = showResponse.getEmbedded().getNextepisode().getSeason().toString();
+            String nextEpisodeSeasonNumber = showResponse.getEmbedded().getNextepisode().getSeason().toString();
+            String nextEpisodeNumber = showResponse.getEmbedded().getNextepisode().getNumber().toString();
 
             show = new FirebaseShow.ShowBuilder(showId, showName, showStatus, imageurl)
                     .showAirdate(showAirdate)
