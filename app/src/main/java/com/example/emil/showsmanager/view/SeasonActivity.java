@@ -40,10 +40,8 @@ public class SeasonActivity extends BaseActivity implements SeasonMvpView {
     private RecyclerView.Adapter adapter;
 
     String mShowId;
-    String mEpisodeNumber;
     String mSeasonNumber;
     String mSeasonId;
-  //  List<String> episodes = new ArrayList<>();
 
     public SeasonActivity() {
     }
@@ -88,11 +86,10 @@ public class SeasonActivity extends BaseActivity implements SeasonMvpView {
         int seasonNum = season.getNumber();
 
 
-
         mSeasonNumber = String.valueOf(seasonNum);
 
         List<Integer> episodes = new ArrayList<Integer>();
-        for (int i=1; i<numOfEpisodes+1; i++) {
+        for (int i = 1; i < numOfEpisodes + 1; i++) {
             episodes.add(i);
         }
         episodesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -100,114 +97,7 @@ public class SeasonActivity extends BaseActivity implements SeasonMvpView {
 
         episodesRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
-
-        //populateList(numOfEpisodes, seasonNum);
-
     }
-
-   /* public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            // pre-condition
-            return;
-        }
-
-        int totalHeight = 0;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-    }
-*/
-//@TODO CLEAN THIS
-   /* public void getSeasonData(String mSeasonId) {
-        SeasonEndPoints apiService = ApiClient.getClient().create(SeasonEndPoints.class);
-        Call<SingleSeason> call = apiService.getResponse(mSeasonId);
-
-        call.enqueue(new Callback<SingleSeason>() {
-            @Override
-            public void onResponse(Call<SingleSeason> call,
-                                   Response<SingleSeason> response) {
-
-                if (response.body().getImage() != null) {
-                    Picasso.with(getContext())
-                            .load(response.body().getImage().getOriginal())
-                            .into(toolbarImage);
-                }
-
-
-
-
-                seasonDescription.setText(response.body().getSummary());
-                seasonEndDate.setText(response.body().getEndDate());
-                seasonPremiereDate.setText(response.body().getPremiereDate());
-
-                seasonNumber.setText(response.body().getNumber().toString());
-                numberOfEpisods.setText(response.body().getEpisodeOrder().toString());
-                int numOfEpisodes = response.body().getEpisodeOrder();
-                int seasonNum = response.body().getNumber();
-
-                mSeasonNumber = String.valueOf(seasonNum);
-                populateList(numOfEpisodes, seasonNum);
-
-
-
-            @Override
-            public void onFailure(Call<SingleSeason> call, Throwable t) {
-
-            }
-        });
-    }*/
-
-  /*  public void populateList(int numOfEpisodes, int seasonNum) {
-        episodes.clear();
-
-        for(int i=0; i<numOfEpisodes; i++) {
-            int num = i+1;
-            String epName = String.valueOf(seasonNum) + "x" + num;
-            episodes.add(epName);
-            System.out.println("DUPA" + epName);
-        }
-
-        ListAdapter adapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.season_episodes_single_item,
-                R.id.list_episode_number,
-                episodes
-        );
-
-        episodesListView.setAdapter(adapter);
-        setListViewHeightBasedOnChildren(episodesListView);
-
-    }*/
-
-/*    @Override
-    public void onListItemClick(ListView lv, View v, int position, long id) {
-        // TODO Auto-generated method stub
-        super.onListItemClick(lv, v, position, id);
-
-        mEpisodeNumber = String.valueOf(position+1);
-
-
-        Fragment newFragment = new NextEpisodeDetailsFragment();
-        Bundle arguments = new Bundle();
-        arguments.putString( "showId", mShowId);
-        arguments.putString( "episodeNumber", mEpisodeNumber);
-        arguments.putString( "seasonNumber", mSeasonNumber);
-        newFragment.setArguments(arguments);
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-        transaction.replace(R.id.container, newFragment);
-        transaction.addToBackStack(null);
-
-        transaction.commit();
-    }*/
 
     @Override
     public Context getContext() {

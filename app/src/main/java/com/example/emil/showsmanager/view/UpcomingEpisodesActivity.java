@@ -1,12 +1,9 @@
 package com.example.emil.showsmanager.view;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
 
 import com.example.emil.showsmanager.R;
 import com.example.emil.showsmanager.activities.BaseActivity;
