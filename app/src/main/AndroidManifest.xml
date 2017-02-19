@@ -30,7 +30,8 @@
         <activity android:name=".view.SearchActivity" />
         <activity android:name=".view.SeasonActivity" />
         <activity android:name=".view.SubscribedShowsActivity" />
-        <activity android:name=".view.UpcomingEpisodesActivity"></activity>
+        <activity android:name=".view.UpcomingEpisodesActivity" />
+        <activity android:name=".view.EpisodeActivity"></activity>
     </application>
 
 </manifest>

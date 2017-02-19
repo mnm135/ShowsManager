@@ -6,7 +6,7 @@
 
     <color name="primaryText">#FFFFFF</color>
     <color name="secondaryText">#B3FFFFFF</color>
-    <color name="distabledHintText">#80FFFFFF</color>
+    <color name="disabledHintText">#80FFFFFF</color>
 
     <color name="white">#FFFFFF</color>
 
