@@ -91,9 +91,10 @@ public class ShowDetailsPresenter implements Presenter<ShowDetailsMvpView> {
             String nextEpisodeAirdate = showResponse.getEmbedded().getNextepisode().getAirdate();
             String nextEpisodeSeasonNumber = showResponse.getEmbedded().getNextepisode().getSeason().toString();
             String nextEpisodeNumber = showResponse.getEmbedded().getNextepisode().getNumber().toString();
+            String showAirtime = showResponse.getSchedule().getTime();
 
             show = new FirebaseShow.ShowBuilder(showId, showName, showStatus, imageurl)
-                    .showAirdate(showAirdate)
+                    .showAirtime(showAirtime)
                     .channel(showChannel)
                     .nextEpisodeAitdate(nextEpisodeAirdate)
                     .nextEpisodeNumber(nextEpisodeNumber)

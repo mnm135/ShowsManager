@@ -177,7 +177,7 @@ public class FirebaseShow {
             return this;
         }
 
-        public ShowBuilder showAirdate(String airtime) {
+        public ShowBuilder showAirtime(String airtime) {
             this.airtime = airtime;
             return this;
         }
