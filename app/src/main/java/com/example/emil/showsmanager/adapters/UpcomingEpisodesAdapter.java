@@ -2,6 +2,7 @@ package com.example.emil.showsmanager.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,10 +49,19 @@ public class UpcomingEpisodesAdapter extends
         final String episodeSeason = showsList.get(position).getNextEpSeason();
 
         holder.tvShowName.setText(showsList.get(position).getName());
-        holder.daysToNextEp.setText(showsList.get(position).getDaysToNextEpisode());
+        //holder.daysToNextEp.setText(showsList.get(position).getDaysToNextEpisode());
         holder.nextEpNetwork.setText(showsList.get(position).getChannel());
         holder.nextEpDate.setText(showsList.get(position).getNextEpisodeAirdate());
         holder.nextEpAirtime.setText(showsList.get(position).getAirtime());
+
+        Integer daysToNextEp = Integer.valueOf(showsList.get(position).getDaysToNextEpisode());
+        Resources res = context.getResources();
+
+        String daysToNextEpString = res.getQuantityString(R.plurals.days_to_next_episode, daysToNextEp, daysToNextEp);
+        holder.daysToNextEp.setText(daysToNextEpString);
+
+
+
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, EpisodeActivity.class);

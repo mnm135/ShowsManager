@@ -31,6 +31,9 @@
     <string name="premiere_date">Premiere date: \u0020</string>
     <string name="end_date">End date: \u0020</string>
 
+    <string name="hour_text">Hour: \u0020</string>
+    <string name="date_text">Date: \u0020</string>
+
     <string name="show_section_next_episode_link">Next episode: %1$sx%2$s / %3$s / %4$s / %5$s</string>
 
     <!-- bottom navigation -->
@@ -45,4 +48,10 @@
     <string name="episode_number_text">%1$s x %2$s</string>
 
     <string name="loading_dialog_msg">Just a sec</string>
+
+    <plurals name="days_to_next_episode">
+        <item quantity="one">%d day remaining</item>
+        <item quantity="zero">Today!</item>
+        <item quantity="other">%d days remaining</item>
+    </plurals>
 </resources>
