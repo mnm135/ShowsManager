@@ -31,6 +31,8 @@ public class BaseActivity extends AppCompatActivity {
     @BindView(R.id.action_upcoming)
     View upcomingNavItem;
 
+    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +47,17 @@ public class BaseActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+       getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         frameLayout = (FrameLayout) findViewById(R.id.content_frame);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -69,6 +78,8 @@ public class BaseActivity extends AppCompatActivity {
 
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
