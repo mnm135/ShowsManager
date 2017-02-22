@@ -4,22 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/Theme.AppCompat.NoActionBar"
-        app:popupTheme="@style/Theme.AppCompat.NoActionBar"/>
-
     <FrameLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_above="@+id/bottom_navigation"
         android:id="@+id/content_frame"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="?attr/actionBarSize" />
+        android:layout_alignParentTop="true"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"

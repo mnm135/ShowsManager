@@ -42,6 +42,8 @@ public class UpcomingEpisodesActivity extends BaseActivity implements UpcomingEp
         initRecyclerView();
         bottomNavigationView.getMenu().getItem(2).setChecked(true);
 
+        setToolbar("Upcoming");
+
         presenter.loadData();
     }
 

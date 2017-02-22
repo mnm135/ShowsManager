@@ -4,10 +4,14 @@
     android:layout_height="match_parent"
     tools:context="com.example.emil.showsmanager.view.UpcomingEpisodesActivity">
 
+   <include layout="@layout/toolbar"
+       android:id="@+id/toolbar"/>
+
    <android.support.v7.widget.RecyclerView
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:id="@+id/upcoming_episodes_recycler">
+       android:id="@+id/upcoming_episodes_recycler"
+       android:layout_marginTop="?attr/actionBarSize">
    </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>

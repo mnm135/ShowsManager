@@ -80,7 +80,12 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsMvpV
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_show, null, false);
         frameLayout.addView(contentView, 0);
+
+
         ButterKnife.bind(this);
+
+       // toolbar.setVisibility(View.GONE);
+
 
         Intent intent = getIntent();
         String showId = intent.getStringExtra("showId");
@@ -120,6 +125,8 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsMvpV
                     .load(show.getImage().getOriginal())
                     .into(toolbarImage);
         }
+
+        setToolbar(show.getName());
 
         showSeasonsGallery(show.getEmbedded().getSeasons(), String.valueOf(show.getId()));
         showCastGallery(show.getEmbedded().getCast());

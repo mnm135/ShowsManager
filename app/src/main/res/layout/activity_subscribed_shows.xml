@@ -5,6 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.emil.showsmanager.view.SubscribedShowsActivity">
 
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"/>
+
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/gridview"
         android:layout_width="match_parent"
@@ -14,5 +18,6 @@
         android:verticalSpacing="10dp"
         android:horizontalSpacing="10dp"
         android:stretchMode="columnWidth"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:layout_marginTop="?attr/actionBarSize"/>
 </RelativeLayout>

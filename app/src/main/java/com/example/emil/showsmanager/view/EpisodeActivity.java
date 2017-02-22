@@ -56,6 +56,8 @@ public class EpisodeActivity extends BaseActivity implements EpisodeMvpView {
 
     public void showEpisodeData(SingleEpisode episode) {
 
+        setToolbar(episode.getNumber().toString() + "x" + episode.getSeason().toString());
+
         if (episode.getImage() != null) {
             Picasso.with(getContext())
                     .load(episode.getImage().getOriginal())

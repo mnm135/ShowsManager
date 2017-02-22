@@ -52,6 +52,8 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
         initSearchRecyclerView();
 
+        setToolbar("Search");
+
         searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

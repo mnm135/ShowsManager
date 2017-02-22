@@ -37,6 +37,7 @@ public class SubscribedShowsActivity extends BaseActivity implements SubscribedS
 
         ButterKnife.bind(this);
 
+        setToolbar("Subscribed");
         presenter.loadSubscribedShows();
     }
 

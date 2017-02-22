@@ -76,6 +76,8 @@ public class SeasonActivity extends BaseActivity implements SeasonMvpView {
                     .into(toolbarImage);
         }
 
+        setToolbar("Season " + season.getNumber().toString());
+
         seasonDescription.setText(season.getSummary());
         seasonEndDate.setText(season.getEndDate());
         seasonPremiereDate.setText(season.getPremiereDate());
