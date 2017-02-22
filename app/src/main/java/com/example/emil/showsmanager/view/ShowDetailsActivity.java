@@ -98,7 +98,7 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsMvpV
         showDescription.setText(show.getSummary());
         showGenres.setText(show.getGenres().toString());
         showCountry.setText(show.getNetwork().getCountry().getName());
-        showNetwork.setText(show.getLanguage());
+        showNetwork.setText(show.getNetwork().getName());
         showLanguage.setText(show.getLanguage());
         showAirdate.setText(show.getPremiered());
         showStatus.setText(show.getStatus());
