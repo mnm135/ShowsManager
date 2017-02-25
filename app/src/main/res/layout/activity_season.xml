@@ -64,7 +64,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/description" />
+                    android:text="@string/description"
+                    style="@style/sectionName"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -74,7 +75,8 @@
                     <TextView
                         android:id="@+id/season_description"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="7dp"/>
 
                 </LinearLayout>
 
@@ -95,7 +97,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/season_information"
-                    android:textColor="@color/primaryText" />
+                    android:textColor="@color/primaryText"
+                    style="@style/sectionName"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -106,7 +109,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/season"
-                        android:textColor="@color/primaryText" />
+                        android:textColor="@color/primaryText"
+                        style="@style/valueName"/>
 
                     <TextView
                         android:id="@+id/season_number"
@@ -123,7 +127,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/no_of_episodes"
-                        android:textColor="@color/primaryText" />
+                        android:textColor="@color/primaryText"
+                        style="@style/valueName"/>
 
                     <TextView
                         android:id="@+id/season_number_of_episodes"
@@ -140,7 +145,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/premiere_date"
-                        android:textColor="@color/primaryText" />
+                        android:textColor="@color/primaryText"
+                        style="@style/valueName"/>
 
                     <TextView
                         android:id="@+id/season_premiere_date"
@@ -157,7 +163,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/end_date"
-                        android:textColor="@color/primaryText" />
+                        android:textColor="@color/primaryText"
+                        style="@style/valueName"/>
 
                     <TextView
                         android:id="@+id/season_end_date"

@@ -68,8 +68,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/next_episode"
-                style="@style/marginText"
-                >
+                style="@style/valueName">
 
 
             <LinearLayout
@@ -121,7 +120,7 @@
                     android:textColor="@color/primaryText"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    style="@style/marginText"/>
+                    style="@style/sectionName"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -132,12 +131,7 @@
                         android:id="@+id/show_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/marginText"/>
-
-                    <ImageView
-                        android:id="@+id/show_poster"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:paddingLeft="7dp"/>
 
                 </LinearLayout>
 
@@ -182,7 +176,7 @@
                     android:textColor="@color/primaryText"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    style="@style/marginText"/>
+                    style="@style/sectionName"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -194,7 +188,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/status"
                         android:textColor="@color/primaryText"
-                        style="@style/marginText"/>
+                        style="@style/valueName"/>
 
                     <TextView
                         android:id="@+id/show_status"
@@ -212,7 +206,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/genres"
                         android:textColor="@color/primaryText"
-                        style="@style/marginText"/>
+                        style="@style/valueName"/>
 
                     <TextView
                         android:id="@+id/genres"
@@ -230,7 +224,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/network"
                         android:textColor="@color/primaryText"
-                        style="@style/marginText"/>
+                        style="@style/valueName"/>
 
                     <TextView
                         android:id="@+id/show_network"
@@ -249,7 +243,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/airdate"
                         android:textColor="@color/primaryText"
-                        style="@style/marginText"/>
+                        style="@style/valueName"/>
 
                     <TextView
                         android:id="@+id/show_airdate"
@@ -267,7 +261,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/no_of_seasons"
                         android:textColor="@color/primaryText"
-                        style="@style/marginText"/>
+                        style="@style/valueName"/>
 
                     <TextView
                         android:id="@+id/show_number_of_season"
@@ -285,7 +279,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/no_of_episodes"
                         android:textColor="@color/primaryText"
-                        style="@style/marginText"/>
+                        style="@style/valueName"/>
 
                     <TextView
                         android:id="@+id/show_number_of_episodes"
@@ -303,7 +297,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/runtime"
                         android:textColor="@color/primaryText"
-                        style="@style/marginText"/>
+                        style="@style/valueName"/>
 
                     <TextView
                         android:id="@+id/show_runtime"
@@ -324,7 +318,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/language"
                         android:textColor="@color/primaryText"
-                        style="@style/marginText"/>
+                        style="@style/valueName"/>
 
                     <TextView
                         android:id="@+id/show_language"
@@ -344,7 +338,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/country"
                         android:textColor="@color/primaryText"
-                        style="@style/marginText"/>
+                        style="@style/valueName"/>
 
                     <TextView
                         android:id="@+id/show_country"
@@ -395,7 +389,7 @@
                     android:textColor="@color/primaryText"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    style="@style/marginText"/>
+                    style="@style/sectionName"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

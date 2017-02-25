@@ -26,12 +26,24 @@
     <style name="AppTheme.NoTitleBar">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
-
     </style>
 
-    <style name="marginText">
+
+
+    <style name="sectionName">
         <item name="android:paddingLeft">7dp</item>
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="valueName">
+        style="@style/marginText"
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:textColor">@color/primaryText</item>
+
+    </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="windowActionBar">true</item>

@@ -35,7 +35,6 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsMvpV
 
 
     @BindView(R.id.show_description) TextView showDescription;
-    @BindView(R.id.show_poster) ImageView showPoster;
     @BindView(R.id.show_status) TextView showStatus;
     @BindView(R.id.show_number_of_season) TextView numberOfSeasons;
     @BindView(R.id.show_number_of_episodes) TextView numberOfEpisodes;
