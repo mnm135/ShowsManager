@@ -1,5 +1,9 @@
 package com.example.emil.showsmanager.models.FullShowInfoResponse;
 
+import android.os.Build;
+import android.text.Html;
+import android.text.Spanned;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -91,6 +95,7 @@ public class FullShowInfo {
         this.updated = updated;
         this.embedded = embedded;
     }
+
 
     public Integer getId() {
         return id;
