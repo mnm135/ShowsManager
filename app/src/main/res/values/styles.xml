@@ -21,14 +21,16 @@
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
-
     </style>
 
     <style name="AppTheme.NoTitleBar">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
 
+    </style>
+
+    <style name="marginText">
+        <item name="android:paddingLeft">7dp</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">

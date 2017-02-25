@@ -56,23 +56,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/show_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/show_years_first_section"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"/>
-
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -85,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/next_episode"
+                style="@style/marginText"
                 >
 
 
@@ -134,7 +118,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/description"
-                    android:textColor="@color/primaryText"/>
+                    android:textColor="@color/primaryText"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    style="@style/marginText"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -144,7 +131,8 @@
                     <TextView
                         android:id="@+id/show_description"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        style="@style/marginText"/>
 
                     <ImageView
                         android:id="@+id/show_poster"
@@ -191,7 +179,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/show_information"
-                    android:textColor="@color/primaryText" />
+                    android:textColor="@color/primaryText"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    style="@style/marginText"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -202,7 +193,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/status"
-                        android:textColor="@color/primaryText" />
+                        android:textColor="@color/primaryText"
+                        style="@style/marginText"/>
 
                     <TextView
                         android:id="@+id/show_status"
@@ -218,82 +210,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no_of_seasons"
-                        android:textColor="@color/primaryText" />
+                        android:text="@string/genres"
+                        android:textColor="@color/primaryText"
+                        style="@style/marginText"/>
 
                     <TextView
-                        android:id="@+id/show_number_of_season"
+                        android:id="@+id/genres"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/no_of_episodes"
-                        android:textColor="@color/primaryText" />
-
-                    <TextView
-                        android:id="@+id/show_number_of_episodes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/runtime"
-                        android:textColor="@color/primaryText" />
-
-                    <TextView
-                        android:id="@+id/show_runtime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/secondaryText" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/airdate"
-                        android:textColor="@color/primaryText"/>
-
-                    <TextView
-                        android:id="@+id/show_airdate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/language"
-                        android:textColor="@color/primaryText"/>
-
-                    <TextView
-                        android:id="@+id/show_language"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -305,7 +229,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/network"
-                        android:textColor="@color/primaryText"/>
+                        android:textColor="@color/primaryText"
+                        style="@style/marginText"/>
 
                     <TextView
                         android:id="@+id/show_network"
@@ -322,11 +247,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/country"
-                        android:textColor="@color/primaryText"/>
+                        android:text="@string/airdate"
+                        android:textColor="@color/primaryText"
+                        style="@style/marginText"/>
 
                     <TextView
-                        android:id="@+id/show_country"
+                        android:id="@+id/show_airdate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -339,14 +265,94 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/genres"
-                        android:textColor="@color/primaryText"/>
+                        android:text="@string/no_of_seasons"
+                        android:textColor="@color/primaryText"
+                        style="@style/marginText"/>
 
                     <TextView
-                        android:id="@+id/genres"
+                        android:id="@+id/show_number_of_season"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no_of_episodes"
+                        android:textColor="@color/primaryText"
+                        style="@style/marginText"/>
+
+                    <TextView
+                        android:id="@+id/show_number_of_episodes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/runtime"
+                        android:textColor="@color/primaryText"
+                        style="@style/marginText"/>
+
+                    <TextView
+                        android:id="@+id/show_runtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/secondaryText" />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/language"
+                        android:textColor="@color/primaryText"
+                        style="@style/marginText"/>
+
+                    <TextView
+                        android:id="@+id/show_language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/country"
+                        android:textColor="@color/primaryText"
+                        style="@style/marginText"/>
+
+                    <TextView
+                        android:id="@+id/show_country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -386,7 +392,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/read_more_at"
-                    android:textColor="@color/primaryText"/>
+                    android:textColor="@color/primaryText"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    style="@style/marginText"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
