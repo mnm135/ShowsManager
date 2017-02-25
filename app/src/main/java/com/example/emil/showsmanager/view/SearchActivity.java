@@ -1,10 +1,20 @@
 package com.example.emil.showsmanager.view;
 
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -33,8 +43,6 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
     @BindView(R.id.search_results_recycler)
     RecyclerView searchResultRecyclerView;
 
-    @BindView(R.id.searchView)
-    EditText searchField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,26 +57,20 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
         bottomNavigationView.getMenu().getItem(1).setChecked(true);
 
-
         initSearchRecyclerView();
 
         setToolbar("Search");
 
-        searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    String searchQuery = searchField.getText().toString();
-                    hideKeyboard();
-                    presenter.loadSearchResult(searchQuery);
-
-                    handled = true;
-                }
-                return handled;
-            }
-        });
     }
+
+    /*private void handleIntent(Intent intent) {
+        //String searchQuery;
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String searchQuery = intent.getStringExtra(SearchManager.QUERY);
+            hideKeyboard();
+            presenter.loadSearchResult(searchQuery);
+        }
+    }*/
 
     public void showSearchResults(List<ShowsListResponse> searchResult) {
         searchResultList.clear();
@@ -76,11 +78,11 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
         adapter.notifyDataSetChanged();
     }
 
-    private void hideKeyboard() {
+   /* private void hideKeyboard() {
         searchField.clearFocus();
         InputMethodManager in = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         in.hideSoftInputFromWindow(searchField.getWindowToken(), 0);
-    }
+    }*/
 
     @Override
     protected void onDestroy() {
@@ -105,4 +107,61 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
         super.onResume();
         bottomNavigationView.getMenu().getItem(1).setChecked(true);
     }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_toolbar, menu);
+
+        // Associate searchable configuration with the SearchView
+        MenuItem searchViewMenuItem = menu.findItem( R.id.search);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        //searchView.setSearchableInfo(
+       //         searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        // removing search query underline,
+        // using xml properties does not work on all Android versions
+        View searchplate = (View)searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
+        searchplate.getBackground().setColorFilter(ContextCompat.getColor(getContext(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Toast like print;
+                if( ! searchView.isIconified()) {
+                    searchView.setIconified(true);
+                }
+                presenter.loadSearchResult(query);
+                searchViewMenuItem.collapseActionView();
+                hideSoftKeyboard(searchViewMenuItem);
+                searchView.clearFocus();
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                // UserFeedback.show( "SearchOnQueryTextChanged: " + s);
+                return false;
+            }
+        });
+
+
+        return true;
+    }
+
+    public void hideSoftKeyboard(MenuItem item) {
+        if(getCurrentFocus()!=null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        item.collapseActionView();
+    }
+
+
 }
