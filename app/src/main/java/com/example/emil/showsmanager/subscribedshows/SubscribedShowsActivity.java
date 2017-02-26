@@ -28,7 +28,7 @@ public class SubscribedShowsActivity extends BaseActivity implements SubscribedS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_subscribed_shows, frameLayout);
-        
+
         presenter.attachView(this);
 
         bottomNavigationView.getMenu().getItem(0).setChecked(true);

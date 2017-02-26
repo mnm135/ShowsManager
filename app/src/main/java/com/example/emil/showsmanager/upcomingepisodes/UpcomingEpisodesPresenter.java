@@ -68,7 +68,7 @@ public class UpcomingEpisodesPresenter implements Presenter<UpcomingEpisodesMvpV
 
                             for (FirebaseShow show : firebaseShows) {
 
-                                if (show.getStatus().equals("Ended")) {
+                                if (show.getStatus().equals("Ended") || show.getNextEpNumber() == null) {
                                     continue;
                                 }
 
