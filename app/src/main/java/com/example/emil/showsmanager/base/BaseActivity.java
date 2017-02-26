@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -98,6 +99,15 @@ public class BaseActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @SuppressWarnings("deprecation")
+    protected String summaryFromHtml(String source) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY).toString();
+        } else {
+            return Html.fromHtml(source).toString();
+        }
     }
 
 
