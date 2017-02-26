@@ -49,7 +49,6 @@ public class UpcomingEpisodesAdapter extends
         final String episodeSeason = showsList.get(position).getNextEpSeason();
 
         holder.tvShowName.setText(showsList.get(position).getName());
-        //holder.daysToNextEp.setText(showsList.get(position).getDaysToNextEpisode());
         holder.nextEpNetwork.setText(showsList.get(position).getChannel());
         holder.nextEpDate.setText(showsList.get(position).getNextEpisodeAirdate());
         holder.nextEpAirtime.setText(showsList.get(position).getAirtime());
@@ -57,11 +56,12 @@ public class UpcomingEpisodesAdapter extends
         Integer daysToNextEp = Integer.valueOf(showsList.get(position).getDaysToNextEpisode());
         Resources res = context.getResources();
 
-        String daysToNextEpString = res.getQuantityString(R.plurals.days_to_next_episode, daysToNextEp, daysToNextEp);
-        holder.daysToNextEp.setText(daysToNextEpString);
-
-
-
+        if (daysToNextEp > 0) {
+            String daysToNextEpString = res.getQuantityString(R.plurals.days_to_next_episode, daysToNextEp, daysToNextEp);
+            holder.daysToNextEp.setText(daysToNextEpString);
+        } else {
+            holder.daysToNextEp.setText(res.getString(R.string.today_text));
+        }
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, EpisodeActivity.class);

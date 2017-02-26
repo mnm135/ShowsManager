@@ -51,7 +51,8 @@
 
     <plurals name="days_to_next_episode">
         <item quantity="one">%d day remaining</item>
-        <item quantity="zero">Today!</item>
         <item quantity="other">%d days remaining</item>
     </plurals>
+
+    <string name="today_text">Today!</string>
 </resources>
