@@ -4,6 +4,7 @@ package com.example.emil.showsmanager.seasondetails;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,8 +71,11 @@ public class SeasonAdapter extends
 
     public static class SeasonViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.episodes_item_layout)
-        LinearLayout episodesLinearView;
+        //@BindView(R.id.episodes_item_layout)
+        //LinearLayout episodesLinearView;
+
+        @BindView(R.id.card_view)
+        CardView cardView;
 
         @BindView(R.id.episode_number)
         TextView episodeNumber;

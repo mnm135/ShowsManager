@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 
+import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,7 @@ import butterknife.OnClick;
 
 public class ShowDetailsActivity extends BaseActivity implements ShowDetailsMvpView {
 
-    private ShowDetailsPresenter presenter;
+    private ShowDetailsPresenter presenter = new ShowDetailsPresenter();
 
 
     @BindView(R.id.show_description) TextView showDescription;
@@ -49,7 +50,7 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsMvpV
     @BindView(R.id.imdb_pic) ImageView imdbPicture;
     @BindView(R.id.tvmaze_pic) ImageView tvmazePicture;
     @BindView(R.id.thetvdb_pic) ImageView thetvdbPicture;
-    @BindView(R.id.next_episode) LinearLayout nextEpisodeLinear;
+    @BindView(R.id.next_episode_card) CardView nextEpisodeCard;
 
     @BindView(R.id.cast_gallery_section) LinearLayout castGallerySection;
     @BindView(R.id.seasons_gallery_section) LinearLayout seasonsGallerySection;
@@ -71,7 +72,6 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsMvpV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter = new ShowDetailsPresenter();
         presenter.attachView(this);
 
         //setContentView(R.layout.activity_show);
@@ -94,15 +94,7 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsMvpV
         presenter.startFabIconListener(showId);
     }
 
-    // removing html tags from API result
-    @SuppressWarnings("deprecation")
-    private String summaryFromHtml(String source) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY).toString();
-        } else {
-            return Html.fromHtml(source).toString();
-        }
-    }
+
 
     public void bindShowData(final FullShowInfo show) {
 
@@ -128,7 +120,7 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsMvpV
             String nextEpisodeInfo = String.format(resources.getString(R.string.show_section_next_episode_link), nextEpisdeSeasonNumber, nextEpisodeNumber, date, nextEpisodeAirdate, network);
             nextEpisodeBar.setText(nextEpisodeInfo);
         } else {
-            nextEpisodeLinear.setVisibility(View.GONE);
+            nextEpisodeCard.setVisibility(View.GONE);
         }
 
         if (show.getImage() != null) {

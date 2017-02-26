@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 
 public class SubscribedShowsActivity extends BaseActivity implements SubscribedShowsMvpView {
 
-    private SubscribedShowsPresenter presenter;
+    private SubscribedShowsPresenter presenter = new SubscribedShowsPresenter();
 
     @BindView(R.id.gridview)
     GridView gridView;
@@ -28,8 +28,7 @@ public class SubscribedShowsActivity extends BaseActivity implements SubscribedS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_subscribed_shows, frameLayout);
-
-        presenter = new SubscribedShowsPresenter();
+        
         presenter.attachView(this);
 
         bottomNavigationView.getMenu().getItem(0).setChecked(true);

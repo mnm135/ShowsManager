@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 
 public class SearchActivity extends BaseActivity implements SearchMvpView {
 
-    private SearchPresenter presenter;
+    private SearchPresenter presenter = new SearchPresenter();
     private RecyclerView.Adapter adapter;
 
     private List<ShowsListResponse> searchResultList = new ArrayList<>();
@@ -41,7 +41,7 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_search, frameLayout);
 
-        presenter = new SearchPresenter();
+
         presenter.attachView(this);
 
         ButterKnife.bind(this);

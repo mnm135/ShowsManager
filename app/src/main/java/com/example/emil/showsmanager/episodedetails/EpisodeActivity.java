@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 
 public class EpisodeActivity extends BaseActivity implements EpisodeMvpView {
 
-    private EpisodePresenter presenter;
+    private EpisodePresenter presenter = new EpisodePresenter();
 
     @BindView(R.id.image_toolbar) ImageView toolbarImage;
     @BindView(R.id.episode_description) TextView episodeDescription;
@@ -40,7 +40,6 @@ public class EpisodeActivity extends BaseActivity implements EpisodeMvpView {
         View contentView = inflater.inflate(R.layout.activity_episode, null, false);
         frameLayout.addView(contentView, 0);
 
-        presenter = new EpisodePresenter();
         presenter.attachView(this);
 
         ButterKnife.bind(this);
@@ -71,7 +70,7 @@ public class EpisodeActivity extends BaseActivity implements EpisodeMvpView {
 
         }
 
-        episodeDescription.setText(episode.getSummary());
+        episodeDescription.setText(summaryFromHtml(episode.getSummary()));
         episodeName.setText(episode.getName());
         episodeSeason.setText(String.valueOf(episode.getSeason()));
         episodeNumber.setText(String.valueOf(episode.getNumber()));

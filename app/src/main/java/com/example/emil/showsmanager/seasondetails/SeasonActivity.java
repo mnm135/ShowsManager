@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 
 public class SeasonActivity extends BaseActivity implements SeasonMvpView {
 
-    SeasonPresenter presenter;
+    SeasonPresenter presenter = new SeasonPresenter();
 
     @BindView(R.id.image_toolbar) ImageView toolbarImage;
     @BindView(R.id.season_description) TextView seasonDescription;
@@ -55,7 +55,6 @@ public class SeasonActivity extends BaseActivity implements SeasonMvpView {
 
         ButterKnife.bind(this);
 
-        presenter = new SeasonPresenter();
         presenter.attachView(this);
 
         Intent intent = getIntent();
@@ -76,7 +75,7 @@ public class SeasonActivity extends BaseActivity implements SeasonMvpView {
 
         setToolbar("Season " + season.getNumber().toString());
 
-        seasonDescription.setText(season.getSummary());
+        seasonDescription.setText(summaryFromHtml(season.getSummary()));
         seasonEndDate.setText(season.getEndDate());
         seasonPremiereDate.setText(season.getPremiereDate());
         seasonNumber.setText(String.valueOf(season.getNumber()));
