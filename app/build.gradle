@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
-        applicationId "com.example.emil.showsmanager"
+        applicationId "com.mnm135.emil.showsmanager"
         minSdkVersion 19
         targetSdkVersion 24
         versionCode 1

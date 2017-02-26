@@ -19,7 +19,7 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.emil.showsmanager",
-            "certificate_hash": "8A65441BED3F489AB1F94C7BEB05AC377C783343"
+            "certificate_hash": "8a65441bed3f489ab1f94c7beb05ac377c783343"
           }
         },
         {
@@ -44,6 +44,37 @@
               "client_type": 3
             }
           ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805515134841:android:19ebffb667e3ea96",
+        "android_client_info": {
+          "package_name": "com.mnm135.emil.showsmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "805515134841-8et0dj0m31dkgqfktprljlbbio91l333.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdNCtHM0DeeEi-IXQYR7e9zCD4ByHoToU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

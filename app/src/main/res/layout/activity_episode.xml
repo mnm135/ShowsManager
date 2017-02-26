@@ -48,7 +48,7 @@
         android:layout_marginBottom="10dp"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.example.emil.showsmanager.Fragments.SearchResultMoreDetails">
+        tools:context="com.mnm135.emil.showsmanager.Fragments.SearchResultMoreDetails">
 
         <LinearLayout
             android:layout_width="match_parent"
