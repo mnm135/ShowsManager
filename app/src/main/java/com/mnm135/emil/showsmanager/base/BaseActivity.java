@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.mnm135.emil.showsmanager.R;
 import com.mnm135.emil.showsmanager.search.SearchActivity;
 import com.mnm135.emil.showsmanager.showdetails.ShowDetailsActivity;
@@ -123,8 +124,11 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent intent = new Intent(this, ShowDetailsActivity.class);
+            case R.id.action_logout:
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                firebaseAuth.signOut();
+
+                Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 return true;
 
