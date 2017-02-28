@@ -14,12 +14,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.kelvinapps.rxfirebase.DataSnapshotMapper;
 import com.kelvinapps.rxfirebase.RxFirebaseDatabase;
 
-import rx.Subscription;
+import io.reactivex.disposables.Disposable;
+
 
 public class SubscribedShowsPresenter implements Presenter<SubscribedShowsMvpView> {
 
     private SubscribedShowsMvpView subscribedShowsMvpView;
-    private Subscription subscription;
+    private Disposable disposable;
 
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -31,7 +32,7 @@ public class SubscribedShowsPresenter implements Presenter<SubscribedShowsMvpVie
     @Override
     public void detachView() {
         this.subscribedShowsMvpView = null;
-        if (subscription != null) subscription.unsubscribe();
+        if (disposable != null) disposable.dispose();
     }
 
 

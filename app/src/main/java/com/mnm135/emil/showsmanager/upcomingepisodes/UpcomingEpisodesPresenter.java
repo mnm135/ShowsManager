@@ -17,16 +17,16 @@ import com.kelvinapps.rxfirebase.DataSnapshotMapper;
 import com.kelvinapps.rxfirebase.RxFirebaseDatabase;
 import java.util.List;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 
 public class UpcomingEpisodesPresenter implements Presenter<UpcomingEpisodesMvpView> {
 
     private UpcomingEpisodesMvpView upcomingEpisodesMvpView;
-    private Subscription subscription;
+    private Disposable disposable;
 
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -38,7 +38,7 @@ public class UpcomingEpisodesPresenter implements Presenter<UpcomingEpisodesMvpV
     @Override
     public void detachView() {
         this.upcomingEpisodesMvpView = null;
-        if (subscription != null) subscription.unsubscribe();
+        if (disposable != null) disposable.dispose();
     }
 
     public void loadData() {
@@ -54,17 +54,17 @@ public class UpcomingEpisodesPresenter implements Presenter<UpcomingEpisodesMvpV
         ShowsManagerApplication application = ShowsManagerApplication.get(upcomingEpisodesMvpView.getContext());
         TVMazeService tvMazeService = application.getTvMazeService();
 
-        Observable<FirebaseShow> ob = Observable.from(shows);
+        Observable<FirebaseShow> ob = Observable.fromIterable(shows);
 
         ProgressDialog loadingDialog = LoadingDialog.showProgressDialog(upcomingEpisodesMvpView.getContext(),
                 upcomingEpisodesMvpView.getContext().getResources().getString(R.string.loading_dialog_msg));
 
 
         //@TODO change it / temporary solution / need to learn more about rx to implement it nicely
-        ob.toList()
-                .doOnNext(new Action1<List<FirebaseShow>>() {
+        ob.toList().
+                doAfterSuccess(new Consumer<List<FirebaseShow>>() {
                     @Override
-                    public void call(List<FirebaseShow> firebaseShows) {
+                    public void accept(List<FirebaseShow> firebaseShows) {
 
                             for (FirebaseShow show : firebaseShows) {
 
@@ -80,12 +80,12 @@ public class UpcomingEpisodesPresenter implements Presenter<UpcomingEpisodesMvpV
                                 } else {
 
 
-                                    subscription = tvMazeService.getResponse(show.getId(), "cast", "nextepisode", "seasons")
+                                    disposable = tvMazeService.getResponse(show.getId(), "cast", "nextepisode", "seasons")
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribeOn(application.defaultSubscribeScheduler())
-                                            .subscribe(new Action1<FullShowInfo>() {
+                                            .subscribe(new Consumer<FullShowInfo>() {
                                                 @Override
-                                                public void call(FullShowInfo fullShowInfo) {
+                                                public void accept(FullShowInfo fullShowInfo) {
                                                     updateModel(show, fullShowInfo);
                                                     updateInFirebase(show);
 

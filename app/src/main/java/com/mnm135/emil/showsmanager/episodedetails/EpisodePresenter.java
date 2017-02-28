@@ -9,14 +9,15 @@ import com.mnm135.emil.showsmanager.models.FullShowInfoResponse.SingleEpisode;
 import com.mnm135.emil.showsmanager.Presenter;
 import com.mnm135.emil.showsmanager.rest.TVMazeService;
 
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+
 
 public class EpisodePresenter implements Presenter<EpisodeMvpView> {
 
     private EpisodeMvpView episodeMvpView;
-    private Subscription subscription;
+    private Disposable disposable;
 
     @Override
     public void attachView(EpisodeMvpView episodeMvpView) {
@@ -26,7 +27,7 @@ public class EpisodePresenter implements Presenter<EpisodeMvpView> {
     @Override
     public void detachView() {
         this.episodeMvpView = null;
-        if (subscription != null) subscription.unsubscribe();
+        if (disposable != null) disposable.dispose();
     }
 
     public void loadEpisodeData(String showId, String episode, String season) {
@@ -36,12 +37,12 @@ public class EpisodePresenter implements Presenter<EpisodeMvpView> {
 
         ShowsManagerApplication application = ShowsManagerApplication.get(episodeMvpView.getContext());
         TVMazeService tvMazeService = application.getTvMazeService();
-        subscription = tvMazeService.getEpisodeResponse(showId, season, episode)
+        disposable = tvMazeService.getEpisodeResponse(showId, season, episode)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(application.defaultSubscribeScheduler())
-                .subscribe(new Action1<SingleEpisode>() {
+                .subscribe(new Consumer<SingleEpisode>() {
                     @Override
-                    public void call(SingleEpisode episodeResponse) {
+                    public void accept(SingleEpisode episodeResponse) {
                         episodeMvpView.showEpisodeData(episodeResponse);
 
                         if (loadingDialog.isShowing()) {

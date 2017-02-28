@@ -10,13 +10,14 @@ import com.mnm135.emil.showsmanager.models.FullShowInfoResponse.SingleSeason;
 import com.mnm135.emil.showsmanager.Presenter;
 import com.mnm135.emil.showsmanager.rest.TVMazeService;
 
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+
 
 public class SeasonPresenter implements Presenter<SeasonMvpView> {
 
-    private Subscription subscription;
+    private Disposable disposable;
     private SeasonMvpView seasonMvpView;
 
     @Override
@@ -27,7 +28,7 @@ public class SeasonPresenter implements Presenter<SeasonMvpView> {
     @Override
     public void detachView() {
         this.seasonMvpView = null;
-        if (subscription != null) subscription.unsubscribe();
+        if (disposable != null) disposable.dispose();
     }
 
     public void loadSeasonInfo(String seasonId) {
@@ -37,12 +38,12 @@ public class SeasonPresenter implements Presenter<SeasonMvpView> {
 
         ShowsManagerApplication application = ShowsManagerApplication.get(seasonMvpView.getContext());
         TVMazeService tvMazeService = application.getTvMazeService();
-        subscription = tvMazeService.getSeasonResponse(seasonId)
+        disposable = tvMazeService.getSeasonResponse(seasonId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(application.defaultSubscribeScheduler())
-                .subscribe(new Action1<SingleSeason>() {
+                .subscribe(new Consumer<SingleSeason>() {
                     @Override
-                    public void call(SingleSeason season) {
+                    public void accept(SingleSeason season) {
                         seasonMvpView.showSeasonInfo(season);
 
                         if (loadingDialog.isShowing()) {

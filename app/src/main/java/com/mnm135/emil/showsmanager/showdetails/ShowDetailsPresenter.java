@@ -17,15 +17,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 
 public class ShowDetailsPresenter implements Presenter<ShowDetailsMvpView> {
 
     private ShowDetailsMvpView showDetailsMvpView;
-    private Subscription subscription;
+    private Disposable disposable;
     private FullShowInfo showResponse;
     private boolean showSubscribed;
     private ValueEventListener firebaseListener;
@@ -40,7 +40,7 @@ public class ShowDetailsPresenter implements Presenter<ShowDetailsMvpView> {
     @Override
     public void detachView() {
         this.showDetailsMvpView = null;
-        if (subscription != null) subscription.unsubscribe();
+        if (disposable != null) disposable.dispose();
         if (firebaseListener != null) mDatabase.removeEventListener(firebaseListener);
     }
 
@@ -51,12 +51,12 @@ public class ShowDetailsPresenter implements Presenter<ShowDetailsMvpView> {
 
         ShowsManagerApplication application = ShowsManagerApplication.get(showDetailsMvpView.getContext());
         TVMazeService tvMazeService = application.getTvMazeService();
-        subscription = tvMazeService.getResponse(showId, "cast", "nextepisode", "seasons")
+        disposable = tvMazeService.getResponse(showId, "cast", "nextepisode", "seasons")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(application.defaultSubscribeScheduler())
-                .subscribe(new Action1<FullShowInfo>() {
+                .subscribe(new Consumer<FullShowInfo>() {
             @Override
-            public void call(FullShowInfo fullShowInfo) {
+            public void accept(FullShowInfo fullShowInfo) {
                 showResponse = fullShowInfo;
                 showDetailsMvpView.bindShowData(fullShowInfo);
 
