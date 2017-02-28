@@ -3,6 +3,7 @@ package com.mnm135.emil.showsmanager.base;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mnm135.emil.showsmanager.R;
 import com.mnm135.emil.showsmanager.search.SearchActivity;
@@ -125,12 +129,18 @@ public class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_logout:
-                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                firebaseAuth.signOut();
 
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-                return true;
+                AuthUI.getInstance()
+                        .signOut(this)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            public void onComplete(@NonNull Task<Void> task) {
+                                // user is now signed out
+                                startActivity(new Intent(BaseActivity.this, LoginActivity.class));
+                                finish();
+                            }
+                        });
+
+//                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

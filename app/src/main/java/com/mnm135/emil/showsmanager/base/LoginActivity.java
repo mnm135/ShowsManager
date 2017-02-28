@@ -4,23 +4,31 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
-import com.mnm135.emil.showsmanager.R;
-import com.mnm135.emil.showsmanager.models.firebase.User;
-import com.mnm135.emil.showsmanager.subscribedshows.SubscribedShowsActivity;
+
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ui.ResultCodes;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mnm135.emil.showsmanager.R;
+import com.mnm135.emil.showsmanager.models.firebase.User;
+import com.mnm135.emil.showsmanager.subscribedshows.SubscribedShowsActivity;
 
-import static com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    public static final int RC_SIGN_IN = 123;
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
@@ -44,20 +52,15 @@ public class LoginActivity extends AppCompatActivity {
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
-                                    .setProviders(AuthUI.EMAIL_PROVIDER,
-                                            AuthUI.GOOGLE_PROVIDER)
+                                    .setProviders(Arrays.asList(
+                                            new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                            new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+
                                     .build(),
                             RC_SIGN_IN);
                 }
             }
         };
-
-
-    }
-
-    private void writeNewUser(String userId, String name, String email) {
-        User user = new User(name, email);
-        mDatabaseReference.child("users").child(userId).setValue(user);
     }
 
     @Override
@@ -79,15 +82,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
-                mFirebaseDatabase = FirebaseDatabase.getInstance();
-                mDatabaseReference = mFirebaseDatabase.getReference();
-
-                String username = mFirebaseAuth.getCurrentUser().getDisplayName();
-                String email = mFirebaseAuth.getCurrentUser().getEmail();
-                String userId = mFirebaseAuth.getCurrentUser().getUid();
-                writeNewUser(userId, username, email);
-
-
                 startActivity(new Intent(this, SubscribedShowsActivity.class));
                 return;
             }
