@@ -55,26 +55,12 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
     }
 
-    /*private void handleIntent(Intent intent) {
-        //String searchQuery;
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String searchQuery = intent.getStringExtra(SearchManager.QUERY);
-            hideKeyboard();
-            presenter.loadSearchResult(searchQuery);
-        }
-    }*/
 
     public void showSearchResults(List<ShowsListResponse> searchResult) {
         searchResultList.clear();
         searchResultList.addAll(searchResult);
         adapter.notifyDataSetChanged();
     }
-
-   /* private void hideKeyboard() {
-        searchField.clearFocus();
-        InputMethodManager in = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        in.hideSoftInputFromWindow(searchField.getWindowToken(), 0);
-    }*/
 
     @Override
     protected void onDestroy() {
@@ -122,6 +108,8 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
         // using xml properties does not work on all Android versions
         View searchplate = (View)searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
         searchplate.getBackground().setColorFilter(ContextCompat.getColor(getContext(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+
+        searchView.setIconified(false);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
