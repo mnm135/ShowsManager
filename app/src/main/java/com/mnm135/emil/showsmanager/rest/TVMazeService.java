@@ -5,8 +5,10 @@ import com.mnm135.emil.showsmanager.models.FullShowInfoResponse.SingleEpisode;
 import com.mnm135.emil.showsmanager.models.FullShowInfoResponse.SingleSeason;
 import com.mnm135.emil.showsmanager.models.SearchShowsResponse.ShowsListResponse;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -35,13 +37,22 @@ public interface TVMazeService {
                                     @Query("number") String episode);
 
     class Factory {
+
         public static TVMazeService create() {
+            final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .readTimeout(20, TimeUnit.SECONDS)
+                    .connectTimeout(20, TimeUnit.SECONDS)
+                    .build();
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://api.tvmaze.com/")
+                    .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
             return retrofit.create(TVMazeService.class);
         }
+
+
     }
 }
